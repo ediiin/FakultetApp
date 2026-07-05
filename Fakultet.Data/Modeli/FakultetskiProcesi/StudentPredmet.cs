@@ -13,7 +13,7 @@ namespace Fakultet.Core.Modeli
         public int PredmetId { get; set; }
         public Predmet Predmet { get; set; }
         public bool Polozio { get; set; }
-        public int Ocjena { get; set; }
+        public int? Ocjena { get; set; }
         public int BrojBodova { get; set; }
         public string Napomena { get; set; }
     }

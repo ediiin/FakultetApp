@@ -1,4 +1,5 @@
 <Solution>
-  <Project Path="Fakultet.Core/Fakultet.Core.csproj" Id="daec3928-60ce-436f-976d-2da955a75fd9" />
+  <Project Path="Fakultet.Data/Fakultet.Data.csproj" Id="afc4a3c0-d2c2-495c-846a-7b11c441779b" />
+  <Project Path="Fakultet.Servisi/Fakultet.Servisi.csproj" Id="46235651-1fee-4cfb-9ebd-d51c4fecb255" />
   <Project Path="FakultetApp/FakultetApp.csproj" />
 </Solution>

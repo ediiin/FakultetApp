@@ -8,7 +8,6 @@ namespace Fakultet.Core.Modeli
 {
     public class Asistent : Osoba
     {
-        public int Id { get; set; }
         public decimal Plata { get; set; }
     }
 }

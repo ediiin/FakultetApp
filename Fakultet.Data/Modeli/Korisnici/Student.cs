@@ -8,7 +8,6 @@ namespace Fakultet.Core.Modeli
 {
     public class Student : Osoba
     {
-        public int Id { get; set; }
         public string Indeks { get; set; }
         public DateTime DatumUpisa { get; set; }
         public int GodinaStudijaId { get; set; }

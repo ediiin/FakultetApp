@@ -8,7 +8,6 @@ namespace Fakultet.Core.Modeli
 {
     public class Profesor : Osoba
     {
-        public int Id { get; set; }
         public decimal Plata { get; set; }
         public Zvanje Zvanje { get; set; }
         public float Ocjena { get; set; }

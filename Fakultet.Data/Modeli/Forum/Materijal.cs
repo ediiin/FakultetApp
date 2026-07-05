@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Fakultet.Core.Modeli.Forum
 {
-    public class Materijali
+    public class Materijal
     {
         public int Id { get; set; }
         public string Naziv { get; set; }

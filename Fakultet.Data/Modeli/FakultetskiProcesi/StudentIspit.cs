@@ -16,7 +16,7 @@ namespace Fakultet.Core.Modeli
         public bool Komisijski { get; set; }
         public bool Dodatni { get; set; }
         public decimal Cijena { get; set; }
-        public int Ocjena { get; set; }
+        public int? Ocjena { get; set; }
         public bool Polozio { get; set; }
         public DateTime DatumPrijave { get; set; }
     }
