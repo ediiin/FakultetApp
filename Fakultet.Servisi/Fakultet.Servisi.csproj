@@ -15,4 +15,11 @@
     <ProjectReference Include="..\Fakultet.Data\Fakultet.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="IServis\Korisnici\" />
+    <Folder Include="IServis\FakultetskiProcesi\" />
+    <Folder Include="IServis\Forum\" />
+    <Folder Include="IServis\Pomocni\" />
+  </ItemGroup>
+
 </Project>

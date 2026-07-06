@@ -2,7 +2,7 @@
 using Fakultet.Core.Modeli.Forum;
 using Microsoft.EntityFrameworkCore;
 
-namespace Fakultet.Servisi
+namespace Fakultet.Servisi.Bazni
 {
     public class FakultetAppDbContext : DbContext
     {
