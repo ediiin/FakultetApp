@@ -37,9 +37,7 @@ namespace Fakultet.Servisi.Bazni
         {
             if (!optionsBuilder.IsConfigured)
             {
-                // Ovdje unosiš svoj Connection String za lokalni SQL Server
-                // "FakultetDb" će biti naziv tvoje baze u SQL-u
-                optionsBuilder.UseSqlServer("Server=.;Database=FakultetDb;Trusted_Connection=True;TrustServerCertificate=True;");
+                optionsBuilder.UseSqlServer(Konfiguracija.ConnectionString);
             }
         }
 
