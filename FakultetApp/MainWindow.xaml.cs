@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Fakultet.Core.Modeli;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,7 +17,7 @@ namespace FakultetApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(Osoba osoba)
         {
             InitializeComponent();
         }

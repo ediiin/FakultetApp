@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="IServis\Korisnici\" />
     <Folder Include="IServis\FakultetskiProcesi\" />
     <Folder Include="IServis\Forum\" />
   </ItemGroup>

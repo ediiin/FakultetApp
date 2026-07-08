@@ -1,4 +1,5 @@
 ﻿using Fakultet.Core.Modeli;
+using Fakultet.Servisi.IServis.Korisnici;
 using Fakultet.Servisi.IServis.Pomocni;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,10 @@ namespace Fakultet.Servisi.Bazni
         private readonly DrzavaServis _drzavaServis;
         private readonly GradServis _gradServis; 
         private readonly StudijServis _studijServis; 
-        private readonly GodinaStudijaServis _godinaStudijaServis; 
+        private readonly GodinaStudijaServis _godinaStudijaServis;
+        private readonly OsobaServis _osobaServis;
+
+
 
         public DataSeedServis()
         {
@@ -21,6 +25,7 @@ namespace Fakultet.Servisi.Bazni
             _gradServis = new GradServis();
             _studijServis = new StudijServis();
             _godinaStudijaServis = new GodinaStudijaServis();
+            _osobaServis = new OsobaServis();
         }
 
         public void SeedujSve()
@@ -32,7 +37,7 @@ namespace Fakultet.Servisi.Bazni
                 _spolServis.Add(new Spol { Naziv = "Ženski", Oznaka = 'Ž' });
                 _spolServis.Add(new Spol { Naziv = "Ostalo", Oznaka = '*' });
             }
-            
+
 
             //drzave ------------------------------------------------------------------
             if (_drzavaServis.GetAll().Count == 0)
@@ -190,7 +195,7 @@ namespace Fakultet.Servisi.Bazni
             }
 
             //smjer ---------------------------------------------------------------------
-            if(_studijServis.GetAll().Count == 0)
+            if (_studijServis.GetAll().Count == 0)
             {
                 _studijServis.Add(new Studij { Smjer = "Razvoj softvera", Zvanje = "Bachelor" });
                 _studijServis.Add(new Studij { Smjer = "Razvoj softvera", Zvanje = "Master" });
@@ -232,7 +237,7 @@ namespace Fakultet.Servisi.Bazni
                 var inzinjeringM = _studijServis.GetAll()
                     .FirstOrDefault(s => s.Smjer == "Softverski inžinjering"
                         && s.Zvanje == "Master");
-                if(inzinjeringM != null)
+                if (inzinjeringM != null)
                 {
                     _godinaStudijaServis.Add(new GodinaStudija
                     {
@@ -253,6 +258,32 @@ namespace Fakultet.Servisi.Bazni
                     });
                 }
             }
+
+            //admin -----------------------------------------------------------------------
+            if (_osobaServis.GetAll().Any(o => o.Uloge == Uloge.Admin))
+                return;
+
+            var muskiSpol = _spolServis.GetAll().FirstOrDefault(s => s.Oznaka == 'M');
+            var mostar = _gradServis.GetAll().FirstOrDefault(g => g.Naziv == "Mostar");
+
+            if (muskiSpol == null || mostar == null) return;
+
+            // Čitamo tajnu šifru iz appsettings.json i odmah je hashujemo
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(Konfiguracija.AdminPassword);
+
+            _osobaServis.Add(new Osoba
+            {
+                Ime = "Sistem",
+                Prezime = "Administrator",
+                Email = "admin@fit.ba",
+                KorisnickoIme = "admin",
+                LozinkaHash = hashedPassword,
+                JMBG = "0101999170000", 
+                DatumRodjenja = new System.DateTime(2003, 1, 1),
+                SpolId = muskiSpol.Id,
+                GradId = mostar.Id,
+                Uloge = Uloge.Admin 
+            });
         }
     }
 }

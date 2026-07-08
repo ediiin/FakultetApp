@@ -11,6 +11,6 @@ namespace Fakultet.Core.Modeli
         Student,
         Profesor, 
         Asistent, 
-        Administrator
+        Admin
     }
 }

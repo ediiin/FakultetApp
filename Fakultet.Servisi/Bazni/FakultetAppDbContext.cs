@@ -57,13 +57,13 @@ namespace Fakultet.Servisi.Bazni
                 .HasOne(ap => ap.Predmet)
                 .WithMany()
                 .HasForeignKey(ap => ap.PredmetId)
-                .OnDelete(DeleteBehavior.Restrict); // <--- KLJUČNA LINIJA
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<AsistentPredmet>()
                 .HasOne(ap => ap.Asistent)
                 .WithMany()
                 .HasForeignKey(ap => ap.AsistentId)
-                .OnDelete(DeleteBehavior.Restrict); // <--- KLJUČNA LIN
+                .OnDelete(DeleteBehavior.Restrict); 
 
             // Vezna tabela: StudentPredmet
             modelBuilder.Entity<StudentPredmet>()
