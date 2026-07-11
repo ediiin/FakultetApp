@@ -9,6 +9,9 @@ namespace Fakultet.Servisi.IServis.Pomocni
 {
     public class GradServis: BazniServis<Grad>
     {
+        public GradServis(FakultetAppDbContext dbContext) : base(dbContext)
+        {
+        }
         public override List<Grad> GetAll()
         {
             return _dbSet.Include(g => g.Drzava)

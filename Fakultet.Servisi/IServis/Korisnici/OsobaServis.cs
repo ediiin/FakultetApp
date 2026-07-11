@@ -8,6 +8,9 @@ namespace Fakultet.Servisi.IServis.Korisnici
 {
     public class OsobaServis: BazniServis<Osoba>
     {
+        public OsobaServis(FakultetAppDbContext dbContext) : base(dbContext)
+        {
+        }
         public Osoba Login(string korisnickoImeIliEmail, string unesenaLozinka)
         {
             var osoba = _dbSet

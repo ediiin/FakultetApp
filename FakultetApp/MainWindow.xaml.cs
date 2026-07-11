@@ -1,4 +1,5 @@
 ﻿using Fakultet.Core.Modeli;
+using FakultetApp.Views;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,9 +18,34 @@ namespace FakultetApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Osoba _korisnik;
         public MainWindow(Osoba osoba)
         {
             InitializeComponent();
+            _korisnik = osoba;
+
+            UcitajInterfacePoUlozi();
+        }
+
+        private void UcitajInterfacePoUlozi()
+        {
+            if(_korisnik.Uloge == Uloge.Admin)
+            {
+                var adminView = new AdminDashboardView();
+                GlavniSadrzajAplikacije.Content = adminView;
+            }
+            else if (_korisnik.Uloge == Uloge.Student)
+            {
+                //
+            }
+            else if (_korisnik.Uloge == Uloge.Profesor)
+            {
+                //
+            }
+            else if (_korisnik.Uloge == Uloge.Asistent)
+            {
+                //
+            }
         }
     }
 }

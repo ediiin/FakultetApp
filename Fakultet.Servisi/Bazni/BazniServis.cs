@@ -10,10 +10,10 @@ namespace Fakultet.Servisi.Bazni
         protected readonly FakultetAppDbContext _dbContext;
         protected readonly DbSet<T> _dbSet;
 
-        public BazniServis()
+        public BazniServis(FakultetAppDbContext dbContext)
         {
-            _dbContext = new FakultetAppDbContext();
-            _dbSet = _dbContext.Set<T>(); //automatski prepoznaje tabelu
+            _dbContext = dbContext;
+            _dbSet = _dbContext.Set<T>();
         }
 
         public virtual List<T> GetAll()

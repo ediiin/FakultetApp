@@ -1,8 +1,7 @@
 ﻿<Application x:Class="FakultetApp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:FakultetApp"
-             StartupUri="Login/LoginProzor.xaml">
+             xmlns:local="clr-namespace:FakultetApp">
     <Application.Resources>
          
     </Application.Resources>

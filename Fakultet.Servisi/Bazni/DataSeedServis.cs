@@ -16,16 +16,19 @@ namespace Fakultet.Servisi.Bazni
         private readonly GodinaStudijaServis _godinaStudijaServis;
         private readonly OsobaServis _osobaServis;
 
-
-
-        public DataSeedServis()
+        public DataSeedServis(SpolServis spolServis,
+            DrzavaServis drzavaServis,
+            GradServis gradServis,
+            StudijServis studijServis,
+            GodinaStudijaServis godinaStudijaServis,
+            OsobaServis osobaServis)
         {
-            _spolServis = new SpolServis();
-            _drzavaServis = new DrzavaServis();
-            _gradServis = new GradServis();
-            _studijServis = new StudijServis();
-            _godinaStudijaServis = new GodinaStudijaServis();
-            _osobaServis = new OsobaServis();
+            _spolServis = spolServis;
+            _drzavaServis = drzavaServis;
+            _gradServis = gradServis;
+            _studijServis = studijServis;
+            _godinaStudijaServis = godinaStudijaServis;
+            _osobaServis = osobaServis;
         }
 
         public void SeedujSve()

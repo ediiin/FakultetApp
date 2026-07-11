@@ -18,13 +18,16 @@ namespace FakultetApp.Login
     /// </summary>
     public partial class LoginProzor : Window
     {
-        private readonly OsobaServis _osobaServis = new OsobaServis();
-        public LoginProzor()
+        private readonly OsobaServis _osobaServis;
+        int brojPokusaja = 0;
+        public LoginProzor(OsobaServis osobaServis)
         {
             InitializeComponent();
+            _osobaServis = osobaServis;
         }
 
-        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        //async da mozemo koristi task.delay bez blokiranja aplikacije
+        private async void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
             string unos = txtKorisnik.Text;
             string lozinka = txtLozinka.Password;
@@ -38,6 +41,8 @@ namespace FakultetApp.Login
             var prijavljenaOsoba = _osobaServis.Login(unos, lozinka);
             if (prijavljenaOsoba != null)
             {
+                //ako se loginuje vracamo counter
+                brojPokusaja = 0;
                 MessageBox.Show($"Uspješna prijava! Dobrodošli, " +
                     $"{prijavljenaOsoba.Ime} ({prijavljenaOsoba.Uloge})"
                     , "Info"
@@ -51,8 +56,24 @@ namespace FakultetApp.Login
             }
             else
             {
-                PrikaziGresku("Niste unijeli ispravno ime ili lozinku!");
+                brojPokusaja++;
                 txtLozinka.Clear();
+
+                if(brojPokusaja >= 3)
+                {
+                    btnLogin.IsEnabled = false;
+                    PrikaziGresku("Previse neuspješnih prijava. Dugme je zaključano!!");
+
+                    await Task.Delay(5000);
+
+                    btnLogin.IsEnabled = true;
+                    brojPokusaja = 0;
+                    lblGreska.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    PrikaziGresku("Niste unijeli ispravne podatke!");
+                }
             }
         }
 
