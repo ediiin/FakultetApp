@@ -133,9 +133,6 @@ namespace FakultetApp.Views.Admin
             if (cmbGodinaStudija.SelectedItem == null)
                 lblGodinaStudijaError.Visibility = Visibility.Visible;
 
-            if (greske.Count == 0)
-                return true;
-
             if (greske.TryGetValue("Ime", out string? errIme)) { lblImeError.Text = errIme; lblImeError.Visibility = Visibility.Visible; };
             if (greske.TryGetValue("Prezime", out string? errPrezime)) { lblPrezimeError.Text = errPrezime; lblPrezimeError.Visibility = Visibility.Visible; }
             if (greske.TryGetValue("KorisnickoIme", out string? errKorIme)) { lblKorisnickoImeError.Text = errKorIme; lblKorisnickoImeError.Visibility = Visibility.Visible; }
@@ -143,10 +140,13 @@ namespace FakultetApp.Views.Admin
             if (greske.TryGetValue("JMBG", out string? errJmbg)) { lblJMBGError.Text = errJmbg; lblJMBGError.Visibility = Visibility.Visible; }
             if (greske.TryGetValue("DatumRodjenja", out string? errDatum)) { lblDatumRodjenjaError.Text = errDatum; lblDatumRodjenjaError.Visibility = Visibility.Visible; }
             if (greske.TryGetValue("Lozinka", out string? errLozinka)) { lblLozinkaError.Text = errLozinka; lblLozinkaError.Visibility = Visibility.Visible; }
-
-            if(cmbStudij.SelectedItem == null
+            
+            if (cmbStudij.SelectedItem == null
                 || cmbGodinaStudija.SelectedItem == null)
-            return false;
+                return false; 
+            if (greske.Count == 0)
+                return true;
+            
             return false;
         }
 

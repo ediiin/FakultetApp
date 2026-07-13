@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row ="0" Margin="0,0,0,30" HorizontalAlignment="Center">
-            <TextBlock Text="DOBRODOŠLI" FontSize="27" FontWeight="Bold" Foreground="#1A237E" FontFamily="Arial Black"/>
+            <TextBlock Text="DOBRODOŠLI" FontSize="27" FontWeight="Bold" Foreground="#9FA8DA" FontFamily="Arial Black"/>
             <TextBlock Text="Unesite podatke za prijavu" FontSize="14" Foreground="Gray" HorizontalAlignment="Center" Margin="0,5,0,0"/>
         </StackPanel>
 
@@ -31,7 +31,7 @@
 
         <StackPanel Grid.Row="3">
             <TextBlock x:Name="lblGreska" Text="" Foreground="Red" FontSize="12" Margin="0,0,0,10" HorizontalAlignment="Center" Visibility="Collapsed"/>
-            <Button x:Name="btnLogin" Content="Prijavi se" Height="40" Width="200" Background="#1A237E" Foreground="White" FontSize="14" FontWeight="Bold" Click="BtnLogin_Click"/>
+            <Button x:Name="btnLogin" Content="Prijavi se" Height="40" Width="200" Background="#9FA8DA" Foreground="White" FontSize="14" FontWeight="Bold" Click="BtnLogin_Click"/>
         </StackPanel>
     </Grid>
 </Window>

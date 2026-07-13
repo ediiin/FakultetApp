@@ -42,10 +42,20 @@ namespace FakultetApp.Views.Admin
             dgvStudenti.ItemsSource = _studenti;
         }
 
-        //dodaj
         private void BtnIspis_Click(object sender, RoutedEventArgs e)
         {
-            return;
+            var izabraniStudent = dgvStudenti.SelectedItem as Student;
+            if (izabraniStudent != null && 
+                MessageBox.Show($"Jeste li sigurni da želite ispisati studenta {izabraniStudent.ToString()}?"
+                , "Upit", MessageBoxButton.YesNo, MessageBoxImage.Question)
+                == MessageBoxResult.Yes)
+            {
+
+                _studentServis.Remove(izabraniStudent.Id);
+                MessageBox.Show($"Student uspješno ispisan!",
+                    "Uspjeh", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                UcitajStudente();
+            }
         }
     }
 }

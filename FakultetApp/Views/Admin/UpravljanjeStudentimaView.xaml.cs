@@ -22,6 +22,7 @@ namespace FakultetApp.Views.Admin
         public UpravljanjeStudentimaView()
         {
             InitializeComponent();
+            StudentiSadrzaj.Content = App.ServiceProvider.GetRequiredService<StudentiPregledView>();
         }
 
         private void StudentNav_Click(object sender, RoutedEventArgs e)

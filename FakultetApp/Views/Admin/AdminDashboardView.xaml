@@ -9,7 +9,8 @@
     <Grid Background="#F8F9FA">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="220"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="108*"/>
+            <ColumnDefinition Width="37*"/>
         </Grid.ColumnDefinitions>
 
         <Border Grid.Column="0" Background="#FF6985BD" CornerRadius="0,15,15,0">
@@ -35,7 +36,7 @@
             </Grid>
         </Border>
 
-        <Grid Grid.Column="1" Margin="20">
+        <Grid Grid.Column="1" Margin="20,20,20,20" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
