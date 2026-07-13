@@ -1,4 +1,5 @@
 ﻿using FakultetApp.Login;
+using FakultetApp.Views.Admin;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace FakultetApp.Views
             switch (kliknutoDugme.Name)
             {
                 case "btnStudenti":
-                    // PrikaznikSadrzaja.Content = new StudentiPregledView();
+                    PrikaznikSadrzaja.Content = App.ServiceProvider.GetRequiredService<UpravljanjeStudentimaView>();
                     break;
                 case "btnProfesori":
                     // PrikaznikSadrzaja.Content = new ProfesoriPregledView();

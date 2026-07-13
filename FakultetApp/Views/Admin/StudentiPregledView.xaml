@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="FakultetApp.Views.Admin.StudentiPregledView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:FakultetApp.Views.Admin">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<Border Background="#F5F5F5" Padding="10" CornerRadius="5" Margin="0,0,0,15">
+			<StackPanel Orientation="Horizontal">
+				<StackPanel Margin="0,0,15,0">
+					<TextBlock Text="Ime i prezime ili indeks:" Margin="0,0,0,5" FontWeight="Bold"/>
+					<TextBox Name="txtFilterImePrezimeIndeks" Width="350" Height="25" TextChanged="Filter_TextChanged"/>
+				</StackPanel>
+			</StackPanel>
+		</Border>
+
+		<DataGrid Name="dgvStudenti" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="#F9F9F9">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="(Indeks) - Ime i prezime" Binding="{Binding}" Width="*"/>
+
+				<DataGridTemplateColumn Header="Akcija" Width="150">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<Button Name="btnIspis"
+									Content="Ispis sa fakulteta"
+                                    Background="#FF4D4D"
+                                    Foreground="White"
+                                    FontWeight="Bold"
+                                    Padding="5,2"
+                                    Click="BtnIspis_Click"
+                                    CommandParameter="{Binding}"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
+</UserControl>

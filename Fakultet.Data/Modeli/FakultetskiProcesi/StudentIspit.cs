@@ -9,9 +9,9 @@ namespace Fakultet.Core.Modeli
     public class StudentIspit   //Prijave ispita i rezultati
     {
         public int StudentId { get; set; }
-        public Student Student { get; set; }
+        public Student Student { get; set; } = null!;
         public int IspitId { get; set; }
-        public Ispit Ispit { get; set; }
+        public Ispit Ispit { get; set; } = null!;
         public int BrojIzlazaka { get; set; }
         public bool Komisijski { get; set; }
         public bool Dodatni { get; set; }

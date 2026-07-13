@@ -4,6 +4,7 @@ using Fakultet.Servisi.IServis.Pomocni;
 using FakultetApp;
 using FakultetApp.Login;
 using FakultetApp.Views;
+using FakultetApp.Views.Admin;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace Fakultet.Servisi.Setup
             services.AddTransient<StudijServis>();
             services.AddTransient<GodinaStudijaServis>();
             services.AddTransient<DataSeedServis>();
+            services.AddTransient<StudentServis>();
             // ostali servisi ce ici ovdje
         }
 
@@ -33,7 +35,10 @@ namespace Fakultet.Servisi.Setup
             // transient stvaraju se iznova
             services.AddTransient<LoginProzor>();
             services.AddTransient<NoviAdminView>();
-            services.AddTransient<AdminDashboardView>(); // Popravljeno ime (View umjesto VIew)
+            services.AddTransient<AdminDashboardView>(); 
+            services.AddTransient<UpravljanjeStudentimaView>(); 
+            services.AddTransient<StudentiPregledView>(); 
+            services.AddTransient<StudentiDodajView>(); 
 
             // mainwindow drzimo u memoriji zato singleton
             services.AddSingleton<MainWindow>();
