@@ -7,7 +7,6 @@ namespace Fakultet.Servisi.Helperi
 {
     public static class OsobaValidacija
     {
-        // Vraća Dictionary gdje je Ključ = "ImePolja", Vrijednost = "Poruka o grešci"
         public static Dictionary<string, string> ValidirajSve(string ime, string prezime, string korisnickoIme,
                                                               string email, string jmbg, DateTime? datumRodjenja, string lozinka)
         {
@@ -24,7 +23,7 @@ namespace Fakultet.Servisi.Helperi
 
             if (string.IsNullOrWhiteSpace(email))
                 greske.Add("Email", "Polje 'Email' obavezno!");
-            else if (!Regex.IsMatch(email, @"^[a-z.]{2,}@fit\.ba$"))
+            else if (!Regex.IsMatch(email, @"^[a-z.0-9]{2,}@fit\.ba$"))
                 greske.Add("Email", "Polje 'Email' mora biti oblika 'xx@fit.ba'!");
 
             if (string.IsNullOrWhiteSpace(jmbg))

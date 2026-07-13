@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:FakultetApp"
         mc:Ignorable="d"
         Title="MainWindow" 
-        MinWidth="1200" 
-        MinHeight="620"
+        MinWidth="1250" 
+        MinHeight="650"
         WindowStartupLocation="CenterScreen">
     
     <Grid>

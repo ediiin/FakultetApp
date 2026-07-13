@@ -8,105 +8,119 @@
              VerticalAlignment="Stretch"
              HorizontalAlignment="Stretch">
     <Grid Background="#F5F5F5">
-
-        <Border Background="White"
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Border Background="White"
                 CornerRadius="8" 
                 Padding="30" 
                 MinWidth="900"
                 HorizontalAlignment="Left" 
-                VerticalAlignment="Top">
+                VerticalAlignment="Top"
+                Margin="20">
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="20" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,0,15">
-                    <TextBlock Text="Ime" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                    <TextBox Name="tbIme" FontSize="15" Padding="5"/>
-                    <TextBlock x:Name="lblImeError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
-                </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,0,15">
+                        <TextBlock Text="Ime" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox Name="tbIme" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblImeError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,0,0,15">
-                    <TextBlock Text="Prezime" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                    <TextBox Name="tbPrezime" FontSize="15" Padding="5"/>
-                    <TextBlock x:Name="lblPrezimeError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
-                </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,0,0,15">
+                        <TextBlock Text="Prezime" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox Name="tbPrezime" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblPrezimeError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,0,15">
-                    <TextBlock Text="Korisničko Ime" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                    <TextBox Name="tbKorisnickoIme" FontSize="15" Padding="5"/>
-                    <TextBlock x:Name="lblKorisnickoImeError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
-                </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,0,15">
+                        <TextBlock Text="Korisničko Ime" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox Name="tbKorisnickoIme" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblKorisnickoImeError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,0,0,15">
-                    <TextBlock Text="Email" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                    <TextBox Name="tbEmail" FontSize="15" Padding="5"/>
-                    <TextBlock x:Name="lblEmailError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
-                </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,0,0,15">
+                        <TextBlock Text="Email" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox Name="tbEmail" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblEmailError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,0,15">
-                    <TextBlock Text="Spol" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                    <ComboBox Name="cmbSpol" FontSize="15" Padding="5"/>
-                    <TextBlock x:Name="lblSpolError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
-                </StackPanel>
+                    <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,0,15">
+                        <TextBlock Text="Spol" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ComboBox Name="cmbSpol" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblSpolError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="2" Grid.Column="2" Margin="0,0,0,15">
-                    <TextBlock Text="Grad" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                    <ComboBox Name="cmbGrad" FontSize="15" Padding="5"/>
-                    <TextBlock x:Name="lblGradError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
-                </StackPanel>
+                    <StackPanel Grid.Row="2" Grid.Column="2" Margin="0,0,0,15">
+                        <TextBlock Text="Grad" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ComboBox Name="cmbGrad" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblGradError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,0,15">
-                    <TextBlock Text="JMBG" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                    <TextBox Name="tbJMBG" FontSize="15" Padding="5"/>
-                    <TextBlock x:Name="lblJMBGError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
-                </StackPanel>
+                    <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,0,15">
+                        <TextBlock Text="JMBG" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox Name="tbJMBG" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblJMBGError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="3" Grid.Column="2" Margin="0,0,0,15">
-                    <TextBlock Text="Datum Rođenja" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                    <DatePicker Name="dtpDatumRodjenja" FontSize="15" Padding="3"/>
-                    <TextBlock x:Name="lblDatumRodjenjaError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
-                </StackPanel>
+                    <StackPanel Grid.Row="3" Grid.Column="2" Margin="0,0,0,15">
+                        <TextBlock Text="Datum Rođenja" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <DatePicker Name="dtpDatumRodjenja" FontSize="15" Padding="3"/>
+                        <TextBlock x:Name="lblDatumRodjenjaError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="4" Grid.Column="0" Margin="0,0,0,15">
-                    <TextBlock Text="Broj Indeksa" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                    <TextBox Name="tbIndeks" FontSize="15" Padding="5" IsReadOnly="True"/>
-                    <TextBlock x:Name="lblIndeksError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
-                </StackPanel>
+                    <StackPanel Grid.Row="4" Grid.Column="0" Margin="0,0,0,15">
+                        <TextBlock Text="Broj Indeksa" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox Name="tbIndeks" FontSize="15" Padding="5" IsReadOnly="True" Background="#E2E8F0" Foreground="#4A5568" FontWeight="Bold"/>
+                        <TextBlock x:Name="lblIndeksError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="4" Grid.Column="2" Margin="0,0,0,15">
-                    <TextBlock Text="Datum Upisa" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                    <DatePicker Name="dtpDatumUpisa" FontSize="15" Padding="3"/>
-                    <TextBlock x:Name="lblDatumUpisaError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
-                </StackPanel>
+                    <StackPanel Grid.Row="4" Grid.Column="2" Margin="0,0,0,15">
+                        <TextBlock Text="Datum Upisa" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <DatePicker Name="dtpDatumUpisa" FontSize="15" Padding="3"/>
+                        <TextBlock x:Name="lblDatumUpisaError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="5" Grid.Column="0" Margin="0,10,0,15">
-                    <TextBlock Text="Status Studenta" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                    <ComboBox Name="cmbStatus" FontSize="15" Padding="5"/>
-                    <TextBlock x:Name="lblStatusError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
-                </StackPanel>
+                    <StackPanel Grid.Row="5" Grid.Column="0" Margin="0,0,0,15">
+                        <TextBlock Text="Studij (Smjer)" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ComboBox Name="cmbStudij" FontSize="15" Padding="5" SelectionChanged="CmbStudij_SelectionChanged"/>
+                        <TextBlock x:Name="lblStudijError" Text="Odabir smjera je obavezan!" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="5" Grid.Column="2" Margin="0,10,0,15">
-                    <TextBlock Text="Lozinka" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                    <PasswordBox Name="pbLozinka" FontSize="15" Padding="5"/>
-                    <TextBlock x:Name="lblLozinkaError" Text="" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
-                </StackPanel>
+                    <StackPanel Grid.Row="5" Grid.Column="2" Margin="0,0,0,15">
+                        <TextBlock Text="Godina Studija" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ComboBox Name="cmbGodinaStudija" FontSize="15" Padding="5" IsEnabled="False"/>
+                        <TextBlock x:Name="lblGodinaStudijaError" Text="Odabir godine studija je obavezan!" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="6" Grid.Column="2" Margin="0,10,0,0">
-                    <Button Name="btnSpasi"
+                    <StackPanel Grid.Row="6" Grid.Column="0" Margin="0,10,0,15">
+                        <TextBlock Text="Status Studenta" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ComboBox Name="cmbStatus" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblStatusError" Text="Odabir statusa je obavezan!" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="6" Grid.Column="2" Margin="0,10,0,15">
+                        <TextBlock Text="Lozinka" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <PasswordBox Name="pbLozinka" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblLozinkaError" Text="" MaxWidth="400" TextWrapping="Wrap" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="7" Grid.Column="2" Margin="0,15,0,0" VerticalAlignment="Bottom">
+                        <Button Name="btnSpasi"
                             Content="Sačuvaj Studenta" 
                             FontSize="15" 
                             FontWeight="Bold"
@@ -114,11 +128,19 @@
                             Foreground="White" 
                             Padding="50,8" 
                             HorizontalAlignment="Right" 
-                            VerticalAlignment="Bottom"
                             Cursor="Hand" 
                             Click="BtnSpasi_Click" />
-                </StackPanel>
-            </Grid>
-        </Border>
+                        <TextBlock x:Name="lblDuplikatError" 
+                               Text="" 
+                               Foreground="Red" 
+                               FontSize="10" 
+                               FontWeight="SemiBold"
+                               Margin="0,3,0,0" 
+                               HorizontalAlignment="Right"
+                               Visibility="Hidden"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </ScrollViewer>
     </Grid>
 </UserControl>
