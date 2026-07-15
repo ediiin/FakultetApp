@@ -31,6 +31,38 @@ namespace Fakultet.Servisi.Bazni
             _osobaServis = osobaServis;
         }
 
+        private void KreirajAdmina()
+        {
+            var muskiSpol = _spolServis.GetAll()
+                .FirstOrDefault(s => s.Oznaka == 'M');
+
+            var mostar = _gradServis.GetAll()
+                .FirstOrDefault(g => g.Naziv == "Mostar");
+
+            if (muskiSpol == null || mostar == null)
+                return;
+
+
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(
+                Konfiguracija.AdminPassword
+            );
+
+
+            _osobaServis.Add(new Osoba
+            {
+                Ime = "Sistem",
+                Prezime = "Administrator",
+                Email = "admin@fit.ba",
+                KorisnickoIme = "admin",
+                LozinkaHash = hashedPassword,
+                JMBG = "0101999170000",
+                DatumRodjenja = new DateTime(2003, 1, 1),
+                SpolId = muskiSpol.Id,
+                GradId = mostar.Id,
+                Uloge = Uloge.Admin
+            });
+        }
+
         public void SeedujSve()
         {
             //spolovi
@@ -263,30 +295,13 @@ namespace Fakultet.Servisi.Bazni
             }
 
             //admin -----------------------------------------------------------------------
-            if (_osobaServis.GetAll().Any(o => o.Uloge == Uloge.Admin))
-                return;
+            var adminPostoji = _osobaServis.GetAll()
+                .Any(o => o.KorisnickoIme == "admin");
 
-            var muskiSpol = _spolServis.GetAll().FirstOrDefault(s => s.Oznaka == 'M');
-            var mostar = _gradServis.GetAll().FirstOrDefault(g => g.Naziv == "Mostar");
-
-            if (muskiSpol == null || mostar == null) return;
-
-            // Čitamo tajnu šifru iz appsettings.json i odmah je hashujemo
-            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(Konfiguracija.AdminPassword);
-
-            _osobaServis.Add(new Osoba
+            if (!adminPostoji)
             {
-                Ime = "Sistem",
-                Prezime = "Administrator",
-                Email = "admin@fit.ba",
-                KorisnickoIme = "admin",
-                LozinkaHash = hashedPassword,
-                JMBG = "0101999170000", 
-                DatumRodjenja = new System.DateTime(2003, 1, 1),
-                SpolId = muskiSpol.Id,
-                GradId = mostar.Id,
-                Uloge = Uloge.Admin 
-            });
+                KreirajAdmina();
+            }
         }
     }
 }
