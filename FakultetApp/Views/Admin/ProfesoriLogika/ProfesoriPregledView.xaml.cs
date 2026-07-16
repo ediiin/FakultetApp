@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Fakultet.Core.Modeli;
+using Fakultet.Servisi.IServis.Korisnici;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -18,9 +20,19 @@ namespace FakultetApp.Views.Admin.ProfesoriLogika
     /// </summary>
     public partial class ProfesoriPregledView : UserControl
     {
-        public ProfesoriPregledView()
+        private readonly ProfesorServis _profesorServis;
+        private List<Profesor> _profesori = new List<Profesor>();
+        public ProfesoriPregledView(ProfesorServis profesorServis)
         {
             InitializeComponent();
+            _profesorServis = profesorServis;
+            UcitajProfesore();
+        }
+
+        private void UcitajProfesore()
+        {
+            _profesori = _profesorServis.GetAll();
+            dgvProfesori.ItemsSource = _profesori;
         }
 
         private void BtnObrisi_Click(object sender, RoutedEventArgs e)
@@ -30,7 +42,9 @@ namespace FakultetApp.Views.Admin.ProfesoriLogika
 
         private void Filter_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            string tekstPretrage = txtFilter.Text;
+            _profesori = _profesorServis.Filter(tekstPretrage);
+            dgvProfesori.ItemsSource = _profesori;
         }
     }
 }

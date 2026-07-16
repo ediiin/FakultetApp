@@ -18,5 +18,9 @@ namespace Fakultet.Servisi.Bazni
 
         public static string ConnectionString => Crtaj.GetConnectionString("FakultetBaza");
         public static string AdminPassword => Crtaj["AppSettings:InitialAdminPassword"];
+        public static string Student1Password => Crtaj["AppSettings:InitialStudent1Password"];
+        public static string Student2Password => Crtaj["AppSettings:InitialStudent2Password"];
+        public static string Profesor1Password => Crtaj["AppSettings:InitialProfesor1Password"];
+        public static string Profesor2Password => Crtaj["AppSettings:InitialProfesor2Password"];
     }
 }

@@ -9,7 +9,7 @@ namespace Fakultet.Servisi.IServis.Korisnici
 {
     public class ProfesorServis: BazniServis<Profesor>
     {
-        ProfesorServis(FakultetAppDbContext dbContext): base(dbContext)
+        public ProfesorServis(FakultetAppDbContext dbContext): base(dbContext)
         { 
         }
 

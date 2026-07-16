@@ -3,6 +3,7 @@ using Fakultet.Servisi.IServis.Korisnici;
 using Fakultet.Servisi.IServis.Pomocni;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Text;
 
 namespace Fakultet.Servisi.Bazni
@@ -15,13 +16,17 @@ namespace Fakultet.Servisi.Bazni
         private readonly StudijServis _studijServis; 
         private readonly GodinaStudijaServis _godinaStudijaServis;
         private readonly OsobaServis _osobaServis;
+        private readonly ProfesorServis _profesorServis;
+        private readonly StudentServis _studentServis;
 
         public DataSeedServis(SpolServis spolServis,
             DrzavaServis drzavaServis,
             GradServis gradServis,
             StudijServis studijServis,
             GodinaStudijaServis godinaStudijaServis,
-            OsobaServis osobaServis)
+            OsobaServis osobaServis,
+            ProfesorServis profesorServis,
+            StudentServis studentServis)
         {
             _spolServis = spolServis;
             _drzavaServis = drzavaServis;
@@ -29,6 +34,8 @@ namespace Fakultet.Servisi.Bazni
             _studijServis = studijServis;
             _godinaStudijaServis = godinaStudijaServis;
             _osobaServis = osobaServis;
+            _studentServis = studentServis;
+            _profesorServis = profesorServis;
         }
 
         private void KreirajAdmina()
@@ -302,6 +309,136 @@ namespace Fakultet.Servisi.Bazni
             {
                 KreirajAdmina();
             }
+
+            //student -----------------------------------------------------------------------
+            var studentPostoji = _studentServis.GetAll().Any();
+
+            if (!studentPostoji)
+            {
+                KreirajStudenta();
+            }
+
+            //profesor -----------------------------------------------------------------------
+            var profesorPostoji = _profesorServis.GetAll().Any();
+
+            if (!profesorPostoji)
+            {
+                KreirajProfesora();
+            }
+        }
+
+        private void KreirajProfesora()
+        {
+            var muskiSpol = _spolServis.GetAll()
+                .FirstOrDefault(s => s.Oznaka == 'M');
+
+            var mostar = _gradServis.GetAll()
+                .FirstOrDefault(g => g.Naziv == "Mostar");
+
+            if (muskiSpol == null || mostar == null)
+                return;
+
+
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(
+                Konfiguracija.Profesor1Password
+            );
+            string hashedPassword2 = BCrypt.Net.BCrypt.HashPassword(
+               Konfiguracija.Profesor2Password
+           );
+
+            _profesorServis.Add(new Profesor
+            {
+                Ime = "profesor",
+                Prezime = "prvi",
+                Email = "profesor1@fit.ba",
+                KorisnickoIme = "profesor1",
+                LozinkaHash = hashedPassword,
+                JMBG = "0101999170001",
+                DatumRodjenja = new DateTime(2003, 1, 1),
+                SpolId = muskiSpol.Id,
+                GradId = mostar.Id,
+                Uloge = Uloge.Profesor,
+                Ocjena = 10,
+                Plata = 3000,
+                Zvanje = Zvanje.RedovniProfesor
+            });
+            _profesorServis.Add(new Profesor
+            {
+                Ime = "profesor",
+                Prezime = "drugi",
+                Email = "profesor2@fit.ba",
+                KorisnickoIme = "profesor2",
+                LozinkaHash = hashedPassword2,
+                JMBG = "6701999170001",
+                DatumRodjenja = new DateTime(2003, 1, 1),
+                SpolId = muskiSpol.Id,
+                GradId = mostar.Id,
+                Uloge = Uloge.Profesor,
+                Ocjena = 10,
+                Plata = 3000,
+                Zvanje = Zvanje.RedovniProfesor
+            });
+        }
+
+        private void KreirajStudenta()
+        {
+            var muskiSpol = _spolServis.GetAll()
+                .FirstOrDefault(s => s.Oznaka == 'M');
+
+            var mostar = _gradServis.GetAll()
+                .FirstOrDefault(g => g.Naziv == "Mostar");
+
+            var godStudija = _godinaStudijaServis.GetAll()
+                .FirstOrDefault(gs => gs.Opis == "Prva godina - SI");
+
+            if (muskiSpol == null || mostar == null || godStudija == null)
+                return;
+
+
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(
+                Konfiguracija.Student1Password
+            );
+            string hashedPassword2 = BCrypt.Net.BCrypt.HashPassword(
+               Konfiguracija.Student2Password
+           );
+
+            _studentServis.Add(new Student
+            {
+                Ime = "student",
+                Prezime = "prvi",
+                Email = "student1@fit.ba",
+                KorisnickoIme = "student1",
+                LozinkaHash = hashedPassword,
+                JMBG = "0101999170000",
+                DatumRodjenja = new DateTime(2003, 1, 1),
+                SpolId = muskiSpol.Id,
+                GradId = mostar.Id,
+                Uloge = Uloge.Student,
+                DatumUpisa = DateTime.Now,
+                GodinaStudijaId = godStudija.Id,
+                Indeks = _studentServis.GenerisiIndeks(),
+                Status = Status.Samofinancirajuci,
+                ZavrsioFakultet = false,
+            });
+
+            _studentServis.Add(new Student
+            {
+                Ime = "student",
+                Prezime = "drugi",
+                Email = "student2@fit.ba",
+                KorisnickoIme = "student2",
+                LozinkaHash = hashedPassword2,
+                JMBG = "0101999170110",
+                DatumRodjenja = new DateTime(2003, 1, 1),
+                SpolId = muskiSpol.Id,
+                GradId = mostar.Id,
+                Uloge = Uloge.Student,
+                DatumUpisa = DateTime.Now,
+                GodinaStudijaId = godStudija.Id,
+                Indeks = _studentServis.GenerisiIndeks(),
+                Status = Status.Samofinancirajuci,
+                ZavrsioFakultet = false,
+            });
         }
     }
 }
