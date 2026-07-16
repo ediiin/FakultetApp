@@ -41,6 +41,9 @@ namespace Fakultet.Servisi.IServis.Korisnici
         {
             if (string.IsNullOrWhiteSpace(indeksImePrezime))
                 return GetAll();
+
+            var filterText = indeksImePrezime.ToLower().Trim();
+
             return _dbSet
                 .Include(s => s.Grad)
                     .ThenInclude(g => g.Drzava)
@@ -48,9 +51,9 @@ namespace Fakultet.Servisi.IServis.Korisnici
                 .Include(s => s.GodinaStudija)
                 .Where(s => s.Uloge == Uloge.Student
                     && (
-                        s.Ime.ToLower().Contains(indeksImePrezime)
-                        || s.Prezime.ToLower().Contains(indeksImePrezime)
-                        || s.Indeks.ToLower().Contains(indeksImePrezime)
+                        s.Ime.ToLower().Contains(filterText)
+                        || s.Prezime.ToLower().Contains(filterText)
+                        || s.Indeks.ToLower().Contains(filterText)
                         )
                 )
                 .ToList();

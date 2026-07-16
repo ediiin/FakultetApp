@@ -1,5 +1,6 @@
 ﻿using FakultetApp.Login;
 using FakultetApp.Views.Admin;
+using FakultetApp.Views.Admin.ProfesoriLogika;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace FakultetApp.Views
                     PrikaznikSadrzaja.Content = App.ServiceProvider.GetRequiredService<UpravljanjeStudentimaView>();
                     break;
                 case "btnProfesori":
-                    // PrikaznikSadrzaja.Content = new ProfesoriPregledView();
+                    PrikaznikSadrzaja.Content = App.ServiceProvider.GetRequiredService<UpravljanjeProfesorimaView>();
                     break;
                 case "btnPredmeti":
                     // PrikaznikSadrzaja.Content = new PredmetiUpravljanjeView();
