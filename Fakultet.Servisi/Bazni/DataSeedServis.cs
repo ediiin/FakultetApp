@@ -72,233 +72,39 @@ namespace Fakultet.Servisi.Bazni
 
         public void SeedujSve()
         {
-            //spolovi
-            if (_spolServis.GetAll().Count == 0)
+            //spolovi        
+            var spoloviPostoje = _spolServis.GetAll().Any();
+            if(!spoloviPostoje)
             {
-                _spolServis.Add(new Spol { Naziv = "Muški", Oznaka = 'M' });
-                _spolServis.Add(new Spol { Naziv = "Ženski", Oznaka = 'Ž' });
-                _spolServis.Add(new Spol { Naziv = "Ostalo", Oznaka = '*' });
+                KreirajSpolove();
             }
 
-
             //drzave ------------------------------------------------------------------
-            if (_drzavaServis.GetAll().Count == 0)
+            var drzavePostoje = _drzavaServis.GetAll().Any();
+            if (!drzavePostoje)
             {
-                _drzavaServis.Add(new Drzava
-                {
-                    Naziv = "Bosna i Hercegovina",
-                    Oznaka = "BiH",
-                    Regija = "Balkan"
-                });
-                _drzavaServis.Add(new Drzava
-                {
-                    Naziv = "Hrvatska",
-                    Oznaka = "Hr",
-                    Regija = "Balkan"
-                });
-                _drzavaServis.Add(new Drzava
-                {
-                    Naziv = "Srbija",
-                    Oznaka = "Srb",
-                    Regija = "Balkan"
-                });
-                _drzavaServis.Add(new Drzava
-                {
-                    Naziv = "Njemacka",
-                    Oznaka = "Ger",
-                    Regija = "Centralna Europa"
-                });
-                _drzavaServis.Add(new Drzava
-                {
-                    Naziv = "Ujedinjeno Kraljevstvo",
-                    Oznaka = "UK",
-                    Regija = "Zapadna Europa"
-                });
-                _drzavaServis.Add(new Drzava
-                {
-                    Naziv = "Španija",
-                    Oznaka = "ESP",
-                    Regija = "Zapadna Europa"
-                });
+                KreirajDrzave();
             }
 
             //gradovi ---------------------------------------------------------------
-            if (_gradServis.GetAll().Count == 0)
+            var gradoviPostoje = _gradServis.GetAll().Any();
+            if (!gradoviPostoje)
             {
-                var bih = _drzavaServis.GetAll().FirstOrDefault(d => d.Oznaka == "BiH");
-                if (bih != null)
-                {
-                    _gradServis.Add(new Grad
-                    {
-                        Naziv = "Sarajevo",
-                        DrzavaId = bih.Id,
-                        Kanton = "SK"
-                    });
-                    _gradServis.Add(new Grad
-                    {
-                        Naziv = "Mostar",
-                        DrzavaId = bih.Id,
-                        Kanton = "HNK"
-                    });
-                    _gradServis.Add(new Grad
-                    {
-                        Naziv = "Fojnica",
-                        DrzavaId = bih.Id,
-                        Kanton = "SBK"
-                    });
-                    _gradServis.Add(new Grad
-                    {
-                        Naziv = "Hadžići",
-                        DrzavaId = bih.Id,
-                        Kanton = "SK"
-                    });
-                    _gradServis.Add(new Grad
-                    {
-                        Naziv = "Kiseljak",
-                        DrzavaId = bih.Id,
-                        Kanton = "SBK"
-                    });
-                }
-
-                var hrv = _drzavaServis.GetAll().FirstOrDefault(d => d.Oznaka == "Hr");
-                if (hrv != null)
-                {
-                    _gradServis.Add(new Grad
-                    {
-                        Naziv = "Zagreb",
-                        DrzavaId = hrv.Id,
-                        Kanton = ""
-                    });
-                    _gradServis.Add(new Grad
-                    {
-                        Naziv = "Split",
-                        DrzavaId = hrv.Id,
-                        Kanton = ""
-                    });
-                    _gradServis.Add(new Grad
-                    {
-                        Naziv = "Makarska",
-                        DrzavaId = hrv.Id,
-                        Kanton = ""
-                    });
-                    _gradServis.Add(new Grad
-                    {
-                        Naziv = "Dubrovnik",
-                        DrzavaId = hrv.Id,
-                        Kanton = ""
-                    });
-                }
-
-                var srb = _drzavaServis.GetAll().FirstOrDefault(d => d.Oznaka == "Srb");
-                if (srb != null)
-                {
-                    _gradServis.Add(new Grad
-                    {
-                        Naziv = "Beograd",
-                        DrzavaId = srb.Id,
-                        Kanton = ""
-                    });
-                    _gradServis.Add(new Grad
-                    {
-                        Naziv = "Novi Sad",
-                        DrzavaId = srb.Id,
-                        Kanton = ""
-                    });
-                    _gradServis.Add(new Grad
-                    {
-                        Naziv = "Niš",
-                        DrzavaId = srb.Id,
-                        Kanton = ""
-                    });
-                }
-
-                var esp = _drzavaServis.GetAll().FirstOrDefault(d => d.Oznaka == "ESP");
-                if (esp != null)
-                {
-                    _gradServis.Add(new Grad
-                    {
-                        Naziv = "Barcelona",
-                        DrzavaId = esp.Id,
-                        Kanton = ""
-                    });
-                    _gradServis.Add(new Grad
-                    {
-                        Naziv = "Madrid",
-                        DrzavaId = esp.Id,
-                        Kanton = ""
-                    });
-                    _gradServis.Add(new Grad
-                    {
-                        Naziv = "Bilbao",
-                        DrzavaId = esp.Id,
-                        Kanton = ""
-                    });
-                }
+                KreirajGradove();
             }
 
             //smjer ---------------------------------------------------------------------
-            if (_studijServis.GetAll().Count == 0)
+            var studijPostoje = _studijServis.GetAll().Any();
+            if (!studijPostoje)
             {
-                _studijServis.Add(new Studij { Smjer = "Razvoj softvera", Zvanje = "Bachelor" });
-                _studijServis.Add(new Studij { Smjer = "Razvoj softvera", Zvanje = "Master" });
-                _studijServis.Add(new Studij { Smjer = "Razvoj softvera", Zvanje = "Doktorat" });
-                _studijServis.Add(new Studij { Smjer = "Softverski inžinjering", Zvanje = "Bachelor" });
-                _studijServis.Add(new Studij { Smjer = "Softverski inžinjering", Zvanje = "Master" });
-                _studijServis.Add(new Studij { Smjer = "Softverski inžinjering", Zvanje = "Doktorat" });
+                KreirajStudije();
             }
 
-            if (_godinaStudijaServis.GetAll().Count == 0)
+            //smjer ---------------------------------------------------------------------
+            var godStudPostoje = _godinaStudijaServis.GetAll().Any();
+            if (!godStudPostoje)
             {
-                var inzinjeringB = _studijServis.GetAll()
-                    .FirstOrDefault(s => s.Smjer == "Softverski inžinjering"
-                        && s.Zvanje == "Bachelor");
-                if (inzinjeringB != null)
-                {
-                    _godinaStudijaServis.Add(new GodinaStudija
-                    {
-                        Opis = "Prva godina - SI",
-                        StudijId = inzinjeringB.Id,
-                    });
-                    _godinaStudijaServis.Add(new GodinaStudija
-                    {
-                        Opis = "Druga godina - SI",
-                        StudijId = inzinjeringB.Id,
-                    });
-                    _godinaStudijaServis.Add(new GodinaStudija
-                    {
-                        Opis = "Treća godina - SI",
-                        StudijId = inzinjeringB.Id,
-                    });
-                    _godinaStudijaServis.Add(new GodinaStudija
-                    {
-                        Opis = "Četvrta godina - SI",
-                        StudijId = inzinjeringB.Id,
-                    });
-                }
-
-                var inzinjeringM = _studijServis.GetAll()
-                    .FirstOrDefault(s => s.Smjer == "Softverski inžinjering"
-                        && s.Zvanje == "Master");
-                if (inzinjeringM != null)
-                {
-                    _godinaStudijaServis.Add(new GodinaStudija
-                    {
-                        Opis = "Peta godina - SI",
-                        StudijId = inzinjeringM.Id,
-                    });
-                }
-
-                var inzinjeringD = _studijServis.GetAll()
-                    .FirstOrDefault(s => s.Smjer == "Softverski inžinjering"
-                        && s.Zvanje == "Doktorat");
-                if (inzinjeringD != null)
-                {
-                    _godinaStudijaServis.Add(new GodinaStudija
-                    {
-                        Opis = "Šesta godina - SI",
-                        StudijId = inzinjeringD.Id,
-                    });
-                }
+                KreirajGodineStudija();
             }
 
             //admin -----------------------------------------------------------------------
@@ -311,7 +117,7 @@ namespace Fakultet.Servisi.Bazni
             }
 
             //student -----------------------------------------------------------------------
-            var studentPostoji = _studentServis.GetAll().Any();
+            var studentPostoji = _studentServis.GetAll().Any(s => s.KorisnickoIme == "student1");
 
             if (!studentPostoji)
             {
@@ -319,12 +125,236 @@ namespace Fakultet.Servisi.Bazni
             }
 
             //profesor -----------------------------------------------------------------------
-            var profesorPostoji = _profesorServis.GetAll().Any();
+            var profesorPostoji = _profesorServis.GetAll().Any(p => p.KorisnickoIme == "profesor1");
 
             if (!profesorPostoji)
             {
                 KreirajProfesora();
             }
+        }
+
+        private void KreirajGodineStudija()
+        {
+            var inzinjeringB = _studijServis.GetAll()
+                    .FirstOrDefault(s => s.Smjer == "Softverski inžinjering"
+                        && s.Zvanje == "Bachelor");
+            if (inzinjeringB != null)
+            {
+                _godinaStudijaServis.Add(new GodinaStudija
+                {
+                    Opis = "Prva godina - SI",
+                    StudijId = inzinjeringB.Id,
+                });
+                _godinaStudijaServis.Add(new GodinaStudija
+                {
+                    Opis = "Druga godina - SI",
+                    StudijId = inzinjeringB.Id,
+                });
+                _godinaStudijaServis.Add(new GodinaStudija
+                {
+                    Opis = "Treća godina - SI",
+                    StudijId = inzinjeringB.Id,
+                });
+                _godinaStudijaServis.Add(new GodinaStudija
+                {
+                    Opis = "Četvrta godina - SI",
+                    StudijId = inzinjeringB.Id,
+                });
+            }
+
+            var inzinjeringM = _studijServis.GetAll()
+                .FirstOrDefault(s => s.Smjer == "Softverski inžinjering"
+                    && s.Zvanje == "Master");
+            if (inzinjeringM != null)
+            {
+                _godinaStudijaServis.Add(new GodinaStudija
+                {
+                    Opis = "Peta godina - SI",
+                    StudijId = inzinjeringM.Id,
+                });
+            }
+
+            var inzinjeringD = _studijServis.GetAll()
+                .FirstOrDefault(s => s.Smjer == "Softverski inžinjering"
+                    && s.Zvanje == "Doktorat");
+            if (inzinjeringD != null)
+            {
+                _godinaStudijaServis.Add(new GodinaStudija
+                {
+                    Opis = "Šesta godina - SI",
+                    StudijId = inzinjeringD.Id,
+                });
+            }
+        }
+
+        private void KreirajStudije()
+        {
+            _studijServis.Add(new Studij { Smjer = "Razvoj softvera", Zvanje = "Bachelor" });
+            _studijServis.Add(new Studij { Smjer = "Razvoj softvera", Zvanje = "Master" });
+            _studijServis.Add(new Studij { Smjer = "Razvoj softvera", Zvanje = "Doktorat" });
+            _studijServis.Add(new Studij { Smjer = "Softverski inžinjering", Zvanje = "Bachelor" });
+            _studijServis.Add(new Studij { Smjer = "Softverski inžinjering", Zvanje = "Master" });
+            _studijServis.Add(new Studij { Smjer = "Softverski inžinjering", Zvanje = "Doktorat" });
+        }
+
+        private void KreirajGradove()
+        {
+            var bih = _drzavaServis.GetAll().FirstOrDefault(d => d.Oznaka == "BiH");
+            if (bih != null)
+            {
+                _gradServis.Add(new Grad
+                {
+                    Naziv = "Sarajevo",
+                    DrzavaId = bih.Id,
+                    Kanton = "SK"
+                });
+                _gradServis.Add(new Grad
+                {
+                    Naziv = "Mostar",
+                    DrzavaId = bih.Id,
+                    Kanton = "HNK"
+                });
+                _gradServis.Add(new Grad
+                {
+                    Naziv = "Fojnica",
+                    DrzavaId = bih.Id,
+                    Kanton = "SBK"
+                });
+                _gradServis.Add(new Grad
+                {
+                    Naziv = "Hadžići",
+                    DrzavaId = bih.Id,
+                    Kanton = "SK"
+                });
+                _gradServis.Add(new Grad
+                {
+                    Naziv = "Kiseljak",
+                    DrzavaId = bih.Id,
+                    Kanton = "SBK"
+                });
+            }
+
+            var hrv = _drzavaServis.GetAll().FirstOrDefault(d => d.Oznaka == "Hr");
+            if (hrv != null)
+            {
+                _gradServis.Add(new Grad
+                {
+                    Naziv = "Zagreb",
+                    DrzavaId = hrv.Id,
+                    Kanton = ""
+                });
+                _gradServis.Add(new Grad
+                {
+                    Naziv = "Split",
+                    DrzavaId = hrv.Id,
+                    Kanton = ""
+                });
+                _gradServis.Add(new Grad
+                {
+                    Naziv = "Makarska",
+                    DrzavaId = hrv.Id,
+                    Kanton = ""
+                });
+                _gradServis.Add(new Grad
+                {
+                    Naziv = "Dubrovnik",
+                    DrzavaId = hrv.Id,
+                    Kanton = ""
+                });
+            }
+
+            var srb = _drzavaServis.GetAll().FirstOrDefault(d => d.Oznaka == "Srb");
+            if (srb != null)
+            {
+                _gradServis.Add(new Grad
+                {
+                    Naziv = "Beograd",
+                    DrzavaId = srb.Id,
+                    Kanton = ""
+                });
+                _gradServis.Add(new Grad
+                {
+                    Naziv = "Novi Sad",
+                    DrzavaId = srb.Id,
+                    Kanton = ""
+                });
+                _gradServis.Add(new Grad
+                {
+                    Naziv = "Niš",
+                    DrzavaId = srb.Id,
+                    Kanton = ""
+                });
+            }
+
+            var esp = _drzavaServis.GetAll().FirstOrDefault(d => d.Oznaka == "ESP");
+            if (esp != null)
+            {
+                _gradServis.Add(new Grad
+                {
+                    Naziv = "Barcelona",
+                    DrzavaId = esp.Id,
+                    Kanton = ""
+                });
+                _gradServis.Add(new Grad
+                {
+                    Naziv = "Madrid",
+                    DrzavaId = esp.Id,
+                    Kanton = ""
+                });
+                _gradServis.Add(new Grad
+                {
+                    Naziv = "Bilbao",
+                    DrzavaId = esp.Id,
+                    Kanton = ""
+                });
+            }
+        }
+
+        private void KreirajDrzave()
+        {
+            _drzavaServis.Add(new Drzava
+            {
+                Naziv = "Bosna i Hercegovina",
+                Oznaka = "BiH",
+                Regija = "Balkan"
+            });
+            _drzavaServis.Add(new Drzava
+            {
+                Naziv = "Hrvatska",
+                Oznaka = "Hr",
+                Regija = "Balkan"
+            });
+            _drzavaServis.Add(new Drzava
+            {
+                Naziv = "Srbija",
+                Oznaka = "Srb",
+                Regija = "Balkan"
+            });
+            _drzavaServis.Add(new Drzava
+            {
+                Naziv = "Njemacka",
+                Oznaka = "Ger",
+                Regija = "Centralna Europa"
+            });
+            _drzavaServis.Add(new Drzava
+            {
+                Naziv = "Ujedinjeno Kraljevstvo",
+                Oznaka = "UK",
+                Regija = "Zapadna Europa"
+            });
+            _drzavaServis.Add(new Drzava
+            {
+                Naziv = "Španija",
+                Oznaka = "ESP",
+                Regija = "Zapadna Europa"
+            });
+        }
+
+        private void KreirajSpolove()
+        {
+            _spolServis.Add(new Spol { Naziv = "Muški", Oznaka = 'M' });
+            _spolServis.Add(new Spol { Naziv = "Ženski", Oznaka = 'Ž' });
+            _spolServis.Add(new Spol { Naziv = "Ostalo", Oznaka = '*' });
         }
 
         private void KreirajProfesora()
