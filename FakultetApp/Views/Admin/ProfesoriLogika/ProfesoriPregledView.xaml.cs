@@ -37,7 +37,16 @@ namespace FakultetApp.Views.Admin.ProfesoriLogika
 
         private void BtnObrisi_Click(object sender, RoutedEventArgs e)
         {
-
+            var izabraniProfesor = dgvProfesori.SelectedItem as Profesor;
+            if(izabraniProfesor != null &&
+                MessageBox.Show($"Jeste li sigurni da želite raskinuti ugovor sa {izabraniProfesor.ImePrezime}?"
+                    , "Upit", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                _profesorServis.Remove(izabraniProfesor.Id);
+                MessageBox.Show("Uspješno raskinut ugovor", "Uspjeh", MessageBoxButton.OK,
+                    MessageBoxImage.Exclamation);
+                UcitajProfesore();
+            }
         }
 
         private void Filter_TextChanged(object sender, TextChangedEventArgs e)
