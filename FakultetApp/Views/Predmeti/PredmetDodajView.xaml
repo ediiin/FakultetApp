@@ -5,8 +5,78 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FakultetApp.Views.Predmeti"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             VerticalAlignment="Stretch"
+             HorizontalAlignment="Stretch">
+    <Grid Background="#F5F5F5">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Border Background="White"
+                CornerRadius="8" 
+                Padding="30" 
+                MinWidth="600"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top"
+                Margin="20">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Naziv Predmeta -->
+                    <StackPanel Grid.Row="0" Margin="0,0,0,15">
+                        <TextBlock Text="Naziv Predmeta" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox Name="tbNaziv" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblNazivError" Text="Naziv predmeta je obavezan!" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
+
+                    <!-- ECTS Bodovi -->
+                    <StackPanel Grid.Row="1" Margin="0,0,0,15">
+                        <TextBlock Text="ECTS Bodovi" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox Name="tbEcts" FontSize="15" Padding="5" Width="120" HorizontalAlignment="Left"/>
+                        <TextBlock x:Name="lblEctsError" Text="Unesite validan broj ECTS bodova (veći od 0)!" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
+
+                    <!-- Studij (Smjer) -->
+                    <StackPanel Grid.Row="2" Margin="0,0,0,15">
+                        <TextBlock Text="Studijski program" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ComboBox Name="cmbStudij" FontSize="15" Padding="5" SelectionChanged="CmbStudij_SelectionChanged"/>
+                        <TextBlock x:Name="lblStudijError" Text="Odabir smjera je obavezan!" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
+
+                    <!-- Godina Studija -->
+                    <StackPanel Grid.Row="3" Margin="0,0,0,15">
+                        <TextBlock Text="Godina Studija" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ComboBox Name="cmbGodinaStudija" FontSize="15" Padding="5" IsEnabled="False"/>
+                        <TextBlock x:Name="lblGodinaStudijaError" Text="Odabir godine studija je obavezan!" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
+
+                    <!-- Profesor Nosilac -->
+                    <StackPanel Grid.Row="4" Margin="0,0,0,25">
+                        <TextBlock Text="Profesor" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ComboBox Name="cmbProfesor" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblProfesorError" Text="Morate dodijeliti profesora na ovaj predmet!" Foreground="Red" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
+
+                    <!-- Dugme Sačuvaj -->
+                    <StackPanel Grid.Row="5" VerticalAlignment="Bottom">
+                        <Button Name="btnSpasi"
+                            Content="Sačuvaj Predmet" 
+                            FontSize="15" 
+                            FontWeight="Bold"
+                            Background="#3182CE" 
+                            Foreground="White" 
+                            Padding="40,8" 
+                            HorizontalAlignment="Right" 
+                            Cursor="Hand" 
+                            Click="BtnSpasi_Click" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </ScrollViewer>
     </Grid>
 </UserControl>

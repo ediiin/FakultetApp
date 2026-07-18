@@ -23,7 +23,7 @@
 
         <DataGrid Name="dgvProfesori" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="#F9F9F9">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Zvanje" Binding="{Binding Zvanje}" Width="150"/>
+                <DataGridTextColumn Header="Zvanje" Binding="{Binding ZvanjeOpis}" Width="150"/>
                 <DataGridTextColumn Header="Ime i prezime" Binding="{Binding}" Width="*"/>
 
                 <DataGridTemplateColumn Header="Akcija" Width="150">

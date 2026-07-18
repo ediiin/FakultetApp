@@ -127,6 +127,12 @@ namespace FakultetApp.Views.Admin.ProfesoriLogika
                 lblPlataError.Visibility = Visibility.Visible;
                 return false;
             }
+            else if(!(decimal.TryParse(tbPlata.Text, out decimal plataa) && plataa < 20001))
+            {
+                lblPlataError.Text = "Nije dozvoljeno postavljanje plate preko 20000KM!";
+                lblPlataError.Visibility = Visibility.Visible;
+                return false;
+            }
 
             if (greske.Count == 0)
                 return true;
