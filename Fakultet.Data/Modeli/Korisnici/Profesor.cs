@@ -17,5 +17,6 @@ namespace Fakultet.Core.Modeli
             return ImePrezime;
         }
         public string ZvanjeOpis => Zvanje.ToFriendlyString();
+        public string ZvanjeImePrezime => $"({ZvanjeOpis}) {Ime} {Prezime}";
     }
 }

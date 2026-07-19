@@ -100,7 +100,7 @@ namespace Fakultet.Servisi.Bazni
                 KreirajStudije();
             }
 
-            //smjer ---------------------------------------------------------------------
+            //godine studija ---------------------------------------------------------------------
             var godStudPostoje = _godinaStudijaServis.GetAll().Any();
             if (!godStudPostoje)
             {
@@ -135,9 +135,31 @@ namespace Fakultet.Servisi.Bazni
 
         private void KreirajGodineStudija()
         {
-            var inzinjeringB = _studijServis.GetAll()
-                    .FirstOrDefault(s => s.Smjer == "Softverski inžinjering"
+            var razvojB = _studijServis.GetAll()
+                    .FirstOrDefault(s => s.Smjer == "Razvoj softvera"
                         && s.Zvanje == "Bachelor");
+            if (razvojB != null)
+            {
+                _godinaStudijaServis.Add(new GodinaStudija
+                {
+                    Opis = "Prva godina - RS",
+                    StudijId = razvojB.Id,
+                });
+                _godinaStudijaServis.Add(new GodinaStudija
+                {
+                    Opis = "Druga godina - RS",
+                    StudijId = razvojB.Id,
+                });
+                _godinaStudijaServis.Add(new GodinaStudija
+                {
+                    Opis = "Treća godina - RS",
+                    StudijId = razvojB.Id,
+                });
+            }
+
+            var inzinjeringB = _studijServis.GetAll()
+                .FirstOrDefault(s => s.Smjer == "Softverski inžinjering"
+                    && s.Zvanje == "Bachelor");
             if (inzinjeringB != null)
             {
                 _godinaStudijaServis.Add(new GodinaStudija

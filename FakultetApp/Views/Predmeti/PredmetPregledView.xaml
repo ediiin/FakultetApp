@@ -27,18 +27,8 @@
                 <DataGridTextColumn Header="ECTS" Binding="{Binding ECTS}" Width="80"/>
                 <DataGridTextColumn Header="Godina studija" Binding="{Binding GodinaStudija.Opis}" Width="1.5*"/>
 
-                <!-- Kombinovani prikaz zvanja, imena i prezimena profesora unutar kolone -->
-                <DataGridTemplateColumn Header="Profesor" Width="2.5*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,0,0">
-                                <TextBlock Text="({Binding Profesor.ZvanjeOpis})" Margin="0,0,4,0" FontWeight="SemiBold" Foreground="#4A5568"/>
-                                <TextBlock Text="{Binding Profesor.Ime}" Margin="0,0,4,0"/>
-                                <TextBlock Text="{Binding Profesor.Prezime}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                <!-- Prikaz zvanja, imena i prezimena profesora -->
+                <DataGridTextColumn Header="Profesor" Binding="{Binding Profesor.ZvanjeImePrezime}" Width="2.5*"/>
 
                 <DataGridTemplateColumn Header="Akcija" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
