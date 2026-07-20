@@ -17,7 +17,7 @@ namespace FakultetApp
     public partial class App : Application
     {
         // Dodali smo "static" da mu mozemo pristupiti iz cijele aplikacije
-        public static IServiceProvider ServiceProvider { get; private set; }
+        public static IServiceProvider? ServiceProvider { get; private set; }
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);

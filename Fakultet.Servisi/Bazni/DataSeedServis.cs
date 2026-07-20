@@ -18,6 +18,7 @@ namespace Fakultet.Servisi.Bazni
         private readonly OsobaServis _osobaServis;
         private readonly ProfesorServis _profesorServis;
         private readonly StudentServis _studentServis;
+        private readonly AsistentServis _asistentServis;
 
         public DataSeedServis(SpolServis spolServis,
             DrzavaServis drzavaServis,
@@ -26,7 +27,8 @@ namespace Fakultet.Servisi.Bazni
             GodinaStudijaServis godinaStudijaServis,
             OsobaServis osobaServis,
             ProfesorServis profesorServis,
-            StudentServis studentServis)
+            StudentServis studentServis,
+            AsistentServis asistentServis)
         {
             _spolServis = spolServis;
             _drzavaServis = drzavaServis;
@@ -36,6 +38,7 @@ namespace Fakultet.Servisi.Bazni
             _osobaServis = osobaServis;
             _studentServis = studentServis;
             _profesorServis = profesorServis;
+            _asistentServis = asistentServis;
         }
 
         private void KreirajAdmina()
@@ -131,6 +134,63 @@ namespace Fakultet.Servisi.Bazni
             {
                 KreirajProfesora();
             }
+
+            //asistent -----------------------------------------------------------------------
+            var asistentPostoji = _asistentServis.GetAll().Any(p => p.KorisnickoIme == "asistent1");
+
+            if (!asistentPostoji)
+            {
+                KreirajAsistenta();
+            }
+        }
+
+        private void KreirajAsistenta()
+        {
+            var muskiSpol = _spolServis.GetAll()
+                .FirstOrDefault(s => s.Oznaka == 'M');
+
+            var mostar = _gradServis.GetAll()
+                .FirstOrDefault(g => g.Naziv == "Mostar");
+
+            if (muskiSpol == null || mostar == null)
+                return;
+
+
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(
+                Konfiguracija.Asistent1Password
+            );
+            string hashedPassword2 = BCrypt.Net.BCrypt.HashPassword(
+               Konfiguracija.Asistent2Password
+           );
+
+            _asistentServis.Add(new Asistent
+            {
+                Ime = "Asistent",
+                Prezime = "Prvi",
+                Email = "asistent1@fit.ba",
+                KorisnickoIme = "asistent1",
+                LozinkaHash = hashedPassword,
+                JMBG = "0101999170301",
+                DatumRodjenja = new DateTime(2003, 1, 1),
+                SpolId = muskiSpol.Id,
+                GradId = mostar.Id,
+                Uloge = Uloge.Asistent,
+                Plata = 3000,
+            });
+            _asistentServis.Add(new Asistent
+            {
+                Ime = "Asistent",
+                Prezime = "Drugi",
+                Email = "asistent2@fit.ba",
+                KorisnickoIme = "asistent2",
+                LozinkaHash = hashedPassword2,
+                JMBG = "0101999173301",
+                DatumRodjenja = new DateTime(2003, 1, 1),
+                SpolId = muskiSpol.Id,
+                GradId = mostar.Id,
+                Uloge = Uloge.Asistent,
+                Plata = 3000,
+            });
         }
 
         private void KreirajGodineStudija()

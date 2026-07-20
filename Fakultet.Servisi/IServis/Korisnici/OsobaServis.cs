@@ -11,7 +11,8 @@ namespace Fakultet.Servisi.IServis.Korisnici
         public OsobaServis(FakultetAppDbContext dbContext) : base(dbContext)
         {
         }
-        public Osoba Login(string korisnickoImeIliEmail, string unesenaLozinka)
+
+        public Osoba? Login(string korisnickoImeIliEmail, string unesenaLozinka)
         {
             var osoba = _dbSet
                 .FirstOrDefault(o => o.KorisnickoIme == korisnickoImeIliEmail || o.Email == korisnickoImeIliEmail);

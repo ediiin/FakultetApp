@@ -21,7 +21,7 @@ namespace Fakultet.Servisi.Bazni
             return _dbSet.ToList();
         }
 
-        public virtual T GetById(int id) 
+        public virtual T? GetById(int id) 
         {
             return _dbSet.Find(id);
         }

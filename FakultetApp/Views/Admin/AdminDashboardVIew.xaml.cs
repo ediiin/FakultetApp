@@ -30,19 +30,19 @@ namespace FakultetApp.Views
             switch (kliknutoDugme.Name)
             {
                 case "btnStudenti":
-                    PrikaznikSadrzaja.Content = App.ServiceProvider.GetRequiredService<UpravljanjeStudentimaView>();
+                    PrikaznikSadrzaja.Content = App.ServiceProvider!.GetRequiredService<UpravljanjeStudentimaView>();
                     break;
                 case "btnProfesori":
-                    PrikaznikSadrzaja.Content = App.ServiceProvider.GetRequiredService<UpravljanjeProfesorimaView>();
+                    PrikaznikSadrzaja.Content = App.ServiceProvider!.GetRequiredService<UpravljanjeProfesorimaView>();
                     break;
                 case "btnPredmeti":
-                    PrikaznikSadrzaja.Content = App.ServiceProvider.GetRequiredService<UpravljanjePredmetimaView>();
+                    PrikaznikSadrzaja.Content = App.ServiceProvider!.GetRequiredService<UpravljanjePredmetimaView>();
                     break;
                 case "btnAsistenti":
-                    PrikaznikSadrzaja.Content = App.ServiceProvider.GetRequiredService<UpravljanjeAsistentimaView>();
+                    PrikaznikSadrzaja.Content = App.ServiceProvider!.GetRequiredService<UpravljanjeAsistentimaView>();
                     break;
                 case "btnNoviAdmin":
-                    PrikaznikSadrzaja.Content = App.ServiceProvider.GetRequiredService<NoviAdminView>();
+                    PrikaznikSadrzaja.Content = App.ServiceProvider!.GetRequiredService<NoviAdminView>();
                     break;
                 case "btnOdjava":
                     OdjavaLogika();
@@ -56,7 +56,7 @@ namespace FakultetApp.Views
                 "Upit", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if(upit == MessageBoxResult.Yes)
             {
-                var login = App.ServiceProvider.GetRequiredService<LoginProzor>();
+                var login = App.ServiceProvider!.GetRequiredService<LoginProzor>();
                 login.Show();
 
                 Window.GetWindow(this).Close();
