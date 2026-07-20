@@ -1,21 +1,11 @@
 ﻿using FakultetApp.Login;
 using FakultetApp.Views.Admin;
+using FakultetApp.Views.Admin.Asistenti;
 using FakultetApp.Views.Admin.ProfesoriLogika;
 using FakultetApp.Views.Predmeti;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FakultetApp.Views
 {
@@ -49,7 +39,7 @@ namespace FakultetApp.Views
                     PrikaznikSadrzaja.Content = App.ServiceProvider.GetRequiredService<UpravljanjePredmetimaView>();
                     break;
                 case "btnAsistenti":
-                    // PrikaznikSadrzaja.Content = new AsistentiPredmetView();
+                    PrikaznikSadrzaja.Content = App.ServiceProvider.GetRequiredService<UpravljanjeAsistentimaView>();
                     break;
                 case "btnNoviAdmin":
                     PrikaznikSadrzaja.Content = App.ServiceProvider.GetRequiredService<NoviAdminView>();

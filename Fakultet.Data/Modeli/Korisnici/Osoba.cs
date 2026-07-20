@@ -21,5 +21,7 @@ namespace Fakultet.Core.Modeli
         public string KorisnickoIme { get; set; } = null!;
         public string LozinkaHash { get; set; } = null!;
         public Uloge Uloge { get; set; }
+        public bool Aktivan { get; set; } = true;
+        public string ImePrezime => $"{Ime} {Prezime}";
     }
 }

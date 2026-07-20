@@ -42,7 +42,7 @@ namespace FakultetApp.Views.Admin.ProfesoriLogika
                 MessageBox.Show($"Jeste li sigurni da želite raskinuti ugovor sa {izabraniProfesor.ImePrezime}?"
                     , "Upit", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                _profesorServis.Remove(izabraniProfesor.Id); 
+                _profesorServis.Deaktiviraj(izabraniProfesor.Id); 
                 MessageBox.Show("Uspješno raskinut ugovor", "Uspjeh", MessageBoxButton.OK,
                     MessageBoxImage.Exclamation);
                 UcitajProfesore();

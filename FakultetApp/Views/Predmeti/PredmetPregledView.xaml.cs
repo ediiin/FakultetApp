@@ -41,18 +41,5 @@ namespace FakultetApp.Views.Predmeti
             _predmeti = _predmetServis.Filter(tekstPretrage);
             dgvPredmeti.ItemsSource = _predmeti;
         }
-
-        private void BtnObrisi_Click(object sender, RoutedEventArgs e)
-        {
-            var izabraniPredmet = dgvPredmeti.SelectedItem as Predmet;
-            //if (izabraniPredmet != null &&
-            //    MessageBox.Show($"Jeste li sigurni da želite obrisati predmet '{izabraniPredmet.Naziv}'?\n\nUpozorenje: Ovo može utjecati na ocjene i studente vezane za ovaj predmet!",
-            //    "Upozorenje", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
-            //{
-            //    _predmetServis.Remove(izabraniPredmet.Id);
-            //    MessageBox.Show("Predmet uspješno uklonjen iz sistema!", "Uspjeh", MessageBoxButton.OK, MessageBoxImage.Information);
-            //    UcitajPredmete();
-            //}
-        }
     }
 }

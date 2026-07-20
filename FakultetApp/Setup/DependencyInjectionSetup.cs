@@ -1,5 +1,4 @@
-﻿using Fakultet.Core.Modeli;
-using Fakultet.Servisi.Bazni;
+﻿using Fakultet.Servisi.Bazni;
 using Fakultet.Servisi.IServis.FakultetskiProcesi;
 using Fakultet.Servisi.IServis.Korisnici;
 using Fakultet.Servisi.IServis.Pomocni;
@@ -7,13 +6,10 @@ using FakultetApp;
 using FakultetApp.Login;
 using FakultetApp.Views;
 using FakultetApp.Views.Admin;
-using FakultetApp.Views.Admin.Asistent;
+using FakultetApp.Views.Admin.Asistenti;
 using FakultetApp.Views.Admin.ProfesoriLogika;
 using FakultetApp.Views.Predmeti;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Fakultet.Servisi.Setup
 {

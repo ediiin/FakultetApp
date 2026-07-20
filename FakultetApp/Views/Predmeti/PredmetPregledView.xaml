@@ -29,20 +29,6 @@
 
                 <!-- Prikaz zvanja, imena i prezimena profesora -->
                 <DataGridTextColumn Header="Profesor" Binding="{Binding Profesor.ZvanjeImePrezime}" Width="2.5*"/>
-
-                <DataGridTemplateColumn Header="Akcija" Width="150">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Name="btnObrisi"
-                                    Content="Ukloni predmet"
-                                    Background="#FF4D4D"
-                                    Foreground="White"
-                                    FontWeight="Bold"
-                                    Padding="5,2"
-                                    Click="BtnObrisi_Click"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

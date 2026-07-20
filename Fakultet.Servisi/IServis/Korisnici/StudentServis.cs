@@ -54,7 +54,7 @@ namespace Fakultet.Servisi.IServis.Korisnici
                         s.Ime.ToLower().Contains(filterText)
                         || s.Prezime.ToLower().Contains(filterText)
                         || s.Indeks.ToLower().Contains(filterText)
-                        )
+                        ) && s.Aktivan == true
                 )
                 .ToList();
         }
@@ -66,8 +66,19 @@ namespace Fakultet.Servisi.IServis.Korisnici
                     .ThenInclude(g => g.Drzava)
                 .Include(s => s.Spol)
                 .Include(s => s.GodinaStudija)
-                .Where(s => s.Uloge == Uloge.Student)
+                .Where(s => s.Uloge == Uloge.Student && s.Aktivan == true)
                 .ToList();
+        }
+
+        public void Deaktiviraj(int id)
+        {
+            var student = GetById(id);
+
+            if (student != null)
+            {
+                student.Aktivan = false;
+                _dbContext.SaveChanges();
+            }
         }
     }
 }

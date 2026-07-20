@@ -51,7 +51,7 @@ namespace FakultetApp.Views.Admin
                 == MessageBoxResult.Yes)
             {
 
-                _studentServis.Remove(izabraniStudent.Id);
+                _studentServis.Deaktiviraj(izabraniStudent.Id);
                 MessageBox.Show($"Student uspješno ispisan!",
                     "Uspjeh", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 UcitajStudente();
