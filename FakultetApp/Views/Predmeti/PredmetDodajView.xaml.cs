@@ -103,10 +103,11 @@ namespace FakultetApp.Views.Predmeti
         {
             tbNaziv.Clear();
             tbEcts.Clear();
-            cmbStudij.SelectedIndex = -1;
+            cmbStudij.SelectedIndex = 0;
             cmbGodinaStudija.ItemsSource = null;
             cmbGodinaStudija.IsEnabled = false;
-            cmbProfesor.SelectedIndex = -1;
+            cmbProfesor.SelectedIndex = 0;
+            cmbGodinaStudija.SelectedIndex = 0;
             OcistiGreske();
         }
 

@@ -8,6 +8,7 @@ using FakultetApp.Views;
 using FakultetApp.Views.Admin;
 using FakultetApp.Views.Admin.Asistenti;
 using FakultetApp.Views.Admin.ProfesoriLogika;
+using FakultetApp.Views.Admin.Studenti;
 using FakultetApp.Views.Predmeti;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -37,18 +38,25 @@ namespace Fakultet.Servisi.Setup
         public static void RegistrujViewove(this IServiceCollection services)
         {
             // transient stvaraju se iznova
+            //login
             services.AddTransient<LoginProzor>();
+            //admin - admin
             services.AddTransient<NoviAdminView>();
             services.AddTransient<AdminDashboardView>(); 
+            //admin - studenti
             services.AddTransient<UpravljanjeStudentimaView>(); 
             services.AddTransient<StudentiPregledView>(); 
             services.AddTransient<StudentiDodajView>(); 
+            services.AddTransient<StudentiEditView>();
+            //admin - profesori
             services.AddTransient<ProfesoriDodajView>(); 
             services.AddTransient<ProfesoriPregledView>(); 
-            services.AddTransient<UpravljanjeProfesorimaView>(); 
+            services.AddTransient<UpravljanjeProfesorimaView>();
+            //admin - predmeti
             services.AddTransient<UpravljanjePredmetimaView>(); 
             services.AddTransient<PredmetPregledView>(); 
             services.AddTransient<PredmetDodajView>();
+            //admin - asistenti
             services.AddTransient<UpravljanjeAsistentimaView>();
             services.AddTransient<AsistentPregledView>();
             services.AddTransient<AsistentDodajView>();
