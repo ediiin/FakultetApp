@@ -13,8 +13,29 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,20">
-            <Button Name="btnPrikaziSve" Content="Prikaži sve predmete" FontSize="15" Width="180" Height="35" Margin="0,0,10,0" Click="PredmetNav_Click"/>
-            <Button Name="btnDodajPredmet" Content="Dodaj novi predmet" FontSize="15" Width="180" Height="35" Margin="30, 5" Click="PredmetNav_Click"/>
+            <Button Name="btnPrikaziSve" 
+                    Content="Prikaži sve predmete" 
+                    FontSize="15" 
+                    Width="180" 
+                    Height="35" 
+                    Margin="0,0,15,0" 
+                    Background="{DynamicResource CardBackground}"
+                    Foreground="{DynamicResource PrimaryText}"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    Cursor="Hand"
+                    Click="PredmetNav_Click"/>
+
+            <Button Name="btnDodajPredmet" 
+                    Content="Dodaj novi predmet" 
+                    FontSize="15" 
+                    Width="180" 
+                    Height="35" 
+                    Margin="0,0,0,0" 
+                    Background="{DynamicResource CardBackground}"
+                    Foreground="{DynamicResource PrimaryText}"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    Cursor="Hand"
+                    Click="PredmetNav_Click"/>
         </StackPanel>
 
         <ContentControl Name="PredmetiSadrzaj" Grid.Row="1"/>

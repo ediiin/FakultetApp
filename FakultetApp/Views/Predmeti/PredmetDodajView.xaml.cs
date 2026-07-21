@@ -45,6 +45,7 @@ namespace FakultetApp.Views.Predmeti
         {
             cmbStudij.ItemsSource = _studijServis.GetAll();
             cmbStudij.DisplayMemberPath = "PuniNaziv";
+            cmbStudij.SelectedIndex = 0;
         }
 
         private void UcitajProfesore()
@@ -52,6 +53,7 @@ namespace FakultetApp.Views.Predmeti
             var profesori = _profesorServis.GetAll();
             cmbProfesor.ItemsSource = profesori;
             cmbProfesor.DisplayMemberPath = "ImePrezime";
+            cmbProfesor.SelectedIndex = 0;
         }
 
         private void CmbStudij_SelectionChanged(object sender, SelectionChangedEventArgs e)

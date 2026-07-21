@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <SolidColorBrush x:Key="WindowBackground" Color="#F5F5F5"/>
+    <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="PrimaryText" Color="#2D3748"/>
+    <SolidColorBrush x:Key="SecondaryText" Color="FloralWhite"/>
+    <SolidColorBrush x:Key="BorderColor" Color="#ebebed"/>
+    <SolidColorBrush x:Key="AccentColor" Color="#3182CE"/>
+    <SolidColorBrush x:Key="Error" Color="Red"/>
+    <SolidColorBrush x:Key="Naslov" Color="#3182CE"/>
+
+    <!-- Stilovi za ComboBox u Svetloj temi -->
+    <Style TargetType="ComboBox">
+        <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+    </Style>
+    <Style TargetType="ComboBoxItem">
+        <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"/>
+    </Style>
+
+    <!-- Stilovi za DatePicker u Svetloj temi -->
+    <Style TargetType="DatePicker">
+        <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+    </Style>
+    <Style TargetType="DatePickerTextBox">
+        <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"/>
+    </Style>
+    <!-- Hakovanje fabričkih Windows boja za ComboBox i DatePicker -->
+    <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="{x:Static SystemColors.WindowTextBrushKey}" Color="#2D3748"/>
+    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#3182CE"/>
+    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="#FFFFFF"/>
+</ResourceDictionary>

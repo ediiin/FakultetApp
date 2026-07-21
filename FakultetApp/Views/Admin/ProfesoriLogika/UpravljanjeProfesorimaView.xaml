@@ -13,8 +13,26 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,20">
-            <Button Name="btnPrikaziSve" Content="Prikaži sve profesore" FontSize="15" Width="180" Height="35" Margin="0,0,10,0" Click="ProfesorNav_Click"/>
-            <Button Name="btnDodajProfesora" Content="Dodaj novog profesora" FontSize="15" Width="180" Height="35" Margin="30, 5" Click="ProfesorNav_Click"/>
+            <Button Name="btnPrikaziSve" 
+                    Content="Prikaži sve profesore" 
+                    FontSize="15" 
+                    Width="180" 
+                    Height="35" 
+                    Margin="0,0,10,0"
+                    Background="{DynamicResource CardBackground}"
+                    Foreground="{DynamicResource PrimaryText}"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    Click="ProfesorNav_Click"/>
+            <Button Name="btnDodajProfesora" 
+                    Content="Dodaj novog profesora" 
+                    FontSize="15" 
+                    Width="180" 
+                    Height="35" 
+                    Margin="30, 5"
+                    Background="{DynamicResource CardBackground}"
+                    Foreground="{DynamicResource PrimaryText}"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    Click="ProfesorNav_Click"/>
         </StackPanel>
 
         <ContentControl Name="ProfesoriSadrzaj" Grid.Row="1"/>

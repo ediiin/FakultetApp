@@ -5,12 +5,129 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FakultetApp"
         mc:Ignorable="d"
-        Title="MainWindow" 
-        MinWidth="1250" 
+        AllowsTransparency="True"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        MinWidth="1250"
         MinHeight="650"
-        WindowStartupLocation="CenterScreen">
-    
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource WindowBackground}">
+
+
     <Grid>
-        <ContentControl x:Name="GlavniSadrzajAplikacije"/>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <!-- TITLE BAR -->
+
+        <Border Grid.Row="0"
+                Background="{DynamicResource CardBackground}"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="0,0,0,1">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+
+                    <ColumnDefinition Width="55"/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="40"/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <!-- POVLAČENJE PROZORA -->
+
+                <Grid Grid.Column="0"
+                      MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+
+                    <TextBlock
+                        Text="🎓 FakultetApp"
+                        Margin="15,0"
+                        VerticalAlignment="Center"
+                        FontWeight="Bold"
+                        FontSize="14"
+                        Foreground="{DynamicResource PrimaryText}"/>
+
+                </Grid>
+
+
+                <!-- DARK MODE -->
+
+                <ToggleButton
+                    x:Name="btnThemeToggle"
+                    Grid.Column="1"
+                    Margin="5"
+                    Cursor="Hand"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="{DynamicResource PrimaryText}"
+                    Content="🌙"
+                    FontSize="16"
+                    Click="BtnThemeToggle_Click"/>
+
+
+                <!-- MINIMIZE -->
+
+                <Button
+                    Grid.Column="2"
+                    Content="—"
+                    FontSize="18"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="{DynamicResource PrimaryText}"
+                    Cursor="Hand"
+                    Click="BtnMinimize_Click"/>
+
+
+                <!-- MAXIMIZE -->
+
+                <Button
+                    Grid.Column="3"
+                    Content="□"
+                    FontSize="16"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="{DynamicResource PrimaryText}"
+                    Cursor="Hand"
+                    Click="BtnMaximize_Click"/>
+
+
+                <!-- CLOSE -->
+
+                <Button
+                    Grid.Column="4"
+                    Content="✕"
+                    FontSize="15"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="{DynamicResource PrimaryText}"
+                    Cursor="Hand"
+                    Click="BtnClose_Click"/>
+
+
+            </Grid>
+
+        </Border>
+
+
+
+        <!-- GLAVNI SADRŽAJ -->
+
+        <Grid Grid.Row="1"
+              Background="{DynamicResource WindowBackground}">
+
+            <ContentControl x:Name="GlavniSadrzajAplikacije"/>
+
+        </Grid>
+
+
     </Grid>
+
 </Window>

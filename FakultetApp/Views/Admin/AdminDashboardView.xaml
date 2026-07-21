@@ -6,14 +6,14 @@
              xmlns:local="clr-namespace:FakultetApp.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="#F8F9FA">
+    <Grid Background="{DynamicResource WindowBackground}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="220"/>
             <ColumnDefinition Width="108*"/>
             <ColumnDefinition Width="37*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Background="#FF6985BD" CornerRadius="0,15,15,0">
+        <Border Grid.Column="0" Background="{DynamicResource AccentColor}" CornerRadius="0,15,15,0">
             <Grid Margin="15">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -21,18 +21,18 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="ADMIN PANEL" Foreground="White" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,30"/>
+                <TextBlock Grid.Row="0" Text="ADMIN PANEL" Foreground="{DynamicResource PrimaryText}" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,30"/>
 
                 <StackPanel Grid.Row="1">
-                    <Button x:Name="btnStudenti" Content="👨‍🎓 Studenti" Click="Nav_Click" Height="40" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" Padding="15,0,0,0" FontSize="14"/>
-                    <Button x:Name="btnProfesori" Content="👨‍🏫 Profesori" Click="Nav_Click" Height="40" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" Padding="15,0,0,0" FontSize="14"/>
-                    <Button x:Name="btnPredmeti" Content="📚 Predmeti i Profesori" Click="Nav_Click" Height="40" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" Padding="15,0,0,0" FontSize="14"/>
-                    <Button x:Name="btnAsistenti" Content="🤝 Asistenti na Predmetu" Click="Nav_Click" Height="40" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" Padding="15,0,0,0" FontSize="14"/>
-                    <Button x:Name="btnNoviAdmin" Content="⚙️ Kreiraj Admina" Click="Nav_Click" Height="40" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" Padding="15,0,0,0" FontSize="14"/>
-                    <Button x:Name="btnOdjava" Content="⬅️  Odjava" Click="Nav_Click" Height="40" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" Padding="15,0,0,0" FontSize="14"/>
+                    <Button x:Name="btnStudenti" Content="👨‍🎓 Studenti" Click="Nav_Click" Height="40" Background="Transparent" Foreground="{DynamicResource SecondaryText}" BorderThickness="0" HorizontalContentAlignment="Left" Padding="15,0,0,0" FontSize="14"/>
+                    <Button x:Name="btnProfesori" Content="👨‍🏫 Profesori" Click="Nav_Click" Height="40" Background="Transparent" Foreground="{DynamicResource SecondaryText}" BorderThickness="0" HorizontalContentAlignment="Left" Padding="15,0,0,0" FontSize="14"/>
+                    <Button x:Name="btnPredmeti" Content="📚 Predmeti i Profesori" Click="Nav_Click" Height="40" Background="Transparent" Foreground="{DynamicResource SecondaryText}" BorderThickness="0" HorizontalContentAlignment="Left" Padding="15,0,0,0" FontSize="14"/>
+                    <Button x:Name="btnAsistenti" Content="🤝 Asistenti na Predmetu" Click="Nav_Click" Height="40" Background="Transparent" Foreground="{DynamicResource SecondaryText}" BorderThickness="0" HorizontalContentAlignment="Left" Padding="15,0,0,0" FontSize="14"/>
+                    <Button x:Name="btnNoviAdmin" Content="⚙️ Kreiraj Admina" Click="Nav_Click" Height="40" Background="Transparent" Foreground="{DynamicResource SecondaryText}" BorderThickness="0" HorizontalContentAlignment="Left" Padding="15,0,0,0" FontSize="14"/>
+                    <Button x:Name="btnOdjava" Content="⬅️  Odjava" Click="Nav_Click" Height="40" Background="Transparent" Foreground="{DynamicResource SecondaryText}" BorderThickness="0" HorizontalContentAlignment="Left" Padding="15,0,0,0" FontSize="14"/>
                 </StackPanel>
 
-                <TextBlock Grid.Row="2" Text="Fakultet IS v1.0" Foreground="#9FA8DA" FontSize="11" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="2" Text="Fakultet IS v1.0" Foreground="{DynamicResource AccentColor}" FontSize="11" HorizontalAlignment="Center"/>
             </Grid>
         </Border>
 
@@ -42,7 +42,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock x:Name="txtNaslovSekcije" Grid.Row="0" Text="Dobrodošli u administratorski panel" FontSize="22" FontWeight="Bold" Foreground="#333" Margin="0,0,0,20"/>
+            <TextBlock x:Name="txtNaslovSekcije" Grid.Row="0" Text="Dobrodošli u administratorski panel" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,20"/>
 
             <ContentControl x:Name="PrikaznikSadrzaja" Grid.Row="1"/>
         </Grid>

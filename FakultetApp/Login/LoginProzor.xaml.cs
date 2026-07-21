@@ -1,4 +1,5 @@
-﻿using Fakultet.Servisi.IServis.Korisnici;
+﻿using Fakultet.Servisi.Helperi;
+using Fakultet.Servisi.IServis.Korisnici;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -81,6 +82,21 @@ namespace FakultetApp.Login
         {
             lblGreska.Text = greska;
             lblGreska.Visibility = Visibility.Visible;
+        }
+
+        private void BtnThemeToggle_Click(object sender, RoutedEventArgs e)
+        {
+            ThemeManager.ToggleTheme();
+        }
+
+        private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

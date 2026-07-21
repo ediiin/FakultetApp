@@ -4,40 +4,103 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FakultetApp.Views.Admin">
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-		<Border Background="#F5F5F5" Padding="10" CornerRadius="5" Margin="0,0,0,15">
-			<StackPanel Orientation="Horizontal">
-				<StackPanel Margin="0,0,15,0">
-					<TextBlock Text="Ime i prezime ili indeks:" Margin="0,0,0,5" FontWeight="Bold"/>
-					<TextBox Name="txtFilterImePrezimeIndeks" Width="350" Height="25" TextChanged="Filter_TextChanged"/>
-				</StackPanel>
-			</StackPanel>
-		</Border>
+        <Border Background="{DynamicResource CardBackground}" 
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="1"
+                Padding="10" 
+                CornerRadius="5" 
+                Margin="0,0,0,15">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Margin="0,0,15,0">
+                    <TextBlock Text="Ime i prezime ili indeks:" 
+                               Foreground="{DynamicResource PrimaryText}"
+                               Margin="0,0,0,5" 
+                               FontWeight="Bold"/>
+                    <TextBox Name="txtFilterImePrezimeIndeks" 
+                             Width="350" 
+                             Height="25" 
+                             Background="{DynamicResource WindowBackground}"
+                             Foreground="{DynamicResource PrimaryText}"
+                             BorderBrush="{DynamicResource BorderColor}"
+                             VerticalContentAlignment="Center"
+                             Padding="3,0"
+                             TextChanged="Filter_TextChanged"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
 
-		<DataGrid Name="dgvStudenti" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="#F9F9F9">
-			<DataGrid.Columns>
-				<DataGridTextColumn Header="(Indeks) - Ime i prezime" Binding="{Binding}" Width="*"/>
+        <DataGrid Name="dgvStudenti" 
+                  Grid.Row="1" 
+                  AutoGenerateColumns="False" 
+                  IsReadOnly="True" 
+                  Background="{DynamicResource CardBackground}"
+                  RowBackground="{DynamicResource CardBackground}"
+                  AlternatingRowBackground="{DynamicResource WindowBackground}"
+                  Foreground="{DynamicResource PrimaryText}"
+                  BorderBrush="{DynamicResource BorderColor}"
+                  HorizontalGridLinesBrush="{DynamicResource BorderColor}"
+                  VerticalGridLinesBrush="{DynamicResource BorderColor}"
+                  HeadersVisibility="Column"
+                  BorderThickness="1">
 
-				<DataGridTemplateColumn Header="Akcija" Width="150">
-					<DataGridTemplateColumn.CellTemplate>
-						<DataTemplate>
-							<Button Name="btnIspis"
-									Content="Ispis sa fakulteta"
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="{DynamicResource BorderColor}" />
+                    <Setter Property="Foreground" Value="{DynamicResource PrimaryText}" />
+                    <Setter Property="FontWeight" Value="SemiBold" />
+                    <Setter Property="Padding" Value="10,8" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource WindowBackground}" />
+                    <Setter Property="BorderThickness" Value="0,0,1,1" />
+                </Style>
+
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="{DynamicResource CardBackground}" />
+                    <Setter Property="Foreground" Value="{DynamicResource PrimaryText}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource AccentColor}" />
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Padding" Value="5,3" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="BorderBrush" Value="Transparent" />
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="(Indeks) - Ime i prezime" Binding="{Binding}" Width="*"/>
+
+                <DataGridTemplateColumn Header="Akcija" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="btnIspis"
+                                    Content="Ispis sa fakulteta"
                                     Background="#FF4D4D"
                                     Foreground="White"
                                     FontWeight="Bold"
                                     Padding="5,2"
+                                    Cursor="Hand"
                                     Click="BtnIspis_Click"
                                     CommandParameter="{Binding}"/>
-						</DataTemplate>
-					</DataGridTemplateColumn.CellTemplate>
-				</DataGridTemplateColumn>
-			</DataGrid.Columns>
-		</DataGrid>
-	</Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>

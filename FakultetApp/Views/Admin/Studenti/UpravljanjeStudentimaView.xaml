@@ -6,15 +6,35 @@
              xmlns:local="clr-namespace:FakultetApp.Views.Admin"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,20">
-            <Button Name="btnPrikažiSve" Content="Prikaži sve studente" FontSize="15" Width="170" Height="35" Margin="0,0,10,0" Click="StudentNav_Click"/>
-            <Button Name="btnDodajStudenta" Content="Dodaj novog studenta" FontSize="15" Width="170" Height="35" Margin="30, 5" Click="StudentNav_Click"/>
+            <Button Name="btnPrikažiSve" 
+                    Content="Prikaži sve studente" 
+                    FontSize="15" 
+                    Width="170" 
+                    Height="35" 
+                    Margin="0,0,10,0" 
+                    Background="{DynamicResource CardBackground}"
+                    Foreground="{DynamicResource PrimaryText}"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    Cursor="Hand"
+                    Click="StudentNav_Click"/>
+            <Button Name="btnDodajStudenta" 
+                    Content="Dodaj novog studenta" 
+                    FontSize="15" 
+                    Width="170" 
+                    Height="35" 
+                    Margin="30, 5" 
+                    Background="{DynamicResource CardBackground}"
+                    Foreground="{DynamicResource PrimaryText}"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    Cursor="Hand"
+                    Click="StudentNav_Click"/>
         </StackPanel>
 
         <ContentControl Name="StudentiSadrzaj" Grid.Row="1"/>

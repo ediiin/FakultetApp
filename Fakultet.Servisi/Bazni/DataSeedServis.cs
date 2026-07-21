@@ -272,8 +272,6 @@ namespace Fakultet.Servisi.Bazni
         private void KreirajStudije()
         {
             _studijServis.Add(new Studij { Smjer = "Razvoj softvera", Zvanje = "Bachelor" });
-            _studijServis.Add(new Studij { Smjer = "Razvoj softvera", Zvanje = "Master" });
-            _studijServis.Add(new Studij { Smjer = "Razvoj softvera", Zvanje = "Doktorat" });
             _studijServis.Add(new Studij { Smjer = "Softverski inžinjering", Zvanje = "Bachelor" });
             _studijServis.Add(new Studij { Smjer = "Softverski inžinjering", Zvanje = "Master" });
             _studijServis.Add(new Studij { Smjer = "Softverski inžinjering", Zvanje = "Doktorat" });
