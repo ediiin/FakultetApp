@@ -188,4 +188,80 @@
         </Setter>
     </Style>
 
+    <!-- STIL ZA DATAGRID -->
+    <Style TargetType="DataGrid">
+        <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource BorderColor}"/>
+        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource BorderColor}"/>
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="RowHeight" Value="35"/>
+        <Setter Property="AlternationCount" Value="2"/>
+    </Style>
+
+    <!-- STIL ZA ZAGLAVLJE DATAGRIDA -->
+    <Style TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="{DynamicResource BorderColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="10,8"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource WindowBackground}"/>
+        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+    </Style>
+
+    <!-- STIL ZA REDOVE (Nema hovera, nema promjene boje pri selekciji) -->
+    <Style TargetType="DataGridRow">
+        <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+        <Style.Triggers>
+            <!-- 1. Prikaz alternirajućih redova -->
+            <Trigger Property="AlternationIndex" Value="1">
+                <Setter Property="Background" Value="{DynamicResource WindowBackground}"/>
+            </Trigger>
+
+            <!-- 2. Sprečavanje promjene boje pri selekciji za obične redove -->
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+                <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"/>
+            </Trigger>
+
+            <!-- 3. Sprečavanje promjene boje pri selekciji za alternirajuće redove -->
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="AlternationIndex" Value="1"/>
+                    <Condition Property="IsSelected" Value="True"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" Value="{DynamicResource WindowBackground}"/>
+                <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"/>
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- STIL ZA ĆELIJE -->
+    <Style TargetType="DataGridCell">
+        <Setter Property="Padding" Value="10,0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridCell">
+                    <Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

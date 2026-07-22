@@ -36,7 +36,7 @@ namespace FakultetApp.Views.Admin.ProfesoriLogika
             if (profesorovGrad != null)
             {
                 cmbGrad.ItemsSource = new List<Grad> { profesorovGrad };
-                cmbGrad.DisplayMemberPath = "Naziv";
+                cmbGrad.DisplayMemberPath = "ZvanjeImePrezime";
                 cmbGrad.SelectedIndex = 0;
             }
         }

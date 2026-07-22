@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="FakultetApp.Views.Admin.Predmeti.PredmetEditView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FakultetApp.Views.Admin.Predmeti"
+             mc:Ignorable="d" 
+             VerticalAlignment="Stretch"
+             HorizontalAlignment="Stretch">
+
+    <Grid Background="{DynamicResource WindowBackground}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Border Background="{DynamicResource CardBackground}"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    BorderThickness="1"
+                    CornerRadius="8" 
+                    Padding="30" 
+                    MinWidth="900"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top"
+                    Margin="20">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Row 0: Naziv Predmeta & ECTS -->
+                    <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,0,15">
+                        <TextBlock Text="Naziv predmeta" Foreground="{DynamicResource PrimaryText}" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox Name="tbNaziv" Background="{DynamicResource WindowBackground}" Foreground="{DynamicResource PrimaryText}" BorderBrush="{DynamicResource BorderColor}" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblNazivError" Text="Naziv predmeta je obavezan!" Foreground="{DynamicResource Error}" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,0,0,15">
+                        <TextBlock Text="ECTS Bodovi" Foreground="{DynamicResource PrimaryText}" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <TextBox Name="tbECTS" Background="{DynamicResource WindowBackground}" Foreground="{DynamicResource PrimaryText}" BorderBrush="{DynamicResource BorderColor}" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblECTSError" Text="Neispravan unos ECTS bodova!" Foreground="{DynamicResource Error}" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
+
+                    <!-- Row 1: Profesor & Godina Studija -->
+                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,0,15">
+                        <TextBlock Text="Profesor" Foreground="{DynamicResource PrimaryText}" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ComboBox Name="cmbProfesor" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblProfesorError" Text="Odabir profesora je obavezan!" Foreground="{DynamicResource Error}" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,0,0,15">
+                        <TextBlock Text="Godina Studija" Foreground="{DynamicResource PrimaryText}" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ComboBox Name="cmbGodinaStudija" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblGodinaStudijaError" Text="Odabir godine studija je obavezan!" Foreground="{DynamicResource Error}" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
+
+                    <!-- Row 2: Dugme Sačuvaj Izmjene -->
+                    <StackPanel Grid.Row="2" Grid.Column="2" Margin="0,15,0,0" VerticalAlignment="Bottom">
+                        <Button Name="btnSacuvajIzmjene"
+                                Content="Sačuvaj Izmjene" 
+                                FontSize="15" 
+                                FontWeight="Bold"
+                                Background="{DynamicResource AccentColor}" 
+                                Foreground="White" 
+                                Padding="50,8" 
+                                HorizontalAlignment="Right" 
+                                Cursor="Hand" 
+                                Click="BtnSacuvajIzmjene_Click" />
+
+                        <TextBlock x:Name="lblDuplikatError" 
+                                   Text="Predmet sa ovim nazivom već postoji!" 
+                                   Foreground="{DynamicResource Error}" 
+                                   FontSize="10" 
+                                   FontWeight="SemiBold"
+                                   Margin="0,3,0,0" 
+                                   HorizontalAlignment="Right"
+                                   Visibility="Hidden"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

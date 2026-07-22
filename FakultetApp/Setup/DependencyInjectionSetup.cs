@@ -7,6 +7,7 @@ using FakultetApp.Login;
 using FakultetApp.Views;
 using FakultetApp.Views.Admin;
 using FakultetApp.Views.Admin.Asistenti;
+using FakultetApp.Views.Admin.Predmeti;
 using FakultetApp.Views.Admin.ProfesoriLogika;
 using FakultetApp.Views.Admin.Studenti;
 using FakultetApp.Views.Predmeti;
@@ -56,6 +57,7 @@ namespace Fakultet.Servisi.Setup
             services.AddTransient<UpravljanjePredmetimaView>(); 
             services.AddTransient<PredmetPregledView>(); 
             services.AddTransient<PredmetDodajView>();
+            services.AddTransient<PredmetEditView>();
             //admin - asistenti
             services.AddTransient<UpravljanjeAsistentimaView>();
             services.AddTransient<AsistentPregledView>();

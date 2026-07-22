@@ -47,7 +47,7 @@
                   HorizontalGridLinesBrush="{DynamicResource BorderColor}"
                   VerticalGridLinesBrush="{DynamicResource BorderColor}"
                   HeadersVisibility="Column"
-                  BorderThickness="1">
+                  BorderThickness="1" MouseDoubleClick="dgvPredmeti_MouseDoubleClick">
 
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">

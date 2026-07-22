@@ -1,7 +1,6 @@
 ﻿using Fakultet.Core.Modeli;
 using Fakultet.Servisi.IServis.Korisnici;
 using Fakultet.Servisi.IServis.Pomocni;
-using FakultetApp.Views.Admin.ProfesoriLogika;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
