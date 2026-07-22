@@ -1,7 +1,10 @@
 ﻿using Fakultet.Core.Modeli;
 using Fakultet.Servisi.IServis.Korisnici;
+using Fakultet.Servisi.IServis.Pomocni;
+using FakultetApp.Views.Admin.ProfesoriLogika;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace FakultetApp.Views.Admin.Asistenti
 {
@@ -11,11 +14,19 @@ namespace FakultetApp.Views.Admin.Asistenti
     public partial class AsistentPregledView : UserControl
     {
         private readonly AsistentServis _asistentServis;
+        private readonly GradServis _gradServis;
+        private readonly SpolServis _spolServis;
         private List<Asistent> _asistenti = new List<Asistent>();
-        public AsistentPregledView(AsistentServis asistentServis)
+        public AsistentPregledView(
+            AsistentServis asistentServis,
+            GradServis gradServis,
+            SpolServis spolServis)
         {
             InitializeComponent();
             _asistentServis = asistentServis;
+            _gradServis = gradServis;
+            _spolServis = spolServis;
+
             UcitajAsistente();
         }
         private void UcitajAsistente()
@@ -42,6 +53,29 @@ namespace FakultetApp.Views.Admin.Asistenti
                 _asistentServis.Deaktiviraj(izabraniAsistent.Id);
                 MessageBox.Show("Asistent uspješno uklonjen!", "Uspjeh", MessageBoxButton.OK, MessageBoxImage.Information);
                 UcitajAsistente();
+            }
+        }
+
+        private void dgvAsistenti_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var izabraniAsistent = dgvAsistenti.SelectedItem as Asistent;
+            if (izabraniAsistent != null)
+            {
+                var editView = new AsistentiEditView(
+                    izabraniAsistent,
+                    _asistentServis,
+                    _gradServis,
+                    _spolServis
+                    );
+
+                var mainWindow = Window.GetWindow(this) as MainWindow;
+
+                if (mainWindow != null &&
+                    mainWindow.GlavniSadrzajAplikacije.Content is AdminDashboardView dashboard &&
+                    dashboard.PrikaznikSadrzaja.Content is UpravljanjeAsistentimaView upravljanje)
+                {
+                    upravljanje.AsistentiSadrzaj.Content = editView;
+                }
             }
         }
     }

@@ -60,6 +60,7 @@ namespace Fakultet.Servisi.Setup
             services.AddTransient<UpravljanjeAsistentimaView>();
             services.AddTransient<AsistentPregledView>();
             services.AddTransient<AsistentDodajView>();
+            services.AddTransient<AsistentiEditView>();
 
             // mainwindow drzimo u memoriji zato singleton
             services.AddSingleton<MainWindow>();
