@@ -2,7 +2,6 @@
 using Fakultet.Servisi.Helperi;
 using Fakultet.Servisi.IServis.Korisnici;
 using Fakultet.Servisi.IServis.Pomocni;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Fakultet.Servisi.Bazni
+﻿namespace Fakultet.Servisi.Bazni
 {
     public interface IServis<T> where T : class
     {

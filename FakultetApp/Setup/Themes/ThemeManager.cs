@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace Fakultet.Servisi.Helperi
+﻿namespace Fakultet.Servisi.Helperi
 {
     public static class ThemeManager
     {

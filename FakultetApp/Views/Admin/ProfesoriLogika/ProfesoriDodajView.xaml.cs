@@ -2,18 +2,8 @@
 using Fakultet.Servisi.Helperi;
 using Fakultet.Servisi.IServis.Korisnici;
 using Fakultet.Servisi.IServis.Pomocni;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FakultetApp.Views.Admin.ProfesoriLogika
 {
@@ -34,7 +24,21 @@ namespace FakultetApp.Views.Admin.ProfesoriLogika
 
             UcitajSpolove();
             UcitajGradove();
-            cmbZvanje.ItemsSource = Enum.GetValues(typeof(Zvanje));
+            UcitajZvanje();
+        }
+
+        private void UcitajZvanje()
+        {
+            cmbZvanje.ItemsSource = Enum.GetValues(typeof(Zvanje))
+                            .Cast<Zvanje>()
+                            .Select(z => new
+                            {
+                                Vrijednost = z,
+                                Prikaz = z.ToFriendlyString()
+                            })
+                            .ToList();
+            cmbZvanje.DisplayMemberPath = "Prikaz";
+            cmbZvanje.SelectedValuePath = "Vrijednost";
             cmbZvanje.SelectedIndex = 0;
         }
 

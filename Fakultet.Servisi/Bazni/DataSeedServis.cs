@@ -1,10 +1,6 @@
 ﻿using Fakultet.Core.Modeli;
 using Fakultet.Servisi.IServis.Korisnici;
 using Fakultet.Servisi.IServis.Pomocni;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Text;
 
 namespace Fakultet.Servisi.Bazni
 {

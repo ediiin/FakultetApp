@@ -1,12 +1,7 @@
 ﻿using Fakultet.Servisi.Bazni;
-using Fakultet.Servisi.IServis.Korisnici;
-using Fakultet.Servisi.IServis.Pomocni;
 using Fakultet.Servisi.Setup;
 using FakultetApp.Login;
-using FakultetApp.Views;
 using Microsoft.Extensions.DependencyInjection;
-using System.Configuration;
-using System.Data;
 using System.Windows;
 
 namespace FakultetApp

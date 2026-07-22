@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.IO; // <-- OVO TI JE FALILO ZA 'Directory'
 
 namespace Fakultet.Servisi.Bazni
 {
