@@ -63,7 +63,7 @@ namespace FakultetApp.Views.Admin.ProfesoriLogika
 
             var grad = cmbGrad.SelectedItem as Grad;
             var spol = cmbSpol.SelectedItem as Spol;
-            decimal plata = int.Parse(tbPlata.Text);
+            decimal plata = decimal.Parse(tbPlata.Text);
 
             var noviProfesor = new Profesor()
             {
@@ -77,7 +77,7 @@ namespace FakultetApp.Views.Admin.ProfesoriLogika
                 SpolId = spol!.Id,
                 GradId = grad!.Id,
                 Plata = plata,
-                Zvanje = (Zvanje)cmbZvanje.SelectedItem,
+                Zvanje = (Zvanje)cmbZvanje.SelectedValue,
                 Ocjena = 0.0f,
                 LozinkaHash = BCrypt.Net.BCrypt.HashPassword(pbLozinka.Password)
             };
