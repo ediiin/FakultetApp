@@ -8,7 +8,8 @@ namespace Fakultet.Servisi.Helperi
     public static class OsobaValidacija
     {
         public static Dictionary<string, string> ValidirajSve(string ime, string prezime, string korisnickoIme,
-                                                              string email, string jmbg, DateTime? datumRodjenja, string lozinka)
+                                                              string email, string jmbg, DateTime? datumRodjenja, 
+                                                              string lozinka, bool obaveznaLozinka = true)
         {
             var greske = new Dictionary<string, string>();
 
@@ -38,7 +39,8 @@ namespace Fakultet.Servisi.Helperi
 
             if (string.IsNullOrWhiteSpace(lozinka))
             {
-                greske.Add("Lozinka", "Polje 'Lozinka' obavezno!");
+                if (obaveznaLozinka)
+                    greske.Add("Lozinka", "Polje 'Lozinka' obavezno!");
             }
             else
             {

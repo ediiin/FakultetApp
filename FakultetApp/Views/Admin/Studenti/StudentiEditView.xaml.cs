@@ -1,18 +1,9 @@
 ﻿using Fakultet.Core.Modeli;
+using Fakultet.Servisi.Helperi;
 using Fakultet.Servisi.IServis.Korisnici;
 using Fakultet.Servisi.IServis.Pomocni;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FakultetApp.Views.Admin.Studenti
 {
@@ -81,28 +72,21 @@ namespace FakultetApp.Views.Admin.Studenti
 
         private void UcitajPodatkeStudenta()
         {
-            // cmbStatus.ItemsSource = Enum.GetValues(typeof(Status));
+            cmbStatus.ItemsSource = Enum.GetValues(typeof(Status));
+            cmbStatus.SelectedValue = _student.Status;
             UcitajSpol();
             UcitajGrad();
             UcitajStudij();
 
-            // 2. TEKSTUALNA POLJA
             tbIme.Text = _student.Ime;
             tbPrezime.Text = _student.Prezime;
             tbKorisnickoIme.Text = _student.KorisnickoIme;
             tbEmail.Text = _student.Email;
 
-            // Polja zabranjena za izmjenu
             tbJMBG.Text = _student.JMBG;
             dtpDatumRodjenja.SelectedDate = _student.DatumRodjenja;
             tbIndeks.Text = _student.Indeks;
             dtpDatumUpisa.SelectedDate = _student.DatumUpisa;
-
-            // 3. SELEKTOVANJE VRIJEDNOSTI (Poveži ID-eve iz objekta sa ComboBox-om)
-            // cmbSpol.SelectedValue = _student.SpolId;
-            // cmbGrad.SelectedValue = _student.GradId;
-            // cmbGodinaStudija.SelectedValue = _student.GodinaStudijaId;
-            // cmbStatus.SelectedItem = _student.Status;
         }
 
         private void CmbStudij_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -128,51 +112,77 @@ namespace FakultetApp.Views.Admin.Studenti
 
         private void BtnSacuvajIzmjene_Click(object sender, RoutedEventArgs e)
         {
-            // 1. OSNOVNA VALIDACIJA (Možeš dodati metode za prikaz lbl errora kao u dodavanju)
-            if (string.IsNullOrWhiteSpace(tbIme.Text) || string.IsNullOrWhiteSpace(tbPrezime.Text))
-            {
-                MessageBox.Show("Ime i prezime su obavezni!", "Greška", MessageBoxButton.OK, MessageBoxImage.Warning);
+            if (!Validno())
                 return;
-            }
 
-            // 2. AŽURIRANJE PODATAKA
             _student.Ime = tbIme.Text;
             _student.Prezime = tbPrezime.Text;
             _student.KorisnickoIme = tbKorisnickoIme.Text;
             _student.Email = tbEmail.Text;
+            var status = (Status)cmbStatus.SelectedItem;
+            var godinaStudija = (GodinaStudija)cmbGodinaStudija.SelectedItem;
+            _student.GodinaStudijaId = godinaStudija.Id;
+            _student.Status = status;
 
-            // _student.GodinaStudijaId = (int)cmbGodinaStudija.SelectedValue;
-            // _student.Status = (Status)cmbStatus.SelectedItem;
-            // ... (Ažuriraj ostale editabilne dropdowne)
-
-            // 3. PROMJENA LOZINKE (samo ako je nešto upisano)
             if (!string.IsNullOrWhiteSpace(pbLozinka.Password))
             {
-                // Primijeni svoju metodu za kriptovanje (npr. HashHelper)
-                // _student.LozinkaHash = MojHashHelper.NapraviHash(pbLozinka.Password); 
+                _student.LozinkaHash = BCrypt.Net.BCrypt.HashPassword(pbLozinka.Password);
             }
 
-            try
-            {
-                // 4. SPAŠAVANJE KROZ SERVIS
-                // Pretpostavljam da imaš metodu Update(id, objekat)
-                // _studentServis.Update(_student.Id, _student);
+            _studentServis.Update(_student);
+            MessageBox.Show("Podaci o studentu uspješno ažurirani!", "Uspjeh", 
+                MessageBoxButton.OK, MessageBoxImage.Information);
+            pbLozinka.Clear();
+        }
 
-                MessageBox.Show("Podaci o studentu uspješno ažurirani!", "Uspjeh", MessageBoxButton.OK, MessageBoxImage.Information);
+        private void OcistiGreske()
+        {
+            lblImeError.Visibility = Visibility.Hidden;
+            lblPrezimeError.Visibility = Visibility.Hidden;
+            lblKorisnickoImeError.Visibility = Visibility.Hidden;
+            lblEmailError.Visibility = Visibility.Hidden;
+            lblJMBGError.Visibility = Visibility.Hidden;
+            lblDatumRodjenjaError.Visibility = Visibility.Hidden;
+            lblLozinkaError.Visibility = Visibility.Hidden;
+            lblStudijError.Visibility = Visibility.Hidden;
+            lblGodinaStudijaError.Visibility = Visibility.Hidden;
+        }
 
-                // 5. POVRATAK NAZAD
-                var mainWindow = Window.GetWindow(this) as MainWindow;
-                if (mainWindow != null)
-                {
-                    // Vraćanje na view za upravljanje studentima
-                    // Napomena: Ukoliko UpravljanjeStudentima prima neke servise u konstruktoru, dodaj ih ovdje
-                    // mainWindow.GlavniSadrzajAplikacije.Content = new UpravljanjeStudentimaView();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Došlo je do greške: {ex.Message}", "Greška", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+        private bool Validno()
+        {
+            OcistiGreske();
+
+            var greske = OsobaValidacija.ValidirajSve(
+                    tbIme.Text,
+                    tbPrezime.Text,
+                    tbKorisnickoIme.Text,
+                    tbEmail.Text,
+                    tbJMBG.Text,
+                    dtpDatumRodjenja.SelectedDate,
+                    pbLozinka.Password,
+                    false
+                );
+
+            if (cmbStudij.SelectedItem == null)
+                lblStudijError.Visibility = Visibility.Visible;
+
+            if (cmbGodinaStudija.SelectedItem == null)
+                lblGodinaStudijaError.Visibility = Visibility.Visible;
+
+            if (greske.TryGetValue("Ime", out string? errIme)) { lblImeError.Text = errIme; lblImeError.Visibility = Visibility.Visible; };
+            if (greske.TryGetValue("Prezime", out string? errPrezime)) { lblPrezimeError.Text = errPrezime; lblPrezimeError.Visibility = Visibility.Visible; }
+            if (greske.TryGetValue("KorisnickoIme", out string? errKorIme)) { lblKorisnickoImeError.Text = errKorIme; lblKorisnickoImeError.Visibility = Visibility.Visible; }
+            if (greske.TryGetValue("Email", out string? errEmail)) { lblEmailError.Text = errEmail; lblEmailError.Visibility = Visibility.Visible; }
+            if (greske.TryGetValue("JMBG", out string? errJmbg)) { lblJMBGError.Text = errJmbg; lblJMBGError.Visibility = Visibility.Visible; }
+            if (greske.TryGetValue("DatumRodjenja", out string? errDatum)) { lblDatumRodjenjaError.Text = errDatum; lblDatumRodjenjaError.Visibility = Visibility.Visible; }
+            if (greske.TryGetValue("Lozinka", out string? errLozinka)) { lblLozinkaError.Text = errLozinka; lblLozinkaError.Visibility = Visibility.Visible; }
+
+            if (cmbStudij.SelectedItem == null
+                || cmbGodinaStudija.SelectedItem == null)
+                return false;
+            if (greske.Count == 0)
+                return true;
+            return false;
         }
     }
 }
