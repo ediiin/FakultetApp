@@ -12,7 +12,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Okvir za pretragu sa usklađenim ivicama -->
+        <!-- Okvir za pretragu -->
         <Border Background="{DynamicResource CardBackground}" 
                 BorderBrush="{DynamicResource BorderColor}" 
                 BorderThickness="1"
@@ -38,24 +38,22 @@
             </StackPanel>
         </Border>
 
-        <!-- DataGrid sa ubačenim stilovima -->
+        <!-- DataGrid OČIŠĆEN od lokalnih stilova -->
         <DataGrid Name="dgvAsistenti"
                   Grid.Row="1"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   Background="{DynamicResource CardBackground}"
-                  RowBackground="{DynamicResource CardBackground}"
                   AlternatingRowBackground="{DynamicResource WindowBackground}"
-                  Foreground="{DynamicResource PrimaryText}"
                   BorderBrush="{DynamicResource BorderColor}"
                   HorizontalGridLinesBrush="{DynamicResource BorderColor}"
                   VerticalGridLinesBrush="{DynamicResource BorderColor}"
                   HeadersVisibility="Column"
-                  BorderThickness="1" MouseDoubleClick="dgvAsistenti_MouseDoubleClick">
+                  BorderThickness="1" 
+                  MouseDoubleClick="dgvAsistenti_MouseDoubleClick">
 
-            <!-- STILOVI ZA ZAGLAVLJE I SELEKTOVANI RED (Kopirano iz PredmetPregled) -->
+            <!-- STIL ZA ZAGLAVLJE DATAGRIDA (Jedini koji ostavljamo lokalno jer ti fali u ResourceDictionary) -->
             <DataGrid.Resources>
-
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="Background" Value="{DynamicResource BorderColor}" />
                     <Setter Property="Foreground" Value="{DynamicResource PrimaryText}" />
@@ -64,29 +62,6 @@
                     <Setter Property="BorderBrush" Value="{DynamicResource WindowBackground}" />
                     <Setter Property="BorderThickness" Value="0,0,1,1" />
                 </Style>
-
-                <Style TargetType="DataGridRow">
-                    <Setter Property="Background" Value="{DynamicResource CardBackground}" />
-                    <Setter Property="Foreground" Value="{DynamicResource PrimaryText}" />
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource AccentColor}" />
-                            <Setter Property="Foreground" Value="White" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-
-                <Style TargetType="DataGridCell">
-                    <Setter Property="Padding" Value="5,3" />
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="BorderBrush" Value="Transparent" />
-                            <Setter Property="Foreground" Value="White" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-
             </DataGrid.Resources>
 
             <DataGrid.Columns>
@@ -96,7 +71,6 @@
                 <DataGridTemplateColumn Header="Akcija" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <!-- Dugmetu sam samo dodao Cursor="Hand" zbog boljeg osjećaja -->
                             <Button Name="btnObrisi"
                                     Content="Ukloni asistenta"
                                     Background="{DynamicResource Error}"

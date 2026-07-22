@@ -78,7 +78,7 @@
                     <!-- Row 3: JMBG & Datum Rođenja (ZABRANJEN EDIT) -->
                     <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,0,15">
                         <TextBlock Text="JMBG (Nije moguće mijenjati)" Foreground="{DynamicResource PrimaryText}" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
-                        <TextBox Name="tbJMBG" FontSize="15" Padding="5" IsReadOnly="True" Background="{DynamicResource BorderColor}" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold" BorderBrush="{DynamicResource BorderColor}"/>
+                        <TextBox Name="tbJMBG" FontSize="15" Padding="5" IsReadOnly="True" FontWeight="Bold" BorderBrush="{DynamicResource BorderColor}"/>
                         <TextBlock x:Name="lblJMBGError" Text="" Foreground="{DynamicResource Error}" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
                     </StackPanel>
 

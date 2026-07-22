@@ -9,8 +9,30 @@
     <SolidColorBrush x:Key="AccentColor" Color="#2e2e2c"/>
     <SolidColorBrush x:Key="Error" Color="Red"/>
     <SolidColorBrush x:Key="Naslov" Color="FloralWhite"/>
+    <SolidColorBrush x:Key="DisabledBackground" Color="#2A2A2A"/>
+    <SolidColorBrush x:Key="DisabledText" Color="#7A8494"/>
 
-    <!-- STIL ZA COMBOBOX (Prozirni trik koji ne kvari DisplayMemberPath) -->
+    <!-- STIL ZA TEXTBOX -->
+    <Style TargetType="TextBox">
+        <Setter Property="Background" Value="{DynamicResource WindowBackground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Style.Triggers>
+            <!-- Mijenja boju ako je samo za čitanje (npr. JMBG) -->
+            <Trigger Property="IsReadOnly" Value="True">
+                <Setter Property="Background" Value="{DynamicResource DisabledBackground}"/>
+                <Setter Property="Foreground" Value="{DynamicResource DisabledText}"/>
+            </Trigger>
+            <!-- Mijenja boju ako je potpuno onemogućeno -->
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{DynamicResource DisabledBackground}"/>
+                <Setter Property="Foreground" Value="{DynamicResource DisabledText}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- STIL ZA COMBOBOX -->
     <Style TargetType="ComboBox">
         <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
         <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"/>
@@ -21,7 +43,6 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
                     <Grid>
-                        <!-- 1. Naš vlastiti dizajn koji 100% sluša tvoje Dark/Light boje -->
                         <Border x:Name="border" 
                                 Background="{TemplateBinding Background}" 
                                 BorderBrush="{TemplateBinding BorderBrush}" 
@@ -33,7 +54,6 @@
                                     <ColumnDefinition Width="30"/>
                                 </Grid.ColumnDefinitions>
 
-                                <!-- Ovaj dio garantuje da DisplayMemberPath radi normalno -->
                                 <ContentPresenter Grid.Column="0" 
                                                   Margin="{TemplateBinding Padding}" 
                                                   Content="{TemplateBinding SelectionBoxItem}" 
@@ -43,8 +63,9 @@
                                                   HorizontalAlignment="Left" 
                                                   IsHitTestVisible="False"/>
 
-                                <!-- Strelica menija -->
-                                <Path Grid.Column="1" 
+                                <!-- Dodan x:Name="arrow" da ga možemo posiviti u triggeru -->
+                                <Path x:Name="arrow" 
+                                      Grid.Column="1" 
                                       Data="M 0 0 L 4 4 L 8 0 Z" 
                                       Fill="{DynamicResource PrimaryText}" 
                                       HorizontalAlignment="Center" 
@@ -53,12 +74,10 @@
                             </Grid>
                         </Border>
 
-                        <!-- 2. "Nevidljivi" pravi ComboBox kliker koji pokriva sve i otvara meni -->
                         <ToggleButton Opacity="0" 
                                       Cursor="Hand"
                                       IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
 
-                        <!-- 3. Padajući meni -->
                         <Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" AllowsTransparency="True" PopupAnimation="Slide">
                             <Border Background="{DynamicResource CardBackground}" 
                                     BorderBrush="{DynamicResource BorderColor}" 
@@ -73,29 +92,100 @@
                             </Border>
                         </Popup>
                     </Grid>
+
+                    <!-- TRIGGERI UNUTAR TEMPLATE-a ZA ZAKLJUČAN COMBOBOX -->
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource DisabledBackground}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledText}"/>
+                            <Setter TargetName="arrow" Property="Fill" Value="{DynamicResource DisabledText}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <!-- STIL ZA POJEDINAČNE STAVKE U COMBOBOXU -->
     <Style TargetType="ComboBoxItem">
         <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
         <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"/>
         <Setter Property="Padding" Value="8,5"/>
     </Style>
 
-    <!-- STIL ZA DATEPICKER (Rješava bijelu pozadinu polja za unos) -->
+    <!-- UNIVERZALNI STIL ZA DATEPICKER (Rješava sve probleme sa pozadinom i dugmetom) -->
     <Style TargetType="DatePicker">
-        <Setter Property="Background" Value="{DynamicResource CardBackground}"/>
+        <Setter Property="Background" Value="{DynamicResource WindowBackground}"/>
         <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DatePicker">
+                    <Border x:Name="PART_Root"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="4">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="30" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Unutrašnje polje za tekst bez ikakvih svojih pozadina -->
+                            <DatePickerTextBox x:Name="PART_TextBox"
+                                               Grid.Column="0"
+                                               Focusable="{TemplateBinding Focusable}"
+                                               HorizontalContentAlignment="Stretch"
+                                               VerticalContentAlignment="Center"
+                                               Background="Transparent"
+                                               BorderThickness="0"
+                                               Margin="2,0,0,0"
+                                               Foreground="{TemplateBinding Foreground}" />
+
+                            <!-- Naše novo dugme za kalendar koje nema Windows gradijente -->
+                            <Button x:Name="PART_Button"
+                                    Grid.Column="1"
+                                    Focusable="False"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Cursor="Hand">
+                                <!-- Čista, ravna ikonica kalendara koja se crta bojom teksta -->
+                                <Path Data="M 2 3 L 14 3 L 14 14 L 2 14 Z M 5 1 L 5 4 M 11 1 L 11 4 M 2 6 L 14 6"
+                                      Stroke="{TemplateBinding Foreground}"
+                                      StrokeThickness="1.5"
+                                      Fill="Transparent"
+                                      Width="16" 
+                                      Height="16"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                            </Button>
+
+                            <!-- Padajući kalendar -->
+                            <Popup x:Name="PART_Popup"
+                                   AllowsTransparency="True"
+                                   Placement="Bottom"
+                                   PlacementTarget="{Binding ElementName=PART_Root}"
+                                   StaysOpen="False" />
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <!-- KADA JE ZAKLJUČANO: Cijela kontrola se boji u #2A2A2A -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="PART_Root" Property="Background" Value="{DynamicResource DisabledBackground}"/>
+                            <Setter TargetName="PART_Root" Property="BorderBrush" Value="{DynamicResource DisabledBackground}"/>
+                            <!-- Tekst i ikonica postaju sivi da označe da je zaključano -->
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledText}"/>
+                            <!-- Ikonica dobija manji opacity da se uklopi -->
+                            <Setter TargetName="PART_Button" Property="Opacity" Value="0.6"/>
+                            <!-- Kursor više nije ruka -->
+                            <Setter TargetName="PART_Button" Property="Cursor" Value="Arrow"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
-    <Style TargetType="DatePickerTextBox">
-        <!-- Postavljamo pozadinu unutrašnjeg polja na prozirno, kako bi se vidjela prava pozadina DatePicker-a -->
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"/>
-    </Style>
-    
 </ResourceDictionary>

@@ -40,9 +40,7 @@
                   AutoGenerateColumns="False" 
                   IsReadOnly="True" 
                   Background="{DynamicResource CardBackground}"
-                  RowBackground="{DynamicResource CardBackground}"
                   AlternatingRowBackground="{DynamicResource WindowBackground}"
-                  Foreground="{DynamicResource PrimaryText}"
                   BorderBrush="{DynamicResource BorderColor}"
                   HorizontalGridLinesBrush="{DynamicResource BorderColor}"
                   VerticalGridLinesBrush="{DynamicResource BorderColor}"
@@ -57,28 +55,6 @@
                     <Setter Property="Padding" Value="10,8" />
                     <Setter Property="BorderBrush" Value="{DynamicResource WindowBackground}" />
                     <Setter Property="BorderThickness" Value="0,0,1,1" />
-                </Style>
-
-                <Style TargetType="DataGridRow">
-                    <Setter Property="Background" Value="{DynamicResource CardBackground}" />
-                    <Setter Property="Foreground" Value="{DynamicResource PrimaryText}" />
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource AccentColor}" />
-                            <Setter Property="Foreground" Value="White" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-
-                <Style TargetType="DataGridCell">
-                    <Setter Property="Padding" Value="5,3" />
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="BorderBrush" Value="Transparent" />
-                            <Setter Property="Foreground" Value="White" />
-                        </Trigger>
-                    </Style.Triggers>
                 </Style>
             </DataGrid.Resources>
 
