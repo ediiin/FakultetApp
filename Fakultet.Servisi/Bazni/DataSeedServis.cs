@@ -1,4 +1,7 @@
 ﻿using Fakultet.Core.Modeli;
+using Fakultet.Core.Modeli.Forum;
+using Fakultet.Servisi.IServis.FakultetskiProcesi;
+using Fakultet.Servisi.IServis.Forum;
 using Fakultet.Servisi.IServis.Korisnici;
 using Fakultet.Servisi.IServis.Pomocni;
 
@@ -15,6 +18,8 @@ namespace Fakultet.Servisi.Bazni
         private readonly ProfesorServis _profesorServis;
         private readonly StudentServis _studentServis;
         private readonly AsistentServis _asistentServis;
+        private readonly PostServis _postServis;
+        private readonly PredmetServis _predmetServis;
 
         public DataSeedServis(SpolServis spolServis,
             DrzavaServis drzavaServis,
@@ -24,7 +29,9 @@ namespace Fakultet.Servisi.Bazni
             OsobaServis osobaServis,
             ProfesorServis profesorServis,
             StudentServis studentServis,
-            AsistentServis asistentServis)
+            AsistentServis asistentServis,
+            PostServis postServis,
+            PredmetServis predmetServis)
         {
             _spolServis = spolServis;
             _drzavaServis = drzavaServis;
@@ -35,6 +42,8 @@ namespace Fakultet.Servisi.Bazni
             _studentServis = studentServis;
             _profesorServis = profesorServis;
             _asistentServis = asistentServis;
+            _postServis = postServis;
+            _predmetServis = predmetServis;
         }
 
         private void KreirajAdmina()
@@ -138,6 +147,135 @@ namespace Fakultet.Servisi.Bazni
             {
                 KreirajAsistenta();
             }
+
+            //predmet ------------------------------------------------------------------------
+            var predmetPostoji = _predmetServis.GetAll().Any();
+
+            if (!predmetPostoji)
+            {
+                KreirajPredmete();
+            }
+
+            //post ---------------------------------------------------------------------------
+            var postPostoji = _postServis.GetAll().Any();
+
+            if (!postPostoji)
+            {
+                KreirajPostove();
+            }
+        }
+
+        private void KreirajPredmete()
+        {
+            var godinaStudija = _godinaStudijaServis.GetAll()
+                .FirstOrDefault(gs => gs.Opis == "Prva godina - SI");
+            var profesor = _profesorServis.GetAll().FirstOrDefault();
+
+            if (profesor == null || godinaStudija == null)
+                return;
+
+            _predmetServis.Add(new Predmet()
+            {
+                ECTS = 60,
+                GodinaStudijaId = godinaStudija.Id,
+                Naziv = "Predmet I",
+                ProfesorId = profesor.Id
+            });
+            _predmetServis.Add(new Predmet()
+            {
+                ECTS = 60,
+                GodinaStudijaId = godinaStudija.Id,
+                Naziv = "Predmet I",
+                ProfesorId = profesor.Id
+            });
+        }
+
+        private void KreirajPostove()
+        {
+            var osoba = _osobaServis.GetAll().FirstOrDefault(o => o.Ime == "profesor");
+            var predmet = _predmetServis.GetAll().FirstOrDefault(p => p.Naziv == "Predmet I");
+
+            if (osoba == null || predmet == null)
+                return;
+
+            _postServis.Add(new Post()
+            {
+                DatumObjave = DateTime.Now,
+                Naslov = "Dobrodošli na FakultetApp forum!",
+                Sadrzaj = "Ova stranica će nam služiti za čitanje obavijesti od fakultetske uprave! \n" +
+                "Postovi poput objava vezanih za predmete, rezultate ispita i slično!",
+                PredmetId = null,
+                OsobaId = osoba.Id
+            });
+
+            _postServis.Add(new Post()
+            {
+                DatumObjave = DateTime.Now,
+                Naslov = "Ispit iz Predmet I",
+                Sadrzaj = "Ispit iz predmeta Predmet I se pomjera na 26.09.2026. Potrebno je nositi indeks i uplatnicu" +
+                "u slučaju polaganja komisijskog ispita!",
+                PredmetId = predmet.Id,
+                OsobaId = osoba.Id
+            });
+
+            _postServis.Add(new Post()
+            {
+                DatumObjave = DateTime.Now,
+                Naslov = "Informacije za godišnji odmor",
+                Sadrzaj = "Godišnji odmor počinje od 17.07.2026 i trajati će do 25.08.2026!",
+                PredmetId = null,
+                OsobaId = osoba.Id
+            });
+
+            _postServis.Add(new Post()
+            {
+                DatumObjave = DateTime.Now,
+                Naslov = "Ovjera ljetnog semestra",
+                Sadrzaj = "Ovjera ljetnog semestra će se vršiti od 01.09.2026. do 10.09.2026. " +
+               "Studenti su obavezni dostaviti indeks i uredno popunjene prijavne obrasce.",
+                PredmetId = null,
+                OsobaId = osoba.Id
+            });
+
+            _postServis.Add(new Post()
+            {
+                DatumObjave = DateTime.Now,
+                Naslov = "Rezultati ispita iz Predmet I",
+                Sadrzaj = "Rezultati prvog ispitnog roka iz predmeta Predmet I objavljeni su na studentskom portalu. " +
+                           "Uvid u radove će se održati u ponedjeljak od 10:00 do 12:00 sati.",
+                PredmetId = predmet.Id,
+                OsobaId = osoba.Id
+            });
+
+            _postServis.Add(new Post()
+            {
+                DatumObjave = DateTime.Now,
+                Naslov = "Obavijest o radu studentske službe",
+                Sadrzaj = "Studentska služba će u petak raditi skraćeno od 08:00 do 12:00 sati " +
+                           "zbog planiranog održavanja informacionog sistema.",
+                PredmetId = null,
+                OsobaId = osoba.Id
+            });
+
+            _postServis.Add(new Post()
+            {
+                DatumObjave = DateTime.Now,
+                Naslov = "Laboratorijske vježbe iz Predmet I",
+                Sadrzaj = "Laboratorijske vježbe iz predmeta Predmet I počinju naredne sedmice. " +
+                           "Raspored grupa dostupan je na oglasnoj ploči i studentskom portalu.",
+                PredmetId = predmet.Id,
+                OsobaId = osoba.Id
+            });
+
+            _postServis.Add(new Post()
+            {
+                DatumObjave = DateTime.Now,
+                Naslov = "Poziv na studentsku radionicu",
+                Sadrzaj = "Pozivamo sve zainteresovane studente da prisustvuju radionici o razvoju desktop aplikacija " +
+                           "u C# i WPF-u. Radionica će se održati u amfiteatru A1 u četvrtak sa početkom u 14:00 sati.",
+                PredmetId = null,
+                OsobaId = osoba.Id
+            });
         }
 
         private void KreirajAsistenta()

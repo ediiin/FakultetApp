@@ -1,0 +1,122 @@
+﻿<UserControl x:Class="FakultetApp.Views.StudentViews.StudentiPocetnaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="900">
+
+    <Grid Margin="10">
+
+        <!-- MASTER VIEW (Lista objava) -->
+        <Grid x:Name="PrikazListe" Visibility="Visible">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Welcome Poruka -->
+                <RowDefinition Height="*"/>
+                <!-- Glavni dio (85/15) -->
+            </Grid.RowDefinitions>
+
+            <!-- ZAGLAVLJE -->
+            <Border Grid.Row="0" Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20" Margin="0,0,0,20" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock x:Name="lblDobrodosao" Text="Dobrodošli natrag!" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource PrimaryText}"/>
+                    <TextBlock Text="Ovdje možete pregledati najnovije obavijesti sa vaših predmeta i globalna obavještenja fakulteta." FontSize="13" Foreground="{DynamicResource PrimaryText}" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- GLAVNI DIO (85% Obavijesti / 15% Prazan panel) -->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="85*"/>
+                    <ColumnDefinition Width="15*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- LIJEVA STRANA: FEED OBAVIJESTI I PAGINACIJA -->
+                <Grid Grid.Column="0" Margin="0,0,15,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <!-- Scrollable Feed -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Paginacija -->
+                    </Grid.RowDefinitions>
+
+                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl x:Name="icObavijesti">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="{DynamicResource CardBackground}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="8" Margin="0,0,0,15" Padding="18">
+                                        <StackPanel>
+                                            <Grid Margin="0,0,0,10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Border Grid.Column="0" Background="{DynamicResource AccentColor}" CornerRadius="4" Padding="8,3" Margin="0,0,10,0">
+                                                    <TextBlock Text="{Binding OznakaPredmeta}" Foreground="White" FontSize="11" FontWeight="SemiBold"/>
+                                                </Border>
+                                                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                                    <TextBlock Text="✍️ " FontSize="12" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="{Binding AutorIme}" Foreground="{DynamicResource PrimaryText}" FontSize="12" FontWeight="Medium" Margin="0,0,15,0"/>
+                                                    <TextBlock Text="📅 " FontSize="12" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="{Binding DatumObjave, StringFormat={}{0:dd.MM.yyyy. HH:mm}}" Foreground="{DynamicResource PrimaryText}" FontSize="12"/>
+                                                </StackPanel>
+                                            </Grid>
+                                            <TextBlock Text="{Binding Naslov}" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,8" TextWrapping="Wrap"/>
+                                            <TextBlock Text="{Binding KratkiSadrzaj}" FontSize="13" Foreground="{DynamicResource PrimaryText}" Opacity="0.9" TextWrapping="Wrap" LineHeight="20" Margin="0,0,0,10"/>
+
+                                            <!-- DUGME ZA DETALJE -->
+                                            <Button Content="Pročitaj više" Tag="{Binding}" Click="BtnProcitajVise_Click" HorizontalAlignment="Left" Background="Transparent" Foreground="{DynamicResource AccentColor}" BorderThickness="0" Cursor="Hand" FontWeight="Bold" Padding="0"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <!-- PAGINACIJA DUGMAD -->
+                    <StackPanel x:Name="PanelPaginacija" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                </Grid>
+
+                <!-- DESNA STRANA: REZERVISAN PROSTOR (15%) -->
+                <Border Grid.Column="1" Background="DarkRed" CornerRadius="8" BorderThickness="1" BorderBrush="{DynamicResource BorderColor}">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.8">
+                        <TextBlock Text="🛠️" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                        <TextBlock Text="Rezervisano" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <!-- DETAIL VIEW (Detaljan prikaz obavijesti) -->
+        <Grid x:Name="PrikazDetalja" Visibility="Collapsed" Background="{DynamicResource WindowBackground}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Content="⬅️ Nazad na objave" Click="BtnNazad_Click" HorizontalAlignment="Left" Background="Transparent" Foreground="{DynamicResource PrimaryText}" BorderThickness="0" Cursor="Hand" FontWeight="Bold" Margin="0,0,0,20" FontSize="14"/>
+
+            <Border Grid.Row="1" Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="30" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <!-- Badge i Autor -->
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                            <Border Background="{DynamicResource AccentColor}" CornerRadius="4" Padding="8,3" Margin="0,0,15,0">
+                                <TextBlock x:Name="txtDetaljiOznaka" Foreground="White" FontSize="12" FontWeight="SemiBold"/>
+                            </Border>
+                            <TextBlock Text="✍️ Autor: " Foreground="{DynamicResource SecondaryText}" FontSize="13" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtDetaljiAutor" Foreground="{DynamicResource PrimaryText}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                            <TextBlock Text="📅 Datum: " Foreground="{DynamicResource SecondaryText}" FontSize="13" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="txtDetaljiDatum" Foreground="{DynamicResource PrimaryText}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- Naslov i Sadržaj -->
+                        <TextBlock x:Name="txtDetaljiNaslov" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,20" TextWrapping="Wrap"/>
+                        <TextBlock x:Name="txtDetaljiSadrzaj" FontSize="15" Foreground="{DynamicResource PrimaryText}" LineHeight="24" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

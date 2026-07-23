@@ -1,6 +1,7 @@
 ﻿using Fakultet.Core.Modeli;
 using Fakultet.Servisi.Helperi;
 using FakultetApp.Views;
+using FakultetApp.Views.StudentViews;
 using System.Windows;
 using System.Windows.Input;
 
@@ -27,9 +28,10 @@ namespace FakultetApp
                 var adminView = new AdminDashboardView();
                 GlavniSadrzajAplikacije.Content = adminView;
             }
-            else if (_korisnik.Uloge == Uloge.Student)
+            else if (_korisnik is Student prijavljeniStudent)
             {
-                //
+                var studentView = new StudentDashboardView(prijavljeniStudent);
+                GlavniSadrzajAplikacije.Content = studentView;
             }
             else if (_korisnik.Uloge == Uloge.Profesor)
             {

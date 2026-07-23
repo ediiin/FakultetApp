@@ -1,5 +1,6 @@
 ﻿using Fakultet.Servisi.Bazni;
 using Fakultet.Servisi.IServis.FakultetskiProcesi;
+using Fakultet.Servisi.IServis.Forum;
 using Fakultet.Servisi.IServis.Korisnici;
 using Fakultet.Servisi.IServis.Pomocni;
 using FakultetApp;
@@ -11,6 +12,7 @@ using FakultetApp.Views.Admin.Predmeti;
 using FakultetApp.Views.Admin.ProfesoriLogika;
 using FakultetApp.Views.Admin.Studenti;
 using FakultetApp.Views.Predmeti;
+using FakultetApp.Views.StudentViews;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Fakultet.Servisi.Setup
@@ -32,6 +34,7 @@ namespace Fakultet.Servisi.Setup
             services.AddTransient<ProfesorServis>();
             services.AddTransient<PredmetServis>();
             services.AddTransient<AsistentServis>();
+            services.AddTransient<PostServis>();
             // ostali servisi ce ici ovdje
         }
 
@@ -63,6 +66,9 @@ namespace Fakultet.Servisi.Setup
             services.AddTransient<AsistentPregledView>();
             services.AddTransient<AsistentDodajView>();
             services.AddTransient<AsistentiEditView>();
+
+            //student funkcionalnosti
+            services.AddTransient<StudentDashboardView>();
 
             // mainwindow drzimo u memoriji zato singleton
             services.AddSingleton<MainWindow>();

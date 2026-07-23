@@ -52,7 +52,7 @@ namespace FakultetApp.Views
 
         private void OdjavaLogika()
         {
-            var upit = MessageBox.Show("Jeste li sigurni da se zelite odjaviti?",
+            var upit = MessageBox.Show("Jeste li sigurni da se želite odjaviti?",
                 "Upit", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if(upit == MessageBoxResult.Yes)
             {

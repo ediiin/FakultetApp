@@ -123,7 +123,9 @@
                 Padding="5"
                 VerticalContentAlignment="Center"
                 Background="{DynamicResource CardBackground}"
-                Foreground="{DynamicResource PrimaryText}"/>
+                Foreground="{DynamicResource PrimaryText}"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="2"/>
 
             </StackPanel>
 
@@ -144,7 +146,9 @@
                 Padding="5"
                 VerticalContentAlignment="Center"
                 Background="{DynamicResource CardBackground}"
-                Foreground="{DynamicResource PrimaryText}"/>
+                Foreground="{DynamicResource PrimaryText}"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="2"/>
 
             </StackPanel>
 
