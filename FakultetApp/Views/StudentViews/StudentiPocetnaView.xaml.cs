@@ -96,14 +96,14 @@ namespace FakultetApp.Views.StudentViews
             }
         }
 
-        // --- LOGIKA ZA OTVARANJE DETALJA (MASTER-DETAIL) ---
+        // logika otvaranja posta
         private void BtnProcitajVise_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button btn && btn.Tag is PostViewModel izabranaObjava)
             {
                 // Popunjavanje podataka u Detail View
                 txtDetaljiNaslov.Text = izabranaObjava.Naslov;
-                txtDetaljiSadrzaj.Text = izabranaObjava.Sadrzaj; // Puni, neskraćeni sadržaj
+                txtDetaljiSadrzaj.Text = izabranaObjava.Sadrzaj;
                 txtDetaljiOznaka.Text = izabranaObjava.OznakaPredmeta;
                 txtDetaljiAutor.Text = izabranaObjava.AutorIme;
                 txtDetaljiDatum.Text = izabranaObjava.DatumObjave.ToString("dd.MM.yyyy. HH:mm");

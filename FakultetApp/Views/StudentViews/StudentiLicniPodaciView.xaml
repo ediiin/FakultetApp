@@ -1,0 +1,168 @@
+﻿<UserControl x:Class="FakultetApp.Views.StudentViews.StudentiLicniPodaciView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="900">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Naslov -->
+            <RowDefinition Height="*"/>
+            <!-- Sadržaj (Jedna kolona) -->
+        </Grid.RowDefinitions>
+
+        <!-- ZAGLAVLJE -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="Moj Profil" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource PrimaryText}"/>
+            <TextBlock Text="Pregled vaših ličnih i akademskih podataka." FontSize="14" Foreground="{DynamicResource PrimaryText}" Margin="0,5,0,0"/>
+        </StackPanel>
+
+        <!-- GLAVNI SADRŽAJ (Sve u jednoj koloni) -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+
+            <StackPanel HorizontalAlignment="Stretch" >
+
+                <!-- 1. OSNOVNI PODACI -->
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20" Margin="0,0,0,15" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="👤 Osnovni podaci" FontSize="16" FontWeight="SemiBold" Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,15"/>
+                        <Rectangle Height="1" Fill="{DynamicResource BorderColor}" Margin="0,0,0,15"/>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Ime:" Foreground="{DynamicResource PrimaryText}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Ime}" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Prezime:" Foreground="{DynamicResource PrimaryText}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Prezime}" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="JMBG:" Foreground="{DynamicResource PrimaryText}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding JMBG}" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Spol:" Foreground="{DynamicResource PrimaryText}"/>
+                            <!-- PAŽNJA: Ako je Spol objekat u bazi, koristi {Binding Spol.Naziv} -->
+                            <TextBlock Grid.Column="1" Text="{Binding Spol.Naziv}" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Datum rođenja:" Foreground="{DynamicResource PrimaryText}"/>
+                            <!-- Formatiranje datuma da ne prikazuje sate i minute -->
+                            <TextBlock Grid.Column="1" Text="{Binding DatumRodjenja, StringFormat={}{0:dd.MM.yyyy.}}" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Grad:" Foreground="{DynamicResource PrimaryText}"/>
+                            <!-- PAŽNJA: Ako je Grad vezna tabela, stavi {Binding Grad.Naziv} -->
+                            <TextBlock Grid.Column="1" Text="{Binding Grad.Naziv}" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- 2. KONTAKT INFORMACIJE (Samo jedna linija) -->
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20" Margin="0,0,0,15" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="📞 Kontakt" FontSize="16" FontWeight="SemiBold" Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,15"/>
+                        <Rectangle Height="1" Fill="{DynamicResource BorderColor}" Margin="0,0,0,15"/>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Email:" Foreground="{DynamicResource PrimaryText}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Email}" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- 3. AKADEMSKI PODACI -->
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20" Margin="0,0,0,15" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="🎓 Akademski podaci" FontSize="16" FontWeight="SemiBold" Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,15"/>
+                        <Rectangle Height="1" Fill="{DynamicResource BorderColor}" Margin="0,0,0,15"/>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Broj indeksa:" Foreground="{DynamicResource PrimaryText}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Indeks}" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Fakultet:" Foreground="{DynamicResource PrimaryText}"/>
+                            <TextBlock Grid.Column="1" Text="Fakultet Informacijskih Tehnologija" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Godina studija:" Foreground="{DynamicResource PrimaryText}"/>
+                            <!-- OVDJE JE POPRAVLJENO: Pristupamo propertiju unutar klase GodinaStudija -->
+                            <TextBlock Grid.Column="1" Text="{Binding GodinaStudija.Opis}" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Status:" Foreground="{DynamicResource PrimaryText}"/>
+                            <!-- Ako se u bazi property ne zove Status, promijeni ovu riječ ispod -->
+                            <TextBlock Grid.Column="1" Text="{Binding Status}" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold"/>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Datum upisa:" Foreground="{DynamicResource PrimaryText}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding DatumUpisa, StringFormat={}{0:dd.MM.yyyy.}}" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
