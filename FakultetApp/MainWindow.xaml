@@ -12,8 +12,9 @@
         MinHeight="650"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource WindowBackground}">
-
-
+    <WindowChrome.WindowChrome>
+        <WindowChrome ResizeBorderThickness="6" CaptionHeight="0" GlassFrameThickness="0" CornerRadius="0"/>
+    </WindowChrome.WindowChrome>
     <Grid>
 
         <Grid.RowDefinitions>
