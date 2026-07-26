@@ -10,6 +10,16 @@ namespace Fakultet.Servisi.IServis.FakultetskiProcesi
         {
         }   
 
+        public List<Predmet> GetByYear(int godinaStudijaId)
+        {
+            return _dbSet
+                .Include(p => p.Profesor)
+                .Include(p => p.GodinaStudija)
+                    .ThenInclude(gs => gs.Studij)
+                .Where(p => p.GodinaStudijaId == godinaStudijaId)
+                .ToList();
+        }
+
         public override List<Predmet> GetAll()
         {
             return _dbSet

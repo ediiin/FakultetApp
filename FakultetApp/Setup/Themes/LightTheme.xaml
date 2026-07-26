@@ -9,6 +9,7 @@
     <SolidColorBrush x:Key="AccentColor" Color="#3182CE"/>
     <SolidColorBrush x:Key="Error" Color="Red"/>
     <SolidColorBrush x:Key="Naslov" Color="#3182CE"/>
+    <SolidColorBrush x:Key="ButtonColor" Color="#3182CE"/>
 
     <!-- STIL ZA TEXTBOX -->
     <Style TargetType="TextBox">

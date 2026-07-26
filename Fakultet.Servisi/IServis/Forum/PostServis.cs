@@ -1,4 +1,5 @@
-﻿using Fakultet.Core.Modeli.Forum;
+﻿using Fakultet.Core.Modeli;
+using Fakultet.Core.Modeli.Forum;
 using Fakultet.Servisi.Bazni;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +9,16 @@ namespace Fakultet.Servisi.IServis.Forum
     {
         public PostServis(FakultetAppDbContext dbContext) : base(dbContext)
         {
+        }
+
+        public List<Post> GetByPredmet(int predmetId)
+        {
+            return _dbSet
+                .Include(p => p.Predmet)
+                .Include(p => p.Osoba)
+                    .ThenInclude(o => o.Grad)
+                 .Where(p => p.PredmetId == predmetId)
+                .ToList();
         }
 
         public override List<Post> GetAll()

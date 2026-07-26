@@ -69,6 +69,8 @@ namespace Fakultet.Servisi.Setup
 
             //student funkcionalnosti
             services.AddTransient<StudentDashboardView>();
+            services.AddTransient<StudentiLicniPodaciView>();
+            services.AddTransient<StudentiObjaveView>();
 
             // mainwindow drzimo u memoriji zato singleton
             services.AddSingleton<MainWindow>();

@@ -11,6 +11,7 @@
     <SolidColorBrush x:Key="Naslov" Color="FloralWhite"/>
     <SolidColorBrush x:Key="DisabledBackground" Color="#2A2A2A"/>
     <SolidColorBrush x:Key="DisabledText" Color="#7A8494"/>
+    <SolidColorBrush x:Key="ButtonColor" Color="#7c7d7c"/>
 
     <!-- STIL ZA TEXTBOX -->
     <Style TargetType="TextBox">

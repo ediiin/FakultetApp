@@ -66,7 +66,7 @@
                                             <TextBlock Text="{Binding KratkiSadrzaj}" FontSize="13" Foreground="{DynamicResource PrimaryText}" Opacity="0.9" TextWrapping="Wrap" LineHeight="20" Margin="0,0,0,10"/>
 
                                             <!-- DUGME ZA DETALJE -->
-                                            <Button Content="Pročitaj više" Tag="{Binding}" Click="BtnProcitajVise_Click" HorizontalAlignment="Left" Background="Transparent" Foreground="{DynamicResource AccentColor}" BorderThickness="0" Cursor="Hand" FontWeight="Bold" Padding="0"/>
+                                            <Button Content="Pročitaj više" Tag="{Binding}" Click="BtnProcitajVise_Click" HorizontalAlignment="Left" Background="Transparent" Foreground="{DynamicResource ButtonColor}" BorderThickness="0" Cursor="Hand" FontWeight="Bold" Padding="0"/>
                                         </StackPanel>
                                     </Border>
                                 </DataTemplate>
