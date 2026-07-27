@@ -1,5 +1,4 @@
-﻿using Fakultet.Core.Modeli;
-using Fakultet.Core.Modeli.Forum;
+﻿using Fakultet.Core.Modeli.Forum;
 using Fakultet.Servisi.Bazni;
 using Microsoft.EntityFrameworkCore;
 

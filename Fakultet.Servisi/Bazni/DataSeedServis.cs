@@ -20,6 +20,7 @@ namespace Fakultet.Servisi.Bazni
         private readonly AsistentServis _asistentServis;
         private readonly PostServis _postServis;
         private readonly PredmetServis _predmetServis;
+        private readonly MaterijalServis _materijalServis;
 
         public DataSeedServis(SpolServis spolServis,
             DrzavaServis drzavaServis,
@@ -31,7 +32,8 @@ namespace Fakultet.Servisi.Bazni
             StudentServis studentServis,
             AsistentServis asistentServis,
             PostServis postServis,
-            PredmetServis predmetServis)
+            PredmetServis predmetServis,
+            MaterijalServis materijalServis)
         {
             _spolServis = spolServis;
             _drzavaServis = drzavaServis;
@@ -44,6 +46,7 @@ namespace Fakultet.Servisi.Bazni
             _asistentServis = asistentServis;
             _postServis = postServis;
             _predmetServis = predmetServis;
+            _materijalServis = materijalServis;
         }
 
         private void KreirajAdmina()
@@ -163,6 +166,58 @@ namespace Fakultet.Servisi.Bazni
             {
                 KreirajPostove();
             }
+
+            //post ---------------------------------------------------------------------------
+            var materijalPostoji = _materijalServis.GetAll().Any();
+
+            if (!materijalPostoji)
+            {
+                KreirajMaterijale();
+            }
+        }
+
+        private void KreirajMaterijale()
+        {
+            var osoba = _osobaServis.GetAll().FirstOrDefault(o => o.Ime == "profesor");
+            var predmet = _predmetServis.GetAll().FirstOrDefault(p => p.Naziv == "Predmet I");
+
+            var pdf = new Materijal
+            {
+                Naziv = "Skripta za I parcijalni",
+                Opis = "Ova skripta obuhvata sve lekcije od 1. do 5. sedmice. Obavezno pročitati poglavlje 3 pred ispit.",
+                TipMaterijala = "PDF",
+                PutanjaFajla = @"TestniMaterijali\primjer.pdf",
+                WebLink = null,
+                DatumPostavljanja = new DateTime(2026, 3, 1, 10, 0, 0),
+                PredmetId = predmet.Id, 
+                OsobaId = osoba.Id  
+            };
+            var video = new Materijal
+            {
+                Naziv = "Predavanje: Uvod u C#",
+                Opis = "Snimak predavanja održanog preko Teams platforme.",
+                TipMaterijala = "Video",
+                PutanjaFajla = null,
+                WebLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1",
+                DatumPostavljanja = new DateTime(2026, 3, 5, 12, 30, 0),
+                PredmetId = predmet.Id,
+                OsobaId = osoba.Id
+            };
+            var link = new Materijal
+            {
+                Naziv = "Microsoft Dokumentacija za LINQ",
+                Opis = "Zvanična dokumentacija. Trebat će vam za izradu projektnog zadatka.",
+                TipMaterijala = "Link",
+                PutanjaFajla = null,
+                WebLink = "https://learn.microsoft.com/en-us/dotnet/csharp/linq/",
+                DatumPostavljanja = new DateTime(2026, 3, 10, 8, 15, 0),
+                PredmetId = predmet.Id,
+                OsobaId = osoba.Id
+            };
+
+            _materijalServis.Add(pdf);
+            _materijalServis.Add(video);
+            _materijalServis.Add(link);
         }
 
         private void KreirajPredmete()

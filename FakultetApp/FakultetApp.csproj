@@ -36,4 +36,10 @@
     <ProjectReference Include="..\Fakultet.Servisi\Fakultet.Servisi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestniMaterijali\primjer.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -35,6 +35,7 @@ namespace Fakultet.Servisi.Setup
             services.AddTransient<PredmetServis>();
             services.AddTransient<AsistentServis>();
             services.AddTransient<PostServis>();
+            services.AddTransient<MaterijalServis>();
             // ostali servisi ce ici ovdje
         }
 
@@ -71,6 +72,7 @@ namespace Fakultet.Servisi.Setup
             services.AddTransient<StudentDashboardView>();
             services.AddTransient<StudentiLicniPodaciView>();
             services.AddTransient<StudentiObjaveView>();
+            services.AddTransient<StudentiDokumentiView>();
 
             // mainwindow drzimo u memoriji zato singleton
             services.AddSingleton<MainWindow>();
