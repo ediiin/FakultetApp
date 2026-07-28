@@ -12,6 +12,7 @@ using FakultetApp.Views.Admin.Predmeti;
 using FakultetApp.Views.Admin.ProfesoriLogika;
 using FakultetApp.Views.Admin.Studenti;
 using FakultetApp.Views.Predmeti;
+using FakultetApp.Views.ProfesorViews;
 using FakultetApp.Views.StudentViews;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -73,6 +74,9 @@ namespace Fakultet.Servisi.Setup
             services.AddTransient<StudentiLicniPodaciView>();
             services.AddTransient<StudentiObjaveView>();
             services.AddTransient<StudentiDokumentiView>();
+            
+            //profesor funkcionalnosti
+            services.AddTransient<ProfesorDashboardView>();
 
             // mainwindow drzimo u memoriji zato singleton
             services.AddSingleton<MainWindow>();
