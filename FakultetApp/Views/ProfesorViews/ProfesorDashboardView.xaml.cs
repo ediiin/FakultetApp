@@ -1,18 +1,8 @@
 ﻿using Fakultet.Core.Modeli;
 using FakultetApp.Login;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FakultetApp.Views.ProfesorViews
 {
@@ -47,7 +37,7 @@ namespace FakultetApp.Views.ProfesorViews
                         break;
 
                     case nameof(btnObjaveMaterijali):
-                        // PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<ProfesoriObjaveView>(App.ServiceProvider!, _prijavljeniProfesor);
+                        PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<ProfesorObjaveMaterijaliView>(App.ServiceProvider!, _prijavljeniProfesor);
                         break;
 
                     case nameof(btnIspitniRokovi):

@@ -44,5 +44,16 @@ namespace Fakultet.Servisi.IServis.FakultetskiProcesi
                        || p.Profesor.Prezime.ToLower().Contains(filterText)) 
                 .ToList();
         }
+
+        public List<Predmet> GetByYearAndProfesor(int odabranaGodinaId, int trenutniProfesorId)
+        {
+            return _dbSet
+                .Include(p => p.Profesor)
+                .Include(p => p.GodinaStudija)
+                    .ThenInclude(gs => gs.Studij)
+                .Where(p => p.GodinaStudijaId == odabranaGodinaId
+                    && p.ProfesorId == trenutniProfesorId)
+                .ToList();
+        }
     }
 }

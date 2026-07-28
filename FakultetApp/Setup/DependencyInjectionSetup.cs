@@ -77,6 +77,7 @@ namespace Fakultet.Servisi.Setup
             
             //profesor funkcionalnosti
             services.AddTransient<ProfesorDashboardView>();
+            services.AddTransient<ProfesorObjaveMaterijaliView>();
 
             // mainwindow drzimo u memoriji zato singleton
             services.AddSingleton<MainWindow>();
