@@ -16,36 +16,36 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FakultetApp.Views.ProfesorViews
+namespace FakultetApp.Views.StudentViews
 {
     /// <summary>
-    /// Interaction logic for ProfesoriChatView.xaml
+    /// Interaction logic for StudentiChatView.xaml
     /// </summary>
-    public partial class ProfesoriChatView : UserControl
+    public partial class StudentiChatView : UserControl
     {
-        private readonly ChatPorukaServis _chatPorukaServis;    
-        private readonly OsobaServis _osobaServis;    
-        private readonly int _trenutniProfesorId;
+        private readonly ChatPorukaServis _chatPorukaServis;
+        private readonly OsobaServis _osobaServis;
+        private readonly int _trenutniStudent;
 
         private List<RazgovorPreviewViewModel> _sviRazgovori = new List<RazgovorPreviewViewModel>();
         private RazgovorPreviewViewModel? _odabraniRazgovor = null;
 
-        public ProfesoriChatView(ChatPorukaServis chatPorukaServis
+        public StudentiChatView(ChatPorukaServis chatPorukaServis
             , OsobaServis osobaServis
-            , Profesor trenutniProfesor)
+            , Student trenutniStudent)
         {
             InitializeComponent();
 
             _chatPorukaServis = chatPorukaServis;
             _osobaServis = osobaServis;
-            _trenutniProfesorId = trenutniProfesor.Id;
+            _trenutniStudent = trenutniStudent.Id;
 
             UcitajNedavneRazgovore();
         }
 
         private void UcitajNedavneRazgovore()
         {
-            var siroviRazgovori = _chatPorukaServis.GetNedavniRazgovoriZaOsobu(_trenutniProfesorId);
+            var siroviRazgovori = _chatPorukaServis.GetNedavniRazgovoriZaOsobu(_trenutniStudent);
 
             _sviRazgovori = siroviRazgovori.Select(r => new RazgovorPreviewViewModel
             {
@@ -86,7 +86,7 @@ namespace FakultetApp.Views.ProfesorViews
                 r.UlogaIliIndeks.ToLower().Contains(pretraga)
             ).ToList();
 
-            var noviKorisnici = _osobaServis.PretraziOsobe(pretraga, _trenutniProfesorId);
+            var noviKorisnici = _osobaServis.PretraziOsobe(pretraga, _trenutniStudent);
             foreach (var osoba in noviKorisnici)
             {
                 if (!filtrirani.Any(f => f.SagovornikId == osoba.Id))
@@ -125,7 +125,7 @@ namespace FakultetApp.Views.ProfesorViews
             txtZaglavljeUloga.Text = sagovornik.UlogaIliIndeks;
             txtZaglavljeInicijali.Text = sagovornik.Inicijali;
 
-            _chatPorukaServis.OznaciKaoProcitano(_trenutniProfesorId, sagovornik.SagovornikId);
+            _chatPorukaServis.OznaciKaoProcitano(_trenutniStudent, sagovornik.SagovornikId);
             sagovornik.BrojNeprocitanih = 0;
 
             UcitajPorukeZaSagovornika(sagovornik.SagovornikId);
@@ -133,7 +133,7 @@ namespace FakultetApp.Views.ProfesorViews
 
         private void UcitajPorukeZaSagovornika(int sagovornikId)
         {
-            var porukeIzBaze = _chatPorukaServis.GetPorukeIzmedju(_trenutniProfesorId, sagovornikId);
+            var porukeIzBaze = _chatPorukaServis.GetPorukeIzmedju(_trenutniStudent, sagovornikId);
 
             var porukeZaPrikaz = porukeIzBaze.Select(p => new PorukaPrikazViewModel
             {
@@ -142,7 +142,7 @@ namespace FakultetApp.Views.ProfesorViews
                 Sadrzaj = p.Sadrzaj,
                 VrijemeSlanja = p.VrijemeSlanja,
                 Procitano = p.Procitano,
-                IsMojaPoruka = (p.PosiljalacId == _trenutniProfesorId) // ako sam poslao ja == true znaci poruka ide desno
+                IsMojaPoruka = (p.PosiljalacId == _trenutniStudent) // ako sam poslao ja == true znaci poruka ide desno
             }).OrderBy(p => p.VrijemeSlanja).ToList();
 
             icPoruke.ItemsSource = porukeZaPrikaz;
@@ -174,7 +174,7 @@ namespace FakultetApp.Views.ProfesorViews
 
             var novaPoruka = new ChatPoruka
             {
-                PosiljalacId = _trenutniProfesorId,
+                PosiljalacId = _trenutniStudent,
                 PrimalacId = _odabraniRazgovor.SagovornikId,
                 Sadrzaj = tekst,
                 VrijemeSlanja = DateTime.Now,
@@ -193,7 +193,7 @@ namespace FakultetApp.Views.ProfesorViews
 
         private string GetUlogaIliIndeksText(Osoba osoba)
         {
-            if (osoba is Student s) return $"Student ({s.Indeks})";
+            if (osoba is Student s) return $"Student";
             if (osoba is Profesor) return "Profesor";
             if (osoba is Asistent) return "Asistent";
             return "Korisnik";

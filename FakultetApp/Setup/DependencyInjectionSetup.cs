@@ -75,6 +75,7 @@ namespace Fakultet.Servisi.Setup
             services.AddTransient<StudentiLicniPodaciView>();
             services.AddTransient<StudentiObjaveView>();
             services.AddTransient<StudentiDokumentiView>();
+            services.AddTransient<StudentiChatView>();
             
             //profesor funkcionalnosti
             services.AddTransient<ProfesorDashboardView>();
