@@ -12,6 +12,9 @@
     <SolidColorBrush x:Key="DisabledBackground" Color="#2A2A2A"/>
     <SolidColorBrush x:Key="DisabledText" Color="#7A8494"/>
     <SolidColorBrush x:Key="ButtonColor" Color="#7c7d7c"/>
+    <SolidColorBrush x:Key="IncomingBubble" Color="#2D3748"/>
+    <SolidColorBrush x:Key="SelectedBackground" Color="#2D3748"/>
+    <SolidColorBrush x:Key="UnreadBadge" Color="#E53E3E"/>
 
     <!-- STIL ZA TEXTBOX -->
     <Style TargetType="TextBox">

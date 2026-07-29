@@ -21,6 +21,7 @@ namespace Fakultet.Servisi.Bazni
         private readonly PostServis _postServis;
         private readonly PredmetServis _predmetServis;
         private readonly MaterijalServis _materijalServis;
+        private readonly ChatPorukaServis _chatPorukaServis;
 
         public DataSeedServis(SpolServis spolServis,
             DrzavaServis drzavaServis,
@@ -33,7 +34,8 @@ namespace Fakultet.Servisi.Bazni
             AsistentServis asistentServis,
             PostServis postServis,
             PredmetServis predmetServis,
-            MaterijalServis materijalServis)
+            MaterijalServis materijalServis,
+            ChatPorukaServis chatPorukaServis)
         {
             _spolServis = spolServis;
             _drzavaServis = drzavaServis;
@@ -47,6 +49,7 @@ namespace Fakultet.Servisi.Bazni
             _postServis = postServis;
             _predmetServis = predmetServis;
             _materijalServis = materijalServis;
+            _chatPorukaServis = chatPorukaServis;
         }
 
         private void KreirajAdmina()
@@ -167,12 +170,107 @@ namespace Fakultet.Servisi.Bazni
                 KreirajPostove();
             }
 
-            //post ---------------------------------------------------------------------------
+            //materijal -----------------------------------------------------------------------
             var materijalPostoji = _materijalServis.GetAll().Any();
 
             if (!materijalPostoji)
             {
                 KreirajMaterijale();
+            }
+
+            // chat poruke -----------------------------------------------------------------------
+            var chatPostoji = _chatPorukaServis.GetAll().Any();
+            if (!chatPostoji)
+            {
+                KreirajChatPoruke();
+            }
+        }
+
+        private void KreirajChatPoruke()
+        {
+            var profesor = _osobaServis.GetAll().FirstOrDefault(o => o.Ime == "profesor");
+
+            var studenti = _osobaServis.GetAll().ToList();
+            var student1 = studenti.FirstOrDefault();
+            var student2 = studenti.Skip(1).FirstOrDefault();
+
+            if (profesor == null || student1 == null || student2 == null)
+                return; 
+
+            DateTime vrijemePoruke = new DateTime(2026, 7, 28, 14, 0, 0); 
+
+            // =======================================================================
+            // RAZGOVOR 1: 10 poruka (Sve pročitano)
+            // =======================================================================
+            var razgovor1 = new[]
+            {
+                (Posiljalac: student1, Tekst: "Poštovani profesore, da li mi možete pojasniti treći zadatak iz zadaće?"),
+                (Posiljalac: profesor, Tekst: "Pozdrav. Koji tačno dio trećeg zadatka Vam nije jasan?"),
+                (Posiljalac: student1, Tekst: "Nije mi jasno kako da pravilno povežem bazu podataka koristeći Entity Framework."),
+                (Posiljalac: profesor, Tekst: "Provjerite da li ste ispravno podesili DbContext klasu i connection string u appsettings.json."),
+                (Posiljalac: student1, Tekst: "Connection string je tu, ali mi prilikom pokretanja javlja grešku 'Invalid object name'."),
+                (Posiljalac: profesor, Tekst: "To obično znači da Vam nedostaju tabele u bazi. Jeste li pokrenuli migracije?"),
+                (Posiljalac: student1, Tekst: "Zaboravio sam ukucati 'Update-Database'. Pokušat ću sada."),
+                (Posiljalac: student1, Tekst: "Evo prošlo je, sada sve radi kako treba. Hvala Vam puno!"),
+                (Posiljalac: profesor, Tekst: "Odlično. Obratite pažnju i na relacije između tabela za sljedeću zadaću."),
+                (Posiljalac: student1, Tekst: "Hoću, pregledat ću materijale koje ste postavili jučer.")
+            };
+
+            foreach (var poruka in razgovor1)
+            {
+                _chatPorukaServis.Add(new ChatPoruka
+                {
+                    PosiljalacId = poruka.Posiljalac.Id,
+                    PrimalacId = poruka.Posiljalac.Id == profesor.Id ? student1.Id : profesor.Id,
+                    Sadrzaj = poruka.Tekst,
+                    VrijemeSlanja = vrijemePoruke,
+                    Procitano = true
+                });
+                vrijemePoruke = vrijemePoruke.AddMinutes(5); // svaka sljedeca poruka stize 5 minuta kasnije
+            }
+
+            vrijemePoruke = new DateTime(2026, 7, 29, 9, 0, 0);
+
+            var razgovor2 = new[]
+            {
+                (Posiljalac: student2, Tekst: "Poštovani, kada planirate objaviti rezultate ispita?"),
+                (Posiljalac: profesor, Tekst: "Pozdrav, rezultati će biti objavljeni večeras najkasnije do 20h."),
+                (Posiljalac: student2, Tekst: "U redu, hvala Vam. Da li će biti organizovan uvid u radove?"),
+                (Posiljalac: profesor, Tekst: "Da, uvid će biti sutra u 12:00h u kabinetu."),
+                (Posiljalac: student2, Tekst: "Može li se uvid obaviti online? Nisam u mogućnosti doći lično na fakultet sutra."),
+                (Posiljalac: profesor, Tekst: "Nažalost, pravila fakulteta nalažu da se uvid obavlja isključivo uživo na fakultetu."),
+                (Posiljalac: student2, Tekst: "Razumijem. Da li mogu poslati kolegu sa indeksom da samo pogleda gdje sam pogriješio?"),
+                (Posiljalac: profesor, Tekst: "Ne, uvidu morate prisustvovati lično. Bodovi se ne mogu korigovati preko posrednika."),
+                (Posiljalac: student2, Tekst: "Da li onda postoji opcija da dođem neki drugi dan ove sedmice?"),
+                (Posiljalac: profesor, Tekst: "Mogu Vas primiti u petak u 14:00h u svom kabinetu, da li Vam taj termin odgovara?"),
+                (Posiljalac: student2, Tekst: "Petak u 14h mi savršeno odgovara, hvala Vam puno na razumijevanju!"),
+                (Posiljalac: profesor, Tekst: "Nema na čemu. Molim Vas samo da mi se javite mailom u petak ujutro da potvrdite dolazak."),
+                (Posiljalac: student2, Tekst: "Dogovoreno, poslat ću Vam podsjetnik na mail ujutro."),
+                (Posiljalac: student2, Tekst: "Samo još jedno kratko pitanje u vezi samog bodovanja, ako nije problem."),
+                (Posiljalac: profesor, Tekst: "Slobodno pitajte."),
+                (Posiljalac: student2, Tekst: "Da li parcijalni bodovi iz seminarskog rada vrijede i za popravni rok u septembru?"),
+                (Posiljalac: profesor, Tekst: "Da, bodovi iz seminarskog rada i prve parcijale se prenose na sve rokove do kraja akademske godine."),
+                (Posiljalac: student2, Tekst: "Odlično, onda mi iz drugog dijela treba samo još 15 bodova za prolaz."),
+                (Posiljalac: student2, Tekst: "Fokusirat ću se na zadnja 3 poglavlja iz skripte."),
+                (Posiljalac: student2, Tekst: "Hvala Vam još jednom profesore na izdvojenom vremenu, vidimo se u petak!")
+            };
+
+            for (int i = 0; i < razgovor2.Length; i++)
+            {
+                var poruka = razgovor2[i];
+
+                //da zadnje 2 poruke budu neprocitane
+                bool jeProcitano = i < razgovor2.Length - 2;
+
+                _chatPorukaServis.Add(new ChatPoruka
+                {
+                    PosiljalacId = poruka.Posiljalac.Id,
+                    PrimalacId = poruka.Posiljalac.Id == profesor.Id ? student2.Id : profesor.Id,
+                    Sadrzaj = poruka.Tekst,
+                    VrijemeSlanja = vrijemePoruke,
+                    Procitano = jeProcitano
+                });
+                vrijemePoruke = vrijemePoruke.AddMinutes(3);
             }
         }
 

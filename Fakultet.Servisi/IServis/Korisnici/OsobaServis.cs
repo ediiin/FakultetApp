@@ -26,6 +26,25 @@ namespace Fakultet.Servisi.IServis.Korisnici
 
             return null; //neuspjesna login vraca null umjesto objekta
         }
+
+        public List<Osoba> PretraziOsobe(string pretraga, int trenutniKorisnikId)
+        {
+            pretraga = pretraga.ToLower().Trim();
+
+            var pretragaDb = _dbSet
+                .Where(o => o.Id != trenutniKorisnikId);
+
+            var rezultati = pretragaDb.Where(o =>
+                o.Ime.ToLower().Contains(pretraga) ||
+                o.Prezime.ToLower().Contains(pretraga) ||
+                (o.Ime + " " + o.Prezime).ToLower().Contains(pretraga) ||
+                (o is Student && ((Student)o).Indeks.ToLower().Contains(pretraga))
+            )
+            .Take(15) // limitira na 15 rezultata
+            .ToList();
+
+            return rezultati;
+        }
     }
 }
 

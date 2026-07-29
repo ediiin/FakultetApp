@@ -72,7 +72,7 @@
 
                 <!-- Naslov sekcije / Logo -->
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,20,0">
-                    <TextBlock Text="🎓" FontSize="20" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBlock Text="🎓" FontSize="20" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{DynamicResource PrimaryText}"/>
                     <TextBlock Text="STUDENT PORTAL" 
                                FontSize="16" 
                                FontWeight="Bold" 

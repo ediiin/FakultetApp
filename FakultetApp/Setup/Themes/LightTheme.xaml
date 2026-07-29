@@ -10,6 +10,9 @@
     <SolidColorBrush x:Key="Error" Color="Red"/>
     <SolidColorBrush x:Key="Naslov" Color="#3182CE"/>
     <SolidColorBrush x:Key="ButtonColor" Color="#3182CE"/>
+    <SolidColorBrush x:Key="IncomingBubble" Color="#EDF2F7"/>
+    <SolidColorBrush x:Key="SelectedBackground" Color="#E2E8F0"/>
+    <SolidColorBrush x:Key="UnreadBadge" Color="#E53E3E"/>
 
     <!-- STIL ZA TEXTBOX -->
     <Style TargetType="TextBox">

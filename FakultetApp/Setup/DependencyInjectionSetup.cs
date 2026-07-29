@@ -37,6 +37,7 @@ namespace Fakultet.Servisi.Setup
             services.AddTransient<AsistentServis>();
             services.AddTransient<PostServis>();
             services.AddTransient<MaterijalServis>();
+            services.AddTransient<ChatPorukaServis>();
             // ostali servisi ce ici ovdje
         }
 
@@ -78,6 +79,7 @@ namespace Fakultet.Servisi.Setup
             //profesor funkcionalnosti
             services.AddTransient<ProfesorDashboardView>();
             services.AddTransient<ProfesorObjaveMaterijaliView>();
+            services.AddTransient<ProfesoriChatView>();
 
             // mainwindow drzimo u memoriji zato singleton
             services.AddSingleton<MainWindow>();
