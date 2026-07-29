@@ -102,7 +102,7 @@
                 FontSize="14"
                 Margin="0,5,0,0"
                 HorizontalAlignment="Center"
-                Foreground="{DynamicResource SecondaryText}"/>
+                Foreground="{DynamicResource PrimaryText}"/>
 
             </StackPanel>
 
