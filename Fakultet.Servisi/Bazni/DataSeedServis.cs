@@ -22,6 +22,7 @@ namespace Fakultet.Servisi.Bazni
         private readonly PredmetServis _predmetServis;
         private readonly MaterijalServis _materijalServis;
         private readonly ChatPorukaServis _chatPorukaServis;
+        private readonly ZahtjevZaPotvrduServis _zahtjevZaPotvrduServis;
 
         public DataSeedServis(SpolServis spolServis,
             DrzavaServis drzavaServis,
@@ -35,7 +36,8 @@ namespace Fakultet.Servisi.Bazni
             PostServis postServis,
             PredmetServis predmetServis,
             MaterijalServis materijalServis,
-            ChatPorukaServis chatPorukaServis)
+            ChatPorukaServis chatPorukaServis,
+            ZahtjevZaPotvrduServis zahtjevZaPotvrduServis)
         {
             _spolServis = spolServis;
             _drzavaServis = drzavaServis;
@@ -50,6 +52,7 @@ namespace Fakultet.Servisi.Bazni
             _predmetServis = predmetServis;
             _materijalServis = materijalServis;
             _chatPorukaServis = chatPorukaServis;
+            _zahtjevZaPotvrduServis = zahtjevZaPotvrduServis;
         }
 
         private void KreirajAdmina()
@@ -183,6 +186,72 @@ namespace Fakultet.Servisi.Bazni
             if (!chatPostoji)
             {
                 KreirajChatPoruke();
+            }
+
+            //potvrde ----------------------------------------------------------------------------
+            var zahtjeviPostoje = _zahtjevZaPotvrduServis.GetAll().Any();
+            if (!zahtjeviPostoje)
+            {
+                KreirajZahtjeveZaPotvrde();
+            }
+        }
+
+        private void KreirajZahtjeveZaPotvrde()
+        {
+            var student = _studentServis.GetAll().FirstOrDefault();
+
+            if (student == null) return;
+
+            var zahtjevi = new[]
+            {
+                (
+                    Svrha: SvrhaPotvrde.Stipendija,
+                    Stanje: StanjePotvrde.Odobrena,
+                    Napomena: "Za prijavu na opštinsku stipendiju",
+                    DatumPodnosenja: new DateTime(2025, 10, 15, 9, 30, 0),
+                    DatumObrade: new DateTime(2025, 10, 16, 11, 0, 0)
+                ),
+                (
+                    Svrha: SvrhaPotvrde.Penzija,
+                    Stanje: StanjePotvrde.Odbijena,
+                    Napomena: "Porodična penzija",
+                    DatumPodnosenja: new DateTime(2026, 2, 5, 14, 15, 0),
+                    DatumObrade: new DateTime(2026, 2, 6, 9, 10, 0)
+                ),
+                (
+                    Svrha: SvrhaPotvrde.Ostalo,
+                    Stanje: StanjePotvrde.Ponistena,
+                    Napomena: "Potvrda za studentsku polikliniku",
+                    DatumPodnosenja: new DateTime(2026, 4, 10, 8, 0, 0),
+                    DatumObrade: new DateTime(2026, 4, 10, 10, 0, 0) 
+                ),
+                (
+                    Svrha: SvrhaPotvrde.Alimentacija,
+                    Stanje: StanjePotvrde.NaCekanju,
+                    Napomena: "Za redovan sudski postupak",
+                    DatumPodnosenja: DateTime.Now.AddHours(-3), 
+                    DatumObrade: (DateTime?)null
+                ),
+                (
+                    Svrha: SvrhaPotvrde.SmjestajUDom,
+                    Stanje: StanjePotvrde.NaCekanju,
+                    Napomena: "Konkurs za studentski dom Nedžarići",
+                    DatumPodnosenja: DateTime.Now.AddMinutes(-45),
+                    DatumObrade: (DateTime?)null
+                )
+            };
+
+            foreach (var z in zahtjevi)
+            {
+                _zahtjevZaPotvrduServis.Add(new ZahtjevZaPotvrdu
+                {
+                    StudentId = student.Id,
+                    SvrhaPotvrde = z.Svrha,
+                    StanjePotvrde = z.Stanje,
+                    Napomena = z.Napomena,
+                    DatumPodnosenja = z.DatumPodnosenja,
+                    DatumObrade = z.DatumObrade,
+                });
             }
         }
 

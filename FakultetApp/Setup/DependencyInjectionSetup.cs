@@ -1,4 +1,5 @@
-﻿using Fakultet.Servisi.Bazni;
+﻿using Fakultet.Core.Modeli.Forum;
+using Fakultet.Servisi.Bazni;
 using Fakultet.Servisi.IServis.FakultetskiProcesi;
 using Fakultet.Servisi.IServis.Forum;
 using Fakultet.Servisi.IServis.Korisnici;
@@ -38,6 +39,7 @@ namespace Fakultet.Servisi.Setup
             services.AddTransient<PostServis>();
             services.AddTransient<MaterijalServis>();
             services.AddTransient<ChatPorukaServis>();
+            services.AddTransient<ZahtjevZaPotvrduServis>();
             // ostali servisi ce ici ovdje
         }
 

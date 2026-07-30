@@ -40,7 +40,7 @@ namespace FakultetApp.Views.StudentViews
                         // PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<StudentiPrijavaIspitaView>(App.ServiceProvider!, _prijavljeniStudent);
                         break;
                     case nameof(btnZahtjevPotvrda):
-                        // PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<StudentiZahtjevPotvrdaView>(App.ServiceProvider!, _prijavljeniStudent);
+                        PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<StudentiZahtjeviZaPotvrduView>(App.ServiceProvider!, _prijavljeniStudent);
                         break;
                     case nameof(btnChat):
                         PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<StudentiChatView>(App.ServiceProvider!, _prijavljeniStudent);

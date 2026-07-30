@@ -4,6 +4,7 @@
     {
         NaCekanju,
         Odobrena,
-        Odbijena
+        Odbijena,
+        Ponistena
     }
 }

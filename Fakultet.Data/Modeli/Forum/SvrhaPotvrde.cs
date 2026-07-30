@@ -4,6 +4,9 @@
     {
         Stipendija,
         Alimentacija,
-        Penzija
+        Penzija,
+        SmjestajUDom, 
+        Viza,         
+        Ostalo
     }
 }

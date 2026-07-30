@@ -8,5 +8,7 @@
         public StanjePotvrde StanjePotvrde { get; set; }
         public SvrhaPotvrde SvrhaPotvrde { get; set; }
         public DateTime DatumPodnosenja { get; set; }
+        public DateTime? DatumObrade { get; set; }
+        public string? Napomena { get; set; }
     }
 }
