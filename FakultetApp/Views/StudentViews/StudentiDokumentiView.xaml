@@ -55,14 +55,14 @@
                                         <Grid Margin="0,0,0,5">
                                             <!-- TIP FAJLA LIJEVO -->
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                                <TextBlock Text="{Binding Ikona}" FontSize="14" Margin="0,0,5,0"/>
+                                                <TextBlock Text="{Binding Ikona}" Foreground="{DynamicResource PrimaryText}" FontSize="14" Margin="0,0,5,0"/>
                                                 <TextBlock Text="{Binding TipMaterijala}" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold" FontSize="12" VerticalAlignment="Center"/>
                                             </StackPanel>
                                             <!-- AUTOR I DATUM DESNO -->
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                                 <TextBlock Text="✍️ Autor: " Foreground="{DynamicResource PrimaryText}" FontSize="12"/>
                                                 <TextBlock Text="{Binding AutorIme}" Foreground="{DynamicResource PrimaryText}" FontSize="12" FontWeight="Medium" Margin="0,0,15,0"/>
-                                                <TextBlock Text="📅 " FontSize="12" VerticalAlignment="Center"/>
+                                                <TextBlock Text="📅 " Foreground="{DynamicResource PrimaryText}" FontSize="12" VerticalAlignment="Center"/>
                                                 <TextBlock Text="{Binding DatumObjave, StringFormat={}{0:dd.MM.yyyy. HH:mm}}" Foreground="{DynamicResource PrimaryText}" FontSize="12"/>
                                             </StackPanel>
                                         </Grid>

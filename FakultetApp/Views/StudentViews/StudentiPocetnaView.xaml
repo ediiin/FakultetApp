@@ -56,9 +56,9 @@
                                                     <TextBlock Text="{Binding OznakaPredmeta}" Foreground="White" FontSize="11" FontWeight="SemiBold"/>
                                                 </Border>
                                                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                                                    <TextBlock Text="✍️ " FontSize="12" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="✍️ " FontSize="12" Foreground="{DynamicResource PrimaryText}" VerticalAlignment="Center"/>
                                                     <TextBlock Text="{Binding AutorIme}" Foreground="{DynamicResource PrimaryText}" FontSize="12" FontWeight="Medium" Margin="0,0,15,0"/>
-                                                    <TextBlock Text="📅 " FontSize="12" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="📅 " FontSize="12" Foreground="{DynamicResource PrimaryText}" VerticalAlignment="Center"/>
                                                     <TextBlock Text="{Binding DatumObjave, StringFormat={}{0:dd.MM.yyyy. HH:mm}}" Foreground="{DynamicResource PrimaryText}" FontSize="12"/>
                                                 </StackPanel>
                                             </Grid>
