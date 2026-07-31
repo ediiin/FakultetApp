@@ -110,17 +110,7 @@
                                      Content="📅 Ispitni rokovi" 
                                      Style="{StaticResource NavTabButtonStyle}" 
                                      Click="Nav_Click"/>
-
-                        <RadioButton x:Name="btnRasporedSistem" 
-                                     Content="🏫 Raspored" 
-                                     Style="{StaticResource NavTabButtonStyle}" 
-                                     Click="Nav_Click"/>
-
-                        <RadioButton x:Name="btnUpisOcjena" 
-                                     Content="📝 Upis ocjena" 
-                                     Style="{StaticResource NavTabButtonStyle}" 
-                                     Click="Nav_Click"/>
-
+                        
                         <RadioButton x:Name="btnChat" 
                                      Content="💬 Chat" 
                                      Style="{StaticResource NavTabButtonStyle}" 

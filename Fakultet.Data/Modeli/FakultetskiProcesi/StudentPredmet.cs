@@ -9,6 +9,6 @@
         public bool Polozio { get; set; }
         public int? Ocjena { get; set; }
         public int BrojBodova { get; set; }
-        public string Napomena { get; set; } = null!;
+        public string? Napomena { get; set; }
     }
 }

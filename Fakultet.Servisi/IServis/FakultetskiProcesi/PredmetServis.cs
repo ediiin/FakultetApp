@@ -55,5 +55,23 @@ namespace Fakultet.Servisi.IServis.FakultetskiProcesi
                     && p.ProfesorId == trenutniProfesorId)
                 .ToList();
         }
+
+        public List<Predmet> GetPredmetiByProfesor(int profesorId)
+        {
+            return _dbSet
+                .Include(p => p.GodinaStudija)
+                .Where(p => p.ProfesorId == profesorId)
+                .ToList();
+        }
+
+        public void SacuvajPravilaBodovanja(int predmetId, string tekstBodovanja)
+        {
+            var predmet = GetById(predmetId);
+            if (predmet != null)
+            {
+                predmet.PravilaBodovanja = tekstBodovanja;
+                _dbContext.SaveChanges();
+            }
+        }
     }
 }

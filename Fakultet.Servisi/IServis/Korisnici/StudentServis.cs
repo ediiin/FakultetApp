@@ -10,6 +10,39 @@ namespace Fakultet.Servisi.IServis.Korisnici
         {
         }
 
+        public void UpisiStudentaNaGodinu(int studentId, int novaGodinaStudijaId)
+        {
+            var student = GetById(studentId);
+            if (student == null) return;
+
+            student.GodinaStudijaId = novaGodinaStudijaId;
+            Update(student); 
+
+            var predmetiZaNovuGodinu = _dbContext.Predmeti
+                                                 .Where(p => p.GodinaStudijaId == novaGodinaStudijaId)
+                                                 .ToList();
+
+            foreach (var predmet in predmetiZaNovuGodinu)
+            {
+                bool vecIma = _dbContext.StudentiPredmeti
+                                        .Any(sp => sp.StudentId == studentId && sp.PredmetId == predmet.Id);
+
+                if (!vecIma)
+                {
+                    var novaPrijava = new StudentPredmet
+                    {
+                        StudentId = studentId,
+                        PredmetId = predmet.Id,
+                        Polozio = false,
+                    };
+
+                    _dbContext.StudentiPredmeti.Add(novaPrijava);
+                }
+            }
+
+            _dbContext.SaveChanges();
+        }
+
         public string GenerisiIndeks()
         {
             string prefiksGodine = DateTime.Now.ToString("yy");

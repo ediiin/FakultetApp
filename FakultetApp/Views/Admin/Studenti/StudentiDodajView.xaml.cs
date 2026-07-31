@@ -91,6 +91,7 @@ namespace FakultetApp.Views.Admin
                 Status = (Status)cmbStatus.SelectedItem
             };
             _studentServis.Add(noviStudent);
+            _studentServis.UpisiStudentaNaGodinu(noviStudent.Id, godinaStudija.Id);
             MessageBox.Show($"Uspješno dodan student {noviStudent.ToString()}",
                 "Uspjeh", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             OcistiSvaPolja();

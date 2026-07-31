@@ -33,7 +33,7 @@ namespace FakultetApp.Views.ProfesorViews
                         break;
 
                     case nameof(btnMojiPredmeti):
-                        // PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<ProfesoriPredmetiView>(App.ServiceProvider!, _prijavljeniProfesor);
+                        PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<ProfesorPredmetiView>(App.ServiceProvider!, _prijavljeniProfesor);
                         break;
 
                     case nameof(btnObjaveMaterijali):
@@ -42,14 +42,6 @@ namespace FakultetApp.Views.ProfesorViews
 
                     case nameof(btnIspitniRokovi):
                         // PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<ProfesoriRokoviView>(App.ServiceProvider!, _prijavljeniProfesor);
-                        break;
-
-                    case nameof(btnRasporedSistem):
-                        // PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<ProfesoriRasporedView>(App.ServiceProvider!, _prijavljeniProfesor);
-                        break;
-
-                    case nameof(btnUpisOcjena):
-                        // PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<ProfesoriOcjeneView>(App.ServiceProvider!, _prijavljeniProfesor);
                         break;
 
                     case nameof(btnChat):

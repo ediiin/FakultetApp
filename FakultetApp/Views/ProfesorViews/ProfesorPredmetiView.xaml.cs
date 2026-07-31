@@ -1,0 +1,140 @@
+﻿using Fakultet.Core.Modeli;
+using Fakultet.Servisi.Bazni;
+using Fakultet.Servisi.IServis.FakultetskiProcesi;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace FakultetApp.Views.ProfesorViews
+{
+    /// <summary>
+    /// Interaction logic for ProfesorPredmetiView.xaml
+    /// </summary>
+    public partial class ProfesorPredmetiView : UserControl
+    {
+        private readonly PredmetServis _predmetServis;
+        private readonly StudentPredmetServis _studentPredmetServis;
+        private readonly int _ulogovaniProfesorId;
+
+        public ProfesorPredmetiView(PredmetServis predmetServis,
+            StudentPredmetServis studentPredmetServis,
+            Profesor profesor)
+        {
+            InitializeComponent();
+
+            _predmetServis = predmetServis;
+            _studentPredmetServis = studentPredmetServis;
+            _ulogovaniProfesorId = profesor.Id;
+
+            UcitajPredmete();
+        }
+
+        private void UcitajPredmete()
+        {
+            var predmeti = _predmetServis.GetPredmetiByProfesor(_ulogovaniProfesorId);
+            cmbMojiPredmeti.ItemsSource = predmeti;
+
+            if (predmeti.Any())
+                cmbMojiPredmeti.SelectedIndex = 0;
+        }
+
+        private void CmbMojiPredmeti_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbMojiPredmeti.SelectedItem is Predmet odabraniPredmet)
+            {
+                txtPravilaBodovanja.Text = odabraniPredmet.PravilaBodovanja;
+                txtPretragaStudenata.Text = "";
+
+                var sviUpisaniStudenti = _studentPredmetServis.GetStudentiByPredmet(odabraniPredmet.Id, "");
+                txtBrojUpisanih.Text = sviUpisaniStudenti.Count.ToString();
+
+                // Bonus: jednostavan izračun prosječne ocjene
+                var polozeni = sviUpisaniStudenti.Where(x => x.Polozio && x.Ocjena.HasValue).ToList();
+                if (polozeni.Any())
+                {
+                    double prosjek = polozeni.Average(x => x.Ocjena.Value);
+                    txtProsjecnaOcjena.Text = Math.Round(prosjek, 2).ToString();
+
+                    double prolaznost = (double)polozeni.Count / sviUpisaniStudenti.Count * 100;
+                    txtProlaznost.Text = $"{Math.Round(prolaznost, 1)}%";
+                }
+                else
+                {
+                    txtProsjecnaOcjena.Text = "-";
+                    txtProlaznost.Text = "0%";
+                }
+
+                UcitajStudente();
+            }
+        }
+
+        private void TxtPretragaStudenata_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UcitajStudente();
+        }
+
+        private void UcitajStudente()
+        {
+            if (cmbMojiPredmeti.SelectedItem is Predmet odabraniPredmet)
+            {
+                string filter = txtPretragaStudenata.Text;
+
+                if (filter.Contains("Pretraga")) filter = "";
+
+                var studentiLista = _studentPredmetServis.GetStudentiByPredmet(odabraniPredmet.Id, filter);
+                lstStudenti.ItemsSource = studentiLista;
+            }
+        }
+
+        private void BtnSacuvajBodovanje_Click(object sender, RoutedEventArgs e)
+        {
+            if (cmbMojiPredmeti.SelectedItem is Predmet odabraniPredmet)
+            {
+                string noviTekst = txtPravilaBodovanja.Text;
+
+                _predmetServis.SacuvajPravilaBodovanja(odabraniPredmet.Id, noviTekst);
+
+                MessageBox.Show("Podsjetnik za bodovanje je uspješno sačuvan!", "Uspjeh",
+                                MessageBoxButton.OK, MessageBoxImage.Information);
+
+                odabraniPredmet.PravilaBodovanja = noviTekst;
+            }
+        }
+
+
+        private void BtnUnosOcjena_Click(object sender, RoutedEventArgs e)
+        {
+            if (cmbMojiPredmeti.SelectedItem is Predmet odabraniPredmet)
+            {
+                MessageBox.Show($"Implementirati za: {odabraniPredmet.Naziv}",
+                                "Unos ocjena", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Molimo prvo odaberite predmet.", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void BtnZakaziIspit_Click(object sender, RoutedEventArgs e)
+        {
+            if (cmbMojiPredmeti.SelectedItem is Predmet odabraniPredmet)
+            {
+                MessageBox.Show($"Implementirati zakazivanje ispita: {odabraniPredmet.Naziv}",
+                                "Zakazivanje novog ispita", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Molimo prvo odaberite predmet.", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+    }
+}

@@ -9,5 +9,6 @@
         public Profesor Profesor { get; set; } = null!;
         public int GodinaStudijaId { get; set; }
         public GodinaStudija GodinaStudija { get; set; } = null!;
+        public string? PravilaBodovanja { get; set; } 
     }
 }

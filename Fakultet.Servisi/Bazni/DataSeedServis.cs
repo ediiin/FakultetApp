@@ -4,6 +4,7 @@ using Fakultet.Servisi.IServis.FakultetskiProcesi;
 using Fakultet.Servisi.IServis.Forum;
 using Fakultet.Servisi.IServis.Korisnici;
 using Fakultet.Servisi.IServis.Pomocni;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fakultet.Servisi.Bazni
 {
@@ -23,6 +24,7 @@ namespace Fakultet.Servisi.Bazni
         private readonly MaterijalServis _materijalServis;
         private readonly ChatPorukaServis _chatPorukaServis;
         private readonly ZahtjevZaPotvrduServis _zahtjevZaPotvrduServis;
+        public readonly StudentPredmetServis _studentPredmetServis;
 
         public DataSeedServis(SpolServis spolServis,
             DrzavaServis drzavaServis,
@@ -37,7 +39,8 @@ namespace Fakultet.Servisi.Bazni
             PredmetServis predmetServis,
             MaterijalServis materijalServis,
             ChatPorukaServis chatPorukaServis,
-            ZahtjevZaPotvrduServis zahtjevZaPotvrduServis)
+            ZahtjevZaPotvrduServis zahtjevZaPotvrduServis,
+            StudentPredmetServis studentPredmetServis)
         {
             _spolServis = spolServis;
             _drzavaServis = drzavaServis;
@@ -53,6 +56,7 @@ namespace Fakultet.Servisi.Bazni
             _materijalServis = materijalServis;
             _chatPorukaServis = chatPorukaServis;
             _zahtjevZaPotvrduServis = zahtjevZaPotvrduServis;
+            _studentPredmetServis = studentPredmetServis;
         }
 
         private void KreirajAdmina()
@@ -193,6 +197,46 @@ namespace Fakultet.Servisi.Bazni
             if (!zahtjeviPostoje)
             {
                 KreirajZahtjeveZaPotvrde();
+            }
+
+            //studentPredmet ----------------------------------------------------------------------------
+            var studentPredmetPostoji = _studentPredmetServis.GetAll().Any();
+            if (!studentPredmetPostoji)
+            {
+                GenerisiStudentPredmetVeze();
+            }
+        }
+
+        public void GenerisiStudentPredmetVeze()
+        {
+            var studenti = _studentServis.GetAll();
+            var sviPredmeti = _predmetServis.GetAll();
+
+            int dodanoVeza = 0;
+
+            foreach (var student in studenti)
+            {
+                var predmetiZaNjegovuGodinu = sviPredmeti
+                    .Where(p => p.GodinaStudijaId == student.GodinaStudijaId)
+                    .ToList();
+
+                foreach (var predmet in predmetiZaNjegovuGodinu)
+                {
+                    bool vecSlusa = _studentPredmetServis.GetAll().Any(sp => sp.StudentId == student.Id && sp.PredmetId == predmet.Id);
+
+                    if (!vecSlusa)
+                    {
+                        var novaVeza = new StudentPredmet
+                        {
+                            StudentId = student.Id,
+                            PredmetId = predmet.Id,
+                            Polozio = false,
+                        };
+
+                        _studentPredmetServis.Add(novaVeza);
+                        dodanoVeza++;
+                    }
+                }
             }
         }
 

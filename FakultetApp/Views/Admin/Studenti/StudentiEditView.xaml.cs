@@ -115,6 +115,7 @@ namespace FakultetApp.Views.Admin.Studenti
             if (!Validno())
                 return;
 
+            var staraGodinaId = _student.GodinaStudijaId;
             _student.Ime = tbIme.Text;
             _student.Prezime = tbPrezime.Text;
             _student.KorisnickoIme = tbKorisnickoIme.Text;
@@ -130,6 +131,10 @@ namespace FakultetApp.Views.Admin.Studenti
             }
 
             _studentServis.Update(_student);
+            if (staraGodinaId != godinaStudija.Id)
+            {
+                _studentServis.UpisiStudentaNaGodinu(_student.Id, godinaStudija.Id);
+            }
             MessageBox.Show("Podaci o studentu uspješno ažurirani!", "Uspjeh", 
                 MessageBoxButton.OK, MessageBoxImage.Information);
             pbLozinka.Clear();
