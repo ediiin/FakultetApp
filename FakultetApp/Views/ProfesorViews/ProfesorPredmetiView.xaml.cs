@@ -1,6 +1,7 @@
 ﻿using Fakultet.Core.Modeli;
 using Fakultet.Servisi.Bazni;
 using Fakultet.Servisi.IServis.FakultetskiProcesi;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,7 +24,7 @@ namespace FakultetApp.Views.ProfesorViews
     {
         private readonly PredmetServis _predmetServis;
         private readonly StudentPredmetServis _studentPredmetServis;
-        private readonly int _ulogovaniProfesorId;
+        private readonly Profesor _ulogovaniProfesor;
 
         public ProfesorPredmetiView(PredmetServis predmetServis,
             StudentPredmetServis studentPredmetServis,
@@ -33,14 +34,14 @@ namespace FakultetApp.Views.ProfesorViews
 
             _predmetServis = predmetServis;
             _studentPredmetServis = studentPredmetServis;
-            _ulogovaniProfesorId = profesor.Id;
+            _ulogovaniProfesor = profesor;
 
             UcitajPredmete();
         }
 
         private void UcitajPredmete()
         {
-            var predmeti = _predmetServis.GetPredmetiByProfesor(_ulogovaniProfesorId);
+            var predmeti = _predmetServis.GetPredmetiByProfesor(_ulogovaniProfesor.Id);
             cmbMojiPredmeti.ItemsSource = predmeti;
 
             if (predmeti.Any())
@@ -57,11 +58,10 @@ namespace FakultetApp.Views.ProfesorViews
                 var sviUpisaniStudenti = _studentPredmetServis.GetStudentiByPredmet(odabraniPredmet.Id, "");
                 txtBrojUpisanih.Text = sviUpisaniStudenti.Count.ToString();
 
-                // Bonus: jednostavan izračun prosječne ocjene
                 var polozeni = sviUpisaniStudenti.Where(x => x.Polozio && x.Ocjena.HasValue).ToList();
                 if (polozeni.Any())
                 {
-                    double prosjek = polozeni.Average(x => x.Ocjena.Value);
+                    double prosjek = polozeni.Average(x => x.Ocjena!.Value);
                     txtProsjecnaOcjena.Text = Math.Round(prosjek, 2).ToString();
 
                     double prolaznost = (double)polozeni.Count / sviUpisaniStudenti.Count * 100;
@@ -110,7 +110,6 @@ namespace FakultetApp.Views.ProfesorViews
             }
         }
 
-
         private void BtnUnosOcjena_Click(object sender, RoutedEventArgs e)
         {
             if (cmbMojiPredmeti.SelectedItem is Predmet odabraniPredmet)
@@ -128,8 +127,12 @@ namespace FakultetApp.Views.ProfesorViews
         {
             if (cmbMojiPredmeti.SelectedItem is Predmet odabraniPredmet)
             {
-                MessageBox.Show($"Implementirati zakazivanje ispita: {odabraniPredmet.Naziv}",
-                                "Zakazivanje novog ispita", MessageBoxButton.OK, MessageBoxImage.Information);
+                var prikaznik = this.Parent as ContentControl;
+
+                if (prikaznik != null)
+                {
+                    prikaznik.Content = ActivatorUtilities.CreateInstance<ProfesorIspitView>(App.ServiceProvider!, _ulogovaniProfesor);
+                }
             }
             else
             {

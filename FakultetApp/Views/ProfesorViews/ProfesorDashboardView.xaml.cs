@@ -41,7 +41,7 @@ namespace FakultetApp.Views.ProfesorViews
                         break;
 
                     case nameof(btnIspitniRokovi):
-                        // PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<ProfesoriRokoviView>(App.ServiceProvider!, _prijavljeniProfesor);
+                        PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<ProfesorIspitView>(App.ServiceProvider!, _prijavljeniProfesor);
                         break;
 
                     case nameof(btnChat):

@@ -47,7 +47,7 @@
                         <StackPanel Margin="0,0,30,0" VerticalAlignment="Center">
                             <TextBlock Text="Godina studija" Foreground="{DynamicResource DisabledText}" FontSize="12"/>
                             <!-- Dinamički prikaz godine studija -->
-                            <TextBlock Text="{Binding SelectedItem.GodinaStudija.Naziv, ElementName=cmbMojiPredmeti}" 
+                            <TextBlock Text="{Binding SelectedItem.GodinaStudija.Opis, ElementName=cmbMojiPredmeti}" 
                                        Foreground="{DynamicResource PrimaryText}" FontWeight="Bold" FontSize="15" Margin="0,2,0,0"/>
                         </StackPanel>
 
