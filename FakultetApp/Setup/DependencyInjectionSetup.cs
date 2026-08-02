@@ -42,6 +42,7 @@ namespace Fakultet.Servisi.Setup
             services.AddTransient<ZahtjevZaPotvrduServis>();
             services.AddTransient<StudentPredmetServis>();
             services.AddTransient<IspitServis>();
+            services.AddTransient<StudentIspitServis>();
             // ostali servisi ce ici ovdje
         }
 
@@ -80,6 +81,7 @@ namespace Fakultet.Servisi.Setup
             services.AddTransient<StudentiObjaveView>();
             services.AddTransient<StudentiDokumentiView>();
             services.AddTransient<StudentiChatView>();
+            services.AddTransient<StudentiPrijavaIspitaView>();
             
             //profesor funkcionalnosti
             services.AddTransient<ProfesorDashboardView>();
