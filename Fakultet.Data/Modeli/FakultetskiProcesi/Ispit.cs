@@ -8,5 +8,6 @@
         public DateTime DatumOdrzavanja { get; set; }
         public int BrojZadataka { get; set; }
         public int MaxBrojBodova { get; set; }
+        public bool Dodatni { get; set; }
     }
 }

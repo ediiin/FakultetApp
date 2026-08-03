@@ -2,6 +2,7 @@
 using Fakultet.Servisi.IServis.FakultetskiProcesi;
 using System.Windows;
 using System.Windows.Controls;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FakultetApp.Views.StudentViews
 {
@@ -54,11 +55,28 @@ namespace FakultetApp.Views.StudentViews
 
             if (odabraniIspit != null)
             {
+                if (odabraniIspit.DatumOdrzavanja <= DateTime.Now.AddHours(24))
+                {
+                    MessageBox.Show("Prijava ispita više nije moguća! Istekao je rok za prijavu (manje od 24h do početka ispita).",
+                                    "Rok istekao", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    OsvjeziSveTabele();
+                    return;
+                }
+
                 var dosadasnjiIzlasci = _studentIspitServis.BrojIzlazakaNaPredmet(_prijavljeniStudent.Id, odabraniIspit.PredmetId);
                 int noviBrojIzlaska = dosadasnjiIzlasci + 1;
                 bool jeKomisijski = noviBrojIzlaska >= 4;
 
-                decimal cijenaIspita = jeKomisijski ? 50.00m : 0.00m;
+                decimal cijenaIspita = 0.00m;
+
+                if (odabraniIspit.Dodatni)
+                {
+                    cijenaIspita = 80.00m; 
+                }
+                else if (jeKomisijski)
+                {
+                    cijenaIspita = 50.00m; 
+                }
 
                 var novaPrijava = new StudentIspit
                 {
@@ -66,7 +84,7 @@ namespace FakultetApp.Views.StudentViews
                     IspitId = odabraniIspit.Id,
                     BrojIzlazaka = noviBrojIzlaska,
                     Komisijski = jeKomisijski,
-                    Dodatni = false,
+                    Dodatni = odabraniIspit.Dodatni,
                     Cijena = cijenaIspita,
                     Polozio = false,
                     DatumPrijave = DateTime.Now
@@ -74,9 +92,13 @@ namespace FakultetApp.Views.StudentViews
 
                 _studentIspitServis.Add(novaPrijava);
 
-                MessageBox.Show($"Uspješno ste prijavili ispit iz predmeta: {odabraniIspit.Predmet.Naziv}.\n" +
-                                $"Ovo je vaš {noviBrojIzlaska}. izlazak.",
-                                "Uspješna prijava", MessageBoxButton.OK, MessageBoxImage.Information);
+                string obavijest = $"Uspješno ste prijavili ispit iz predmeta: {odabraniIspit.Predmet.Naziv}.\n" +
+                                    $"Ovo je vaš {noviBrojIzlaska}. izlazak.";
+
+                if (cijenaIspita > 0)
+                    obavijest += $"\nCijena prijave iznosi: {cijenaIspita:F2} KM.";
+
+                MessageBox.Show(obavijest, "Uspješna prijava", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 OsvjeziSveTabele();
             }

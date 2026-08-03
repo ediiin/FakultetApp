@@ -51,12 +51,14 @@ namespace FakultetApp.Views.ProfesorViews
                 PredmetId = odabraniPredmet.Id,
                 DatumOdrzavanja = tacanTermin,
                 BrojZadataka = int.Parse(tbBrojZadataka.Text),
-                MaxBrojBodova = int.Parse(tbMaxBodova.Text)
+                MaxBrojBodova = int.Parse(tbMaxBodova.Text),
+                Dodatni = cbDodatniRok.IsChecked == true
             };
 
             _ispitServis.Add(noviIspit);
 
-            MessageBox.Show($"Uspješno ste zakazali ispit za predmet: {odabraniPredmet.Naziv}\nTermin: {tacanTermin:dd.MM.yyyy HH:mm}",
+            string tipRoka = noviIspit.Dodatni ? "(Dodatni rok)" : "(Redovni rok)";
+            MessageBox.Show($"Uspješno ste zakazali ispit za predmet: {odabraniPredmet.Naziv} {tipRoka}\nTermin: {tacanTermin:dd.MM.yyyy HH:mm}",
                             "Uspjeh", MessageBoxButton.OK, MessageBoxImage.Information);
 
             OcistiPolja();
@@ -124,6 +126,7 @@ namespace FakultetApp.Views.ProfesorViews
             tbVrijeme.Text = "10:00";
             tbBrojZadataka.Clear();
             tbMaxBodova.Clear();
+            cbDodatniRok.IsChecked = false; 
             OcistiGreske();
         }
     }

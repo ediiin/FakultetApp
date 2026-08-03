@@ -23,7 +23,9 @@ namespace Fakultet.Servisi.Bazni
         private readonly MaterijalServis _materijalServis;
         private readonly ChatPorukaServis _chatPorukaServis;
         private readonly ZahtjevZaPotvrduServis _zahtjevZaPotvrduServis;
-        public readonly StudentPredmetServis _studentPredmetServis;
+        private readonly StudentPredmetServis _studentPredmetServis;
+        private readonly IspitServis _ispitServis;
+        private readonly StudentIspitServis _studentIspitServis;
 
         public DataSeedServis(SpolServis spolServis,
             DrzavaServis drzavaServis,
@@ -39,7 +41,9 @@ namespace Fakultet.Servisi.Bazni
             MaterijalServis materijalServis,
             ChatPorukaServis chatPorukaServis,
             ZahtjevZaPotvrduServis zahtjevZaPotvrduServis,
-            StudentPredmetServis studentPredmetServis)
+            StudentPredmetServis studentPredmetServis,
+            IspitServis ispitServis,
+            StudentIspitServis studentIspitServis)
         {
             _spolServis = spolServis;
             _drzavaServis = drzavaServis;
@@ -56,6 +60,8 @@ namespace Fakultet.Servisi.Bazni
             _chatPorukaServis = chatPorukaServis;
             _zahtjevZaPotvrduServis = zahtjevZaPotvrduServis;
             _studentPredmetServis = studentPredmetServis;
+            _ispitServis = ispitServis;
+            _studentIspitServis = studentIspitServis;
         }
 
         private void KreirajAdmina()
@@ -203,6 +209,90 @@ namespace Fakultet.Servisi.Bazni
             if (!studentPredmetPostoji)
             {
                 GenerisiStudentPredmetVeze();
+            }
+
+            //ispiti ------------------------------------------------------------------------------------
+            var ispitiPostoje = _ispitServis.GetAll().Any();
+            if (!ispitiPostoje)
+            {
+                GenerisiIspite();
+            }
+
+            //prijave ispita (StudentIspit) -------------------------------------------------------------
+            var prijavePostoje = _studentIspitServis.GetAll().Any();
+            if (!prijavePostoje)
+            {
+                GenerisiPrijaveIspita();
+            }
+        }
+
+        public void GenerisiIspite()
+        {
+            var sviPredmeti = _predmetServis.GetAll();
+
+            foreach (var predmet in sviPredmeti)
+            {
+                var redovniIspit = new Ispit
+                {
+                    PredmetId = predmet.Id,
+                    DatumOdrzavanja = DateTime.Now.AddDays(10).AddHours(10),
+                    BrojZadataka = 5,
+                    MaxBrojBodova = 100,
+                    Dodatni = false
+                };
+                _ispitServis.Add(redovniIspit);
+
+                var dodatniIspit = new Ispit
+                {
+                    PredmetId = predmet.Id,
+                    DatumOdrzavanja = DateTime.Now.AddDays(25).AddHours(12),
+                    BrojZadataka = 3,
+                    MaxBrojBodova = 100,
+                    Dodatni = true
+                };
+                _ispitServis.Add(dodatniIspit);
+            }
+        }
+
+        public void GenerisiPrijaveIspita()
+        {
+            var sviStudenti = _studentServis.GetAll();
+            var sviIspiti = _ispitServis.GetAll();
+            var sveVezeStudentPredmet = _studentPredmetServis.GetAll();
+
+            foreach (var student in sviStudenti)
+            {
+                var predmetiKojeSlusaIds = sveVezeStudentPredmet
+                    .Where(sp => sp.StudentId == student.Id && !sp.Polozio)
+                    .Select(sp => sp.PredmetId)
+                    .ToList();
+
+                var dostupniIspiti = sviIspiti
+                    .Where(i => predmetiKojeSlusaIds.Contains(i.PredmetId) && !i.Dodatni)
+                    .ToList();
+
+                foreach (var ispit in dostupniIspiti)
+                {
+                    bool vecPrijavio = _studentIspitServis.GetAll()
+                        .Any(si => si.StudentId == student.Id && si.IspitId == ispit.Id);
+
+                    if (!vecPrijavio)
+                    {
+                        var novaPrijava = new StudentIspit
+                        {
+                            StudentId = student.Id,
+                            IspitId = ispit.Id,
+                            BrojIzlazaka = 1,
+                            Komisijski = false,
+                            Dodatni = ispit.Dodatni,
+                            Cijena = ispit.Dodatni ? 80.00m : 0.00m,
+                            Polozio = false,
+                            DatumPrijave = DateTime.Now.AddDays(-2)
+                        };
+
+                        _studentIspitServis.Add(novaPrijava);
+                    }
+                }
             }
         }
 
