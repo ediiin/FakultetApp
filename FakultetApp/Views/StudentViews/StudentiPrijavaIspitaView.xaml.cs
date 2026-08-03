@@ -1,17 +1,7 @@
 ﻿using Fakultet.Core.Modeli;
 using Fakultet.Servisi.IServis.FakultetskiProcesi;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FakultetApp.Views.StudentViews
 {
@@ -31,7 +21,13 @@ namespace FakultetApp.Views.StudentViews
             _ispitServis = ispitServis;
             _studentIspitServis = studentIspitServis;
 
+            OsvjeziSveTabele();
+        }
+
+        private void OsvjeziSveTabele()
+        {
             UcitajDostupneIspite();
+            UcitajPrijavljeneIspite();
         }
 
         private void UcitajDostupneIspite()
@@ -40,29 +36,37 @@ namespace FakultetApp.Views.StudentViews
             dgDostupniIspiti.ItemsSource = dostupniIspiti;
         }
 
-        private void BtnPrijaviIspit_Click(object sender, RoutedEventArgs e)
+        private void UcitajPrijavljeneIspite()
         {
-            lblGreska.Visibility = Visibility.Hidden;
+            //samo ispiti koji nisu odrzani
+            var aktivnePrijave = _studentIspitServis.GetPrijaveByStudent(_prijavljeniStudent.Id)
+                                                    .Where(p => p.Ispit.DatumOdrzavanja > DateTime.Now)
+                                                    .ToList();
 
-            if (dgDostupniIspiti.SelectedItem is Ispit odabraniIspit)
+            dgPrijavljeniIspiti.ItemsSource = aktivnePrijave;
+        }
+
+        private void BtnPrijavi_Click(object sender, RoutedEventArgs e)
+        {
+            // ispit iz kliknutog reda
+            var button = sender as Button;
+            var odabraniIspit = button?.DataContext as Ispit;
+
+            if (odabraniIspit != null)
             {
-                // Provjera dosadašnjih izlazaka na ovaj predmet
                 var dosadasnjiIzlasci = _studentIspitServis.BrojIzlazakaNaPredmet(_prijavljeniStudent.Id, odabraniIspit.PredmetId);
-
                 int noviBrojIzlaska = dosadasnjiIzlasci + 1;
-                bool jeKomisijski = noviBrojIzlaska >= 4; // Standardno je 4. izlazak komisijski
+                bool jeKomisijski = noviBrojIzlaska >= 4;
 
-                // Kalkulacija cijene (npr. komisijski ispit se plaća)
                 decimal cijenaIspita = jeKomisijski ? 50.00m : 0.00m;
 
-                // Kreiranje zapisa u bazi
                 var novaPrijava = new StudentIspit
                 {
                     StudentId = _prijavljeniStudent.Id,
                     IspitId = odabraniIspit.Id,
                     BrojIzlazaka = noviBrojIzlaska,
                     Komisijski = jeKomisijski,
-                    Dodatni = false, // Zavisno od pravila fakulteta
+                    Dodatni = false,
                     Cijena = cijenaIspita,
                     Polozio = false,
                     DatumPrijave = DateTime.Now
@@ -74,12 +78,36 @@ namespace FakultetApp.Views.StudentViews
                                 $"Ovo je vaš {noviBrojIzlaska}. izlazak.",
                                 "Uspješna prijava", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                // Osvježi tabelu (ukloni tek prijavljeni ispit)
-                UcitajDostupneIspite();
+                OsvjeziSveTabele();
             }
-            else
+        }
+
+        private void BtnOdjavi_Click(object sender, RoutedEventArgs e)
+        {
+            // prijava ispita iz tog reda odabranog
+            var button = sender as Button;
+            var prijavaZaOdjavu = button?.DataContext as StudentIspit;
+
+            if (prijavaZaOdjavu != null)
             {
-                lblGreska.Visibility = Visibility.Visible;
+                // zabrana odjave 24h pred ispit
+                if (prijavaZaOdjavu.Ispit.DatumOdrzavanja < DateTime.Now.AddDays(1))
+                {
+                    MessageBox.Show("Nije moguće odjaviti ispit jer je do održavanja ostalo manje od 24 sata.",
+                                    "Greška pri odjavi", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                var upit = MessageBox.Show($"Jeste li sigurni da želite odjaviti ispit iz predmeta: {prijavaZaOdjavu.Ispit.Predmet.Naziv}?",
+                                           "Potvrda odjave", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (upit == MessageBoxResult.Yes)
+                {
+                    _studentIspitServis.OdjaviIspit(prijavaZaOdjavu.StudentId, prijavaZaOdjavu.IspitId);
+
+                    MessageBox.Show("Ispit uspješno odjavljen.", "Odjava", MessageBoxButton.OK, MessageBoxImage.Information);
+                    OsvjeziSveTabele(); 
+                }
             }
         }
     }

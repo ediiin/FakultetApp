@@ -1,9 +1,6 @@
 ﻿using Fakultet.Core.Modeli;
 using Fakultet.Servisi.Bazni;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Fakultet.Servisi.IServis.FakultetskiProcesi
 {
@@ -21,6 +18,26 @@ namespace Fakultet.Servisi.IServis.FakultetskiProcesi
                                                       si.Ispit.PredmetId == predmetId);
 
             return brojIzlazaka;
+        }
+
+        public void OdjaviIspit(int studentId, int ispitId)
+        {
+            var prijava = _dbSet.FirstOrDefault(si => si.StudentId == studentId && si.IspitId == ispitId);
+
+            if (prijava != null)
+            {
+                _dbSet.Remove(prijava);
+                _dbContext.SaveChanges();
+            }
+        }
+
+        public List<StudentIspit> GetPrijaveByStudent(int studentId)
+        {
+            return _dbSet
+                .Include(si => si.Ispit)
+                   .ThenInclude(i => i.Predmet) 
+                .Where(si => si.StudentId == studentId)
+                .ToList();
         }
     }
 }

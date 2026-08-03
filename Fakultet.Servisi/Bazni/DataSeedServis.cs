@@ -4,7 +4,6 @@ using Fakultet.Servisi.IServis.FakultetskiProcesi;
 using Fakultet.Servisi.IServis.Forum;
 using Fakultet.Servisi.IServis.Korisnici;
 using Fakultet.Servisi.IServis.Pomocni;
-using Microsoft.EntityFrameworkCore;
 
 namespace Fakultet.Servisi.Bazni
 {

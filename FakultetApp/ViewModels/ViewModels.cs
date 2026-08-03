@@ -1,7 +1,4 @@
 ﻿using Fakultet.Core.Modeli.Forum;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 
 namespace FakultetApp.ViewModels
