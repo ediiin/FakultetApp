@@ -57,7 +57,7 @@ namespace FakultetApp.Views.ProfesorViews
 
         private void UcitajPocetnu()
         {
-            // PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<ProfesoriPocetnaView>(App.ServiceProvider!, _prijavljeniProfesor);
+            PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<ProfesorPocetnaView>(App.ServiceProvider!, _prijavljeniProfesor);
         }
 
         private void OdjaviSe()

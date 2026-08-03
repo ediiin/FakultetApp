@@ -103,8 +103,15 @@ namespace FakultetApp.Views.ProfesorViews
         {
             if (cmbMojiPredmeti.SelectedItem is Predmet odabraniPredmet)
             {
-                MessageBox.Show($"Implementirati za: {odabraniPredmet.Naziv}",
-                                "Unos ocjena", MessageBoxButton.OK, MessageBoxImage.Information);
+                var prikaznik = this.Parent as ContentControl;
+
+                if (prikaznik != null)
+                {
+                    prikaznik.Content = ActivatorUtilities.CreateInstance<ProfesorUnosOcjenaView>(
+                        App.ServiceProvider!,
+                        _ulogovaniProfesor
+                    );
+                }
             }
             else
             {

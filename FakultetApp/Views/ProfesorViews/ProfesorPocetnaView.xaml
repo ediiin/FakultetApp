@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="FakultetApp.Views.ProfesorViews.ProfesorPocetnaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="950"
+             Background="{DynamicResource WindowBackground}">
+
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Naslov 1: Obaveze -->
+            <RowDefinition Height="*"/>
+            <!-- Tabela Neocijenjeni -->
+            <RowDefinition Height="Auto"/>
+            <!-- Naslov 2: Nadolazeći -->
+            <RowDefinition Height="*"/>
+            <!-- Tabela Nadolazeći -->
+        </Grid.RowDefinitions>
+
+        <!-- 1. SEKCIJA: OBAVEZE / ZA OCJENJIVANJE -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+            <TextBlock Text="Obaveze za ocjenjivanje" FontSize="22" FontWeight="Bold" 
+                       Foreground="{DynamicResource Naslov}"/>
+            <TextBlock Text=" (Ispiti koji su se održali, a nisu uneseni rezultati)" 
+                       FontSize="14" Foreground="{DynamicResource PrimaryText}" VerticalAlignment="Bottom" Margin="10,0,0,2"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" Background="{DynamicResource CardBackground}" CornerRadius="10" Padding="15" Margin="0,0,0,25">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.05" Color="Black"/>
+            </Border.Effect>
+
+            <Grid>
+                <DataGrid x:Name="dgNeocijenjeniIspiti" AutoGenerateColumns="False" IsReadOnly="True" 
+                          SelectionMode="Single" Background="Transparent" BorderThickness="0"
+                          HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                          RowBackground="{DynamicResource CardBackground}"
+                          AlternatingRowBackground="{DynamicResource WindowBackground}"
+                          Foreground="{DynamicResource PrimaryText}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Predmet" Binding="{Binding PredmetNaziv}" Width="*"/>
+                        <DataGridTextColumn Header="Datum održavanja" Binding="{Binding DatumOdrzavanja, StringFormat=\{0:dd.MM.yyyy HH:mm\}}" Width="160"/>
+                        <DataGridTextColumn Header="Prijavljeno studenata" Binding="{Binding BrojPrijavljenih}" Width="150"/>
+                        <DataGridTextColumn Header="Tip roka" Binding="{Binding TipRoka}" Width="120"/>
+
+                        <!-- Dugme za unos ocjena -->
+                        <DataGridTemplateColumn Width="140">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Unesi ocjene" Background="{DynamicResource ButtonColor}" Foreground="White" 
+                                            FontWeight="Bold" Padding="10,6" Cursor="Hand" BorderThickness="0"
+                                            Click="BtnUnesiOcjene_Click">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="5"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <TextBlock x:Name="lblNemaNeocijenjenih" Text="Nemate ispita koji čekaju na unos ocjena. Sve je ažurno!" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" 
+                           Foreground="{DynamicResource PrimaryText}" Visibility="Collapsed"/>
+            </Grid>
+        </Border>
+
+        <!-- 2. SEKCIJA: NADOLAZEĆI ISPITI -->
+        <TextBlock Grid.Row="2" Text="Nadolazeći ispiti" FontSize="22" FontWeight="Bold" 
+                   Foreground="{DynamicResource Naslov}" Margin="0,0,0,15"/>
+
+        <Border Grid.Row="3" Background="{DynamicResource CardBackground}" CornerRadius="10" Padding="15">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.05" Color="Black"/>
+            </Border.Effect>
+
+            <Grid>
+                <DataGrid x:Name="dgNadolazeciIspiti" AutoGenerateColumns="False" IsReadOnly="True" 
+                          SelectionMode="Single" Background="Transparent" BorderThickness="0"
+                          HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                          RowBackground="{DynamicResource CardBackground}"
+                          AlternatingRowBackground="{DynamicResource WindowBackground}"
+                          Foreground="{DynamicResource PrimaryText}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Predmet" Binding="{Binding PredmetNaziv}" Width="*"/>
+                        <DataGridTextColumn Header="Datum održavanja" Binding="{Binding DatumOdrzavanja, StringFormat=\{0:dd.MM.yyyy HH:mm\}}" Width="160"/>
+                        <DataGridTextColumn Header="Broj prijava" Binding="{Binding BrojPrijavljenih}" Width="130"/>
+                        <DataGridTextColumn Header="Tip roka" Binding="{Binding TipRoka}" Width="130"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <TextBlock x:Name="lblNemaNadolazecih" Text="Trenutno nemate zakazanih nadolazećih ispita." 
+                           HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" 
+                           Foreground="{DynamicResource PrimaryText}" Visibility="Collapsed"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

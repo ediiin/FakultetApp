@@ -100,7 +100,7 @@ namespace Fakultet.Servisi.Bazni
         {
             //spolovi        
             var spoloviPostoje = _spolServis.GetAll().Any();
-            if(!spoloviPostoje)
+            if (!spoloviPostoje)
             {
                 KreirajSpolove();
             }
@@ -224,6 +224,7 @@ namespace Fakultet.Servisi.Bazni
             {
                 GenerisiPrijaveIspita();
             }
+
         }
 
         public void GenerisiIspite()
@@ -251,6 +252,55 @@ namespace Fakultet.Servisi.Bazni
                     Dodatni = true
                 };
                 _ispitServis.Add(dodatniIspit);
+            }
+        }
+
+        public void GenerisiOdrzaneIspiteIPrijave()
+        {
+            var sviPredmeti = _predmetServis.GetAll();
+            var sviStudenti = _studentServis.GetAll();
+            var sveVezeStudentPredmet = _studentPredmetServis.GetAll();
+
+            foreach (var predmet in sviPredmeti)
+            {
+                var odrzaniIspit = new Ispit
+                {
+                    PredmetId = predmet.Id,
+                    DatumOdrzavanja = DateTime.Now.AddDays(-5).AddHours(9), 
+                    BrojZadataka = 4,
+                    MaxBrojBodova = 100,
+                    Dodatni = false
+                };
+
+                _ispitServis.Add(odrzaniIspit);
+
+                var studentiKojiSlusaju = sviStudenti
+                    .Where(s => sveVezeStudentPredmet.Any(sp => sp.StudentId == s.Id && sp.PredmetId == predmet.Id && !sp.Polozio))
+                    .ToList();
+
+                foreach (var student in studentiKojiSlusaju)
+                {
+                    bool vecPostoji = _studentIspitServis.GetAll()
+                        .Any(si => si.StudentId == student.Id && si.IspitId == odrzaniIspit.Id);
+
+                    if (!vecPostoji)
+                    {
+                        var prijavaProslost = new StudentIspit
+                        {
+                            StudentId = student.Id,
+                            IspitId = odrzaniIspit.Id,
+                            BrojIzlazaka = 1,
+                            Komisijski = false,
+                            Dodatni = false,
+                            Cijena = 0.00m,
+                            Ocjena = null, 
+                            Polozio = false,
+                            DatumPrijave = DateTime.Now.AddDays(-10) 
+                        };
+
+                        _studentIspitServis.Add(prijavaProslost);
+                    }
+                }
             }
         }
 

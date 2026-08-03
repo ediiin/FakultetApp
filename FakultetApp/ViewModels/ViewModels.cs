@@ -80,4 +80,16 @@ namespace FakultetApp.ViewModels
             }
         }
     }
+
+    // za priakz ispita
+    public class IspitPrikazDTO
+    {
+        public int IspitId { get; set; }
+        public int PredmetId { get; set; }
+        public string PredmetNaziv { get; set; } = string.Empty;
+        public DateTime DatumOdrzavanja { get; set; }
+        public int BrojPrijavljenih { get; set; }
+        public bool Dodatni { get; set; }
+        public string TipRoka => Dodatni ? "Dodatni rok" : "Redovni rok";
+    }
 }
