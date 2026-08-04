@@ -11,6 +11,19 @@ namespace Fakultet.Servisi.IServis.FakultetskiProcesi
         {
         }
 
+        public override List<Ispit> GetAll()
+        {
+            return _dbSet.Include(i => i.Predmet).ToList();
+        }
+
+        public List<Ispit> GetAllByPredmet(int predmetId)
+        {
+            return _dbSet.Include(i => i.Predmet)
+                .Where(i => i.PredmetId == predmetId && i.DatumOdrzavanja <= DateTime.Now)
+                .OrderByDescending(i => i.DatumOdrzavanja)
+                .ToList();
+        }
+
         public List<Ispit> GetDostupniIspitiZaStudenta(int studentId)
         {
             var student = _dbContext.Studenti
@@ -58,6 +71,11 @@ namespace Fakultet.Servisi.IServis.FakultetskiProcesi
                 .ToList();
 
             return dostupniIspiti;
+        }
+
+        public Ispit GetIspitPoId(int pocetniIspitId)
+        {
+            return GetAll().FirstOrDefault(i => i.Id == pocetniIspitId);
         }
     }
 }

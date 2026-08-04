@@ -10,6 +10,11 @@ namespace Fakultet.Servisi.IServis.FakultetskiProcesi
         {
         }
 
+        public override List<StudentIspit> GetAll()
+        {
+            return _dbSet.Include(si => si.Student).Include(si => si.Ispit).ToList();
+        }
+
         public int BrojIzlazakaNaPredmet(int studentId, int predmetId)
         {
             var brojIzlazaka = _dbContext.StudentiIspiti

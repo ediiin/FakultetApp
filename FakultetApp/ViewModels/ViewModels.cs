@@ -1,4 +1,5 @@
-﻿using Fakultet.Core.Modeli.Forum;
+﻿using Fakultet.Core.Modeli;
+using Fakultet.Core.Modeli.Forum;
 using System.Windows;
 
 namespace FakultetApp.ViewModels
@@ -91,5 +92,33 @@ namespace FakultetApp.ViewModels
         public int BrojPrijavljenih { get; set; }
         public bool Dodatni { get; set; }
         public string TipRoka => Dodatni ? "Dodatni rok" : "Redovni rok";
+    }
+
+    // DTO model za ljepši prikaz ispita u ComboBox-u
+    public class IspitCmbDTO
+    {
+        public int IspitId { get; set; }
+        public string PrikazTekst { get; set; } = string.Empty;
+    }
+
+    // DTO model za jedan red u DataGrid tabeli za unos ocjene
+    public class PrijavaZaOcjenuDTO
+    {
+        public StudentIspit Prijava { get; set; }
+        public string ImePrezime => $"{Prijava.Student.Ime} {Prijava.Student.Prezime}";
+        public string Indeks => Prijava.Student.Indeks;
+        public int BrojIzlazaka => Prijava.BrojIzlazaka;
+        public List<int> DostupneOcjene { get; } = new List<int> { 5, 6, 7, 8, 9, 10 };
+        public int OdabranaOcjena { get; set; }
+        public bool JeLiOcjenjen => Prijava.Ocjena.HasValue;
+        public string StatusTekst => JeLiOcjenjen ? $"Ocjenjeno ({Prijava.Ocjena})" : "Čeka ocjenu";
+        public string StatusBoja => JeLiOcjenjen ? "#28a745" : "#fd7e14";
+        public string StatusPozadina => JeLiOcjenjen ? "#2028a745" : "#20fd7e14";
+
+        public PrijavaZaOcjenuDTO(StudentIspit prijava)
+        {
+            Prijava = prijava;
+            OdabranaOcjena = prijava.Ocjena ?? 5;
+        }
     }
 }

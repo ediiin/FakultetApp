@@ -141,11 +141,17 @@
                             <TextBlock Text="Brze akcije" FontSize="16" FontWeight="Bold" Foreground="{DynamicResource Naslov}" Margin="0,0,0,15"/>
 
                             <!-- DODANI CLICK EVENTI -->
-                            <Button Content="📝 Unos konačnih ocjena" 
+                            <Button Content="📝 Unos ocjena za ispit" 
                                     Click="BtnUnosOcjena_Click"
                                     Background="{DynamicResource ButtonColor}" Foreground="{DynamicResource PrimaryText}" 
                                     FontWeight="Bold" Height="35" Margin="0,0,0,8" BorderThickness="0" Cursor="Hand"/>
-
+                            
+                            <!-- NOVO DUGME: UNOS KONAČNIH OCJENA -->
+                            <Button Content="🎓 Unos konačnih ocjena" 
+                                 Click="BtnUnosKonacnihOcjena_Click"
+                                 Background="{DynamicResource ButtonColor}" Foreground="{DynamicResource PrimaryText}" 
+                                 FontWeight="Bold" Height="35" Margin="0,0,0,8" BorderThickness="0" Cursor="Hand"/>
+                            
                             <Button Content="📅 Zakaži novi ispit" 
                                     Click="BtnZakaziIspit_Click"
                                     Background="{DynamicResource WindowBackground}" Foreground="{DynamicResource PrimaryText}"

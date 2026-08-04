@@ -90,6 +90,7 @@ namespace Fakultet.Servisi.Setup
             services.AddTransient<ProfesorIspitView>();
             services.AddTransient<ProfesorPocetnaView>();
             services.AddTransient<ProfesorUnosOcjenaView>();
+            services.AddTransient<ProfesorUnosKonacnihOcjenaView>();
 
             // mainwindow drzimo u memoriji zato singleton
             services.AddSingleton<MainWindow>();

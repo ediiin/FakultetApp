@@ -135,5 +135,25 @@ namespace FakultetApp.Views.ProfesorViews
                 MessageBox.Show("Molimo prvo odaberite predmet.", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
+        private void BtnUnosKonacnihOcjena_Click(object sender, RoutedEventArgs e)
+        {
+            if (cmbMojiPredmeti.SelectedItem is Predmet odabraniPredmet)
+            {
+                var prikaznik = this.Parent as ContentControl;
+
+                if (prikaznik != null)
+                {
+                    prikaznik.Content = ActivatorUtilities.CreateInstance<ProfesorUnosKonacnihOcjenaView>(
+                        App.ServiceProvider!,
+                        _ulogovaniProfesor
+                    );
+                }
+            }
+            else
+            {
+                MessageBox.Show("Molimo prvo odaberite predmet.", "Upozorenje", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
     }
 }
