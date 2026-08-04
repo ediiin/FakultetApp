@@ -121,4 +121,17 @@ namespace FakultetApp.ViewModels
             OdabranaOcjena = prijava.Ocjena ?? 5;
         }
     }
+
+    public class KonacnaOcjenaDTO
+    {
+        public StudentPredmet Prijava { get; set; } = null!;
+        public string ImePrezime { get; set; } = string.Empty;
+        public string Indeks { get; set; } = string.Empty;
+        public string DetaljiIspita { get; set; } = string.Empty;
+        public int PredlozenaOcjena { get; set; }
+        public int OdabranaOcjena { get; set; }
+        public string StatusBoja { get; set; } = "#dc3545"; 
+        public string StatusOpis { get; set; } = string.Empty;
+        public List<int> DostupneOcjene { get; set; } = new() { 5, 6, 7, 8, 9, 10 };
+    }
 }

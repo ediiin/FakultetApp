@@ -3,10 +3,131 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:FakultetApp.Views.ProfesorViews"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="Black">
-    <Grid>
-            
+             d:DesignHeight="750" d:DesignWidth="1100"
+             Background="{DynamicResource WindowBackground}">
+
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- 1. Zaglavlje -->
+            <RowDefinition Height="Auto"/>
+            <!-- 2. Filter -->
+            <RowDefinition Height="*"/>
+            <!-- 3. Tabela preko čitave preostale visine/širine -->
+        </Grid.RowDefinitions>
+
+        <!-- 1. ZAGLAVLJE -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
+            <Button Content="← Nazad" Click="BtnNazad_Click" Width="90" Height="35" 
+                    Background="Transparent" Foreground="{DynamicResource PrimaryText}" 
+                    BorderBrush="{DynamicResource PrimaryText}" Cursor="Hand" Margin="0,0,20,0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <TextBlock Text="Unos konačnih ocjena" FontSize="26" FontWeight="Bold" 
+                       Foreground="{DynamicResource Naslov}" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- 2. FILTER ZA PREDMET -->
+        <WrapPanel Grid.Row="1" Margin="0,0,0,20">
+            <StackPanel Margin="0,0,25,10">
+                <TextBlock Text="Odaberite predmet:" FontSize="13" FontWeight="SemiBold" 
+                           Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,5"/>
+                <ComboBox x:Name="cmbPredmeti" Width="320" Height="35" 
+                          DisplayMemberPath="Naziv" SelectedValuePath="Id"
+                          SelectionChanged="CmbPredmeti_SelectionChanged" FontSize="14"/>
+            </StackPanel>
+        </WrapPanel>
+
+        <!-- 3. TABELA KOJA POKRIVA ČITAV PREOSTALI PROSTOR -->
+        <Border Grid.Row="2" Background="{DynamicResource CardBackground}" CornerRadius="10" Padding="15" HorizontalAlignment="Stretch">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.05" Color="Black"/>
+            </Border.Effect>
+
+            <Grid HorizontalAlignment="Stretch">
+                <DataGrid x:Name="dgKonacneOcjene" AutoGenerateColumns="False" IsReadOnly="False" 
+                          SelectionMode="Single" Background="Transparent" BorderThickness="0"
+                          HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                          RowBackground="{DynamicResource CardBackground}"
+                          AlternatingRowBackground="{DynamicResource WindowBackground}"
+                          Foreground="{DynamicResource PrimaryText}" CanUserAddRows="False"
+                          HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="Broj indeksa" Binding="{Binding Indeks}" Width="1*" IsReadOnly="True"/>
+
+                        <!-- STUDENT SA VIZUELNIM INDIKATOROM (TAČKOM) ISPRED IMENA -->
+                        <DataGridTemplateColumn Header="Student (Ime i prezime)" Width="2*" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <!-- Obojena tačka -->
+                                        <Ellipse Width="10" Height="10" 
+                                                 Fill="{Binding StatusBoja}" 
+                                                 Margin="5,0,10,0" 
+                                                 ToolTip="{Binding StatusOpis}"/>
+
+                                        <!-- Ime i prezime -->
+                                        <TextBlock Text="{Binding ImePrezime}" 
+                                                   VerticalAlignment="Center" 
+                                                   Foreground="{DynamicResource PrimaryText}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Header="Položeni ispiti" Binding="{Binding DetaljiIspita}" Width="2.5*" IsReadOnly="True"/>
+
+                        <DataGridTextColumn Header="Predloženo (Prosjek)" Binding="{Binding PredlozenaOcjena}" Width="1.2*" IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="Foreground" Value="{DynamicResource PrimaryText}"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTemplateColumn Header="Konačna ocjena" Width="1.2*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox ItemsSource="{Binding DostupneOcjene}" 
+                                              SelectedItem="{Binding OdabranaOcjena, UpdateSourceTrigger=PropertyChanged}" 
+                                              Width="80" Height="28" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Akcija" Width="1.2*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Sačuvaj" Background="#28a745" Foreground="White" 
+                                            FontWeight="Bold" Padding="12,5" Cursor="Hand" BorderThickness="0"
+                                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                                            Click="BtnSacuvajKonacnuOcjenu_Click">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="5"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <TextBlock x:Name="lblNemaStudenata" Text="Nema upisanih studenata za odabrani predmet." 
+                           HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" 
+                           Foreground="{DynamicResource PrimaryText}" Visibility="Collapsed"/>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

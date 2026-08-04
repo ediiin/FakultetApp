@@ -10,6 +10,11 @@ namespace Fakultet.Servisi.IServis.FakultetskiProcesi
         {
         }
 
+        public override List<StudentPredmet> GetAll()
+        {
+            return _dbSet.Include(sp => sp.Predmet).Include(sp => sp.Student).ToList();
+        }
+
         public List<StudentPredmet> GetStudentiByPredmet(int predmetId, string filterTekst = "")
         {
             var query = _dbSet

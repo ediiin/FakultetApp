@@ -117,11 +117,37 @@
                                                 <Run Text="{Binding Student.Prezime}"/>
                                             </TextBlock>
 
-                                            <TextBlock Grid.Column="2" Text="{Binding BrojBodova, StringFormat={}{0} bod.}" Foreground="{DynamicResource DisabledText}" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                             <TextBlock Grid.Column="3" Text="{Binding Ocjena}" FontWeight="Bold" FontSize="15" Foreground="{DynamicResource PrimaryText}" VerticalAlignment="Center"/>
 
                                             <Border Grid.Column="4" Background="{DynamicResource IncomingBubble}" CornerRadius="10" Padding="8,4" HorizontalAlignment="Right" VerticalAlignment="Center">
-                                                <TextBlock Text="{Binding Polozio}" Foreground="{DynamicResource PrimaryText}" FontSize="11" FontWeight="SemiBold"/>
+                                                <TextBlock Foreground="{DynamicResource PrimaryText}" FontSize="11" FontWeight="SemiBold">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <!-- Podrazumijevani tekst (ako ocjena/status nije definisan) -->
+                                                            <Setter Property="Text" Value="Nije unesena ocjena"/>
+
+                                                            <Style.Triggers>
+                                                                <!-- Ako je Polozio = True -->
+                                                                <DataTrigger Binding="{Binding Polozio}" Value="True">
+                                                                    <Setter Property="Text" Value="Položio"/>
+                                                                </DataTrigger>
+
+                                                                <!-- Ako je Polozio = False -->
+                                                                <DataTrigger Binding="{Binding Polozio}" Value="False">
+                                                                    <Setter Property="Text" Value="Nije položio"/>
+                                                                </DataTrigger>
+
+                                                                <!-- Ako je Ocjena null ili nije unesena (premašuje/poništava Polozio status) -->
+                                                                <DataTrigger Binding="{Binding Ocjena}" Value="{x:Null}">
+                                                                    <Setter Property="Text" Value="Nije unesena ocjena"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Ocjena}" Value="0">
+                                                                    <Setter Property="Text" Value="Nije unesena ocjena"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
                                             </Border>
                                         </Grid>
                                     </Border>
