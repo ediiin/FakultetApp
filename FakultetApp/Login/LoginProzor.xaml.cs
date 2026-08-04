@@ -60,7 +60,7 @@ namespace FakultetApp.Login
 
                     btnLogin.IsEnabled = true;
                     brojPokusaja = 0;
-                    lblGreska.Visibility = Visibility.Collapsed;
+                    lblGreska.Visibility = Visibility.Hidden;
                 }
                 else
                 {
