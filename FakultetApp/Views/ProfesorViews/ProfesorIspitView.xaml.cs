@@ -1,5 +1,6 @@
 ﻿using Fakultet.Core.Modeli;
 using Fakultet.Servisi.IServis.FakultetskiProcesi;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,14 +15,29 @@ namespace FakultetApp.Views.ProfesorViews
         private readonly IspitServis _ispitServis;
         private readonly PredmetServis _predmetServis;
 
-        public ProfesorIspitView(Profesor profesor, IspitServis ispitServis, PredmetServis predmetServis)
+        public ProfesorIspitView(Profesor profesor, IspitServis ispitServis, PredmetServis predmetServis, bool prikaziNazad = false)
         {
             InitializeComponent();
             _profesor = profesor;
             _ispitServis = ispitServis;
             _predmetServis = predmetServis;
 
+            if (prikaziNazad)
+                btnNazad.Visibility = Visibility.Visible;
+
             UcitajPredmete();
+        }
+
+        private void BtnNazad_Click(object sender, RoutedEventArgs e)
+        {
+            var prikaznik = this.Parent as ContentControl;
+            if (prikaznik != null)
+            {
+                prikaznik.Content = Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance<ProfesorPredmetiView>(
+                     App.ServiceProvider!,
+                     _profesor
+                 );
+            }
         }
 
         private void UcitajPredmete()

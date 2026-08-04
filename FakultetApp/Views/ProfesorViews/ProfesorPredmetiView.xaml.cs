@@ -127,7 +127,7 @@ namespace FakultetApp.Views.ProfesorViews
 
                 if (prikaznik != null)
                 {
-                    prikaznik.Content = ActivatorUtilities.CreateInstance<ProfesorIspitView>(App.ServiceProvider!, _ulogovaniProfesor);
+                    prikaznik.Content = ActivatorUtilities.CreateInstance<ProfesorIspitView>(App.ServiceProvider!, _ulogovaniProfesor, true);
                 }
             }
             else

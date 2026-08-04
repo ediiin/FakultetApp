@@ -17,9 +17,21 @@
                 </Border.Effect>
 
                 <StackPanel>
-                    <!-- Naslov -->
-                    <TextBlock Text="Zakazivanje novog ispita" FontSize="26" FontWeight="Bold" 
-                               Foreground="{DynamicResource Naslov}" Margin="0,0,0,30" HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
+                        <Button x:Name="btnNazad" Content="← Nazad" Click="BtnNazad_Click" Width="90" Height="35" 
+                            Background="Transparent" Foreground="{DynamicResource PrimaryText}" 
+                            BorderBrush="{DynamicResource PrimaryText}" Cursor="Hand" Margin="0,0,20,0"
+                            Visibility="Collapsed">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                        <TextBlock Text="Zakazivanje novog ispita" FontSize="26" FontWeight="Bold" 
+                            Foreground="{DynamicResource Naslov}" VerticalAlignment="Center"/>
+                    </StackPanel>
 
                     <!-- Predmet -->
                     <TextBlock Text="Predmet:" FontWeight="SemiBold" Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,5"/>
