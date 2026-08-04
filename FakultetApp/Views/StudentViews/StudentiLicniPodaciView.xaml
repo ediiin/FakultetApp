@@ -162,6 +162,90 @@
                     </StackPanel>
                 </Border>
 
+                <!-- 4. USPJEH PO GODINAMA STUDIJA -->
+                <!-- DODANO x:Name="karticaUspjeh" KAKO BI JOJ POSLALI PODATKE IZ C# KODA -->
+                <Border x:Name="karticaUspjeh" Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20" Margin="0,0,0,15" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="📊 Uspjeh po godinama studija" FontSize="16" FontWeight="SemiBold" Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,15"/>
+                        <Rectangle Height="1" Fill="{DynamicResource BorderColor}" Margin="0,0,0,15"/>
+
+                        <!-- Ukupni prosjek (Prikazuje se na vrhu kartice) -->
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                            <TextBlock Text="Ukupna prosječna ocjena: " Foreground="{DynamicResource PrimaryText}" FontSize="15"/>
+                            <TextBlock Text="{Binding UkupniProsjek, StringFormat={}{0:F2}}" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold" FontSize="15"/>
+                        </StackPanel>
+
+                        <!-- Vanjska lista: Godine studija -->
+                        <ItemsControl ItemsSource="{Binding UspjehPoGodinama}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="0,0,0,20">
+
+                                        <!-- Zaglavlje godine i prosjek te godine -->
+                                        <Border Background="{DynamicResource WindowBackground}" CornerRadius="6" Padding="12,10" Margin="0,0,0,10" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1">
+                                            <Grid>
+                                                <TextBlock Text="{Binding GodinaOpis}" FontWeight="Bold" FontSize="14" Foreground="{DynamicResource Naslov}" HorizontalAlignment="Left"/>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                                    <TextBlock Text="Prosjek godine: " Foreground="{DynamicResource DisabledText}" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="{Binding ProsjekGodine, StringFormat={}{0:F2}}" FontWeight="Bold" Foreground="{DynamicResource PrimaryText}" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+
+                                        <!-- Unutrašnja lista: Predmeti za tu godinu -->
+                                        <ItemsControl ItemsSource="{Binding Predmeti}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid Margin="15,0,10,10">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="120"/>
+                                                            <ColumnDefinition Width="80"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock Grid.Column="0" Text="{Binding Predmet.Naziv}" Foreground="{DynamicResource PrimaryText}" VerticalAlignment="Center"/>
+
+                                                        <!-- Status polaganja -->
+                                                        <TextBlock Grid.Column="1" VerticalAlignment="Center" FontWeight="SemiBold">
+                                                            <TextBlock.Style>
+                                                                <Style TargetType="TextBlock">
+                                                                    <Setter Property="Text" Value="Nije unesena ocjena"/>
+                                                                    <Setter Property="Foreground" Value="{DynamicResource DisabledText}"/>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding Polozio}" Value="True">
+                                                                            <Setter Property="Text" Value="Položio"/>
+                                                                            <Setter Property="Foreground" Value="#4CAF50"/>
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding Polozio}" Value="False">
+                                                                            <Setter Property="Text" Value="Nije položio"/>
+                                                                            <Setter Property="Foreground" Value="#F44336"/>
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding Ocjena}" Value="{x:Null}">
+                                                                            <Setter Property="Text" Value="Nije unesena ocjena"/>
+                                                                            <Setter Property="Foreground" Value="{DynamicResource DisabledText}"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBlock.Style>
+                                                        </TextBlock>
+
+                                                        <!-- Ocjena -->
+                                                        <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                                            <TextBlock Text="Ocjena: " Foreground="{DynamicResource DisabledText}"/>
+                                                            <TextBlock Text="{Binding Ocjena, TargetNullValue='-'}" FontWeight="Bold" Foreground="{DynamicResource PrimaryText}"/>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
             </StackPanel>
         </ScrollViewer>
     </Grid>

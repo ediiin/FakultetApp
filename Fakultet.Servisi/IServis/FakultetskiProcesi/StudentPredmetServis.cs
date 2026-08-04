@@ -15,6 +15,11 @@ namespace Fakultet.Servisi.IServis.FakultetskiProcesi
             return _dbSet.Include(sp => sp.Predmet).Include(sp => sp.Student).ToList();
         }
 
+        public List<StudentPredmet> GetByStudentId(int studentId)
+        {
+            return _dbSet.Include(sp => sp.Predmet).Include(sp => sp.Student).Where(sp => sp.StudentId == studentId).ToList();
+        }
+
         public List<StudentPredmet> GetStudentiByPredmet(int predmetId, string filterTekst = "")
         {
             var query = _dbSet

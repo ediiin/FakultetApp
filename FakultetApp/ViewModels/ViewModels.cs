@@ -134,4 +134,17 @@ namespace FakultetApp.ViewModels
         public string StatusOpis { get; set; } = string.Empty;
         public List<int> DostupneOcjene { get; set; } = new() { 5, 6, 7, 8, 9, 10 };
     }
+
+    public class GodinaUspjehDTO
+    {
+        public string GodinaOpis { get; set; } // Npr. "Prva godina - SI"
+        public double ProsjekGodine { get; set; }
+        public List<StudentPredmet> Predmeti { get; set; }
+    }
+
+    public class UspjehStudentaDTO
+    {
+        public List<GodinaUspjehDTO> UspjehPoGodinama { get; set; } = new();
+        public double UkupniProsjek { get; set; }
+    }
 }

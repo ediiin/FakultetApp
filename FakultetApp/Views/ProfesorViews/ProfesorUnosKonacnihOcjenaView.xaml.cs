@@ -2,9 +2,6 @@
 using Fakultet.Servisi.IServis.FakultetskiProcesi;
 using FakultetApp.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
