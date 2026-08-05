@@ -695,7 +695,7 @@ namespace Fakultet.Servisi.Bazni
                 return;
 
 
-            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(
+            string hashedPassword1 = BCrypt.Net.BCrypt.HashPassword(
                 Konfiguracija.Asistent1Password
             );
             string hashedPassword2 = BCrypt.Net.BCrypt.HashPassword(
@@ -708,7 +708,7 @@ namespace Fakultet.Servisi.Bazni
                 Prezime = "Prvi",
                 Email = "asistent1@fit.ba",
                 KorisnickoIme = "asistent1",
-                LozinkaHash = hashedPassword,
+                LozinkaHash = hashedPassword1,
                 JMBG = "0101999170301",
                 DatumRodjenja = new DateTime(2003, 1, 1),
                 SpolId = muskiSpol.Id,
@@ -730,6 +730,7 @@ namespace Fakultet.Servisi.Bazni
                 Uloge = Uloge.Asistent,
                 Plata = 3000,
             });
+
         }
 
         private void KreirajGodineStudija()
