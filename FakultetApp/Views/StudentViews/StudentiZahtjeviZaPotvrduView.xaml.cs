@@ -28,8 +28,20 @@ namespace FakultetApp.Views.StudentViews
 
         private void UcitajSvrhe()
         {
-            cmbSvrha.ItemsSource = Enum.GetValues(typeof(SvrhaPotvrde));
-            cmbSvrha.SelectedIndex = 0; 
+            var svrhaLista = new[]
+            {
+                new { Vrijednost = SvrhaPotvrde.Stipendija, Opis = "Stipendija" },
+                new { Vrijednost = SvrhaPotvrde.Alimentacija, Opis = "Alimentacija" },
+                new { Vrijednost = SvrhaPotvrde.Penzija, Opis = "Penzija" },
+                new { Vrijednost = SvrhaPotvrde.SmjestajUDom, Opis = "Smještaj u studentski dom" },
+                new { Vrijednost = SvrhaPotvrde.Viza, Opis = "Viza" },
+                new { Vrijednost = SvrhaPotvrde.Ostalo, Opis = "Ostalo" }
+            }.ToList();
+
+            cmbSvrha.ItemsSource = svrhaLista;
+            cmbSvrha.DisplayMemberPath = "Opis";         
+            cmbSvrha.SelectedValuePath = "Vrijednost";   
+            cmbSvrha.SelectedIndex = 0;
         }
 
         private void UcitajZahtjeve()
@@ -53,7 +65,7 @@ namespace FakultetApp.Views.StudentViews
                 return;
             }
 
-            SvrhaPotvrde odabranaSvrha = (SvrhaPotvrde)cmbSvrha.SelectedItem;
+            SvrhaPotvrde odabranaSvrha = (SvrhaPotvrde)cmbSvrha.SelectedValue;
             string napomena = txtNapomena.Text.Trim();
 
             var noviZahtjev = new ZahtjevZaPotvrdu

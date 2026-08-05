@@ -1,6 +1,7 @@
 ﻿using Fakultet.Core.Modeli;
 using Fakultet.Core.Modeli.Forum;
 using System.Windows;
+using System.Windows.Media;
 
 namespace FakultetApp.ViewModels
 {
@@ -39,47 +40,57 @@ namespace FakultetApp.ViewModels
     // model za UI zahtjeva
     public class ZahtjevPrikazVM
     {
-        public int Id { get; set; }
-        public string SvrhaText { get; set; }
-        public string Napomena { get; set; }
-        public string DatumPodnosenjaText { get; set; }
-        public string StatusText { get; set; }
-        public string StatusBojaPozadina { get; set; }
-        public string StatusBojaTekst { get; set; }
-        public Visibility PrikaziDugmePonisti { get; set; }
+        private readonly ZahtjevZaPotvrdu _zahtjev;
 
-        public ZahtjevPrikazVM(ZahtjevZaPotvrdu z)
+        public ZahtjevPrikazVM(ZahtjevZaPotvrdu zahtjev)
         {
-            Id = z.Id;
-            SvrhaText = z.SvrhaPotvrde.ToString();
-            Napomena = string.IsNullOrEmpty(z.Napomena) ? "Bez napomene" : z.Napomena;
-            DatumPodnosenjaText = z.DatumPodnosenja.ToString("dd.MM.yyyy HH:mm");
-            StatusText = z.StanjePotvrde.ToString();
-
-            switch (z.StanjePotvrde)
-            {
-                case StanjePotvrde.NaCekanju:
-                    StatusBojaPozadina = "#FFF3CD";
-                    StatusBojaTekst = "#856404";
-                    PrikaziDugmePonisti = Visibility.Visible;
-                    break;
-                case StanjePotvrde.Odobrena:
-                    StatusBojaPozadina = "#D4EDDA";
-                    StatusBojaTekst = "#155724";
-                    PrikaziDugmePonisti = Visibility.Collapsed;
-                    break;
-                case StanjePotvrde.Odbijena:
-                    StatusBojaPozadina = "#F8D7DA";
-                    StatusBojaTekst = "#721C24";
-                    PrikaziDugmePonisti = Visibility.Collapsed;
-                    break;
-                case StanjePotvrde.Ponistena:
-                    StatusBojaPozadina = "#E2E3E5";
-                    StatusBojaTekst = "#383D41";
-                    PrikaziDugmePonisti = Visibility.Collapsed;
-                    break;
-            }
+            _zahtjev = zahtjev;
         }
+
+        public int Id => _zahtjev.Id;
+        public string Napomena => string.IsNullOrWhiteSpace(_zahtjev.Napomena) ? "Nema napomene" : _zahtjev.Napomena;
+        public string DatumPodnosenjaText => _zahtjev.DatumPodnosenja.ToString("dd.MM.yyyy HH:mm");
+
+        public Visibility PrikaziDugmePonisti =>
+            _zahtjev.StanjePotvrde == StanjePotvrde.NaCekanju ? Visibility.Visible : Visibility.Collapsed;
+
+        public string StatusText => _zahtjev.StanjePotvrde switch
+        {
+            StanjePotvrde.NaCekanju => "Na čekanju",
+            StanjePotvrde.Odobrena => "Odobrena",
+            StanjePotvrde.Odbijena => "Odbijena",
+            StanjePotvrde.Ponistena => "Poništena",
+            _ => "Nepoznato"
+        };
+
+        public string SvrhaText => _zahtjev.SvrhaPotvrde switch
+        {
+            SvrhaPotvrde.Stipendija => "Stipendija",
+            SvrhaPotvrde.Alimentacija => "Alimentacija",
+            SvrhaPotvrde.Penzija => "Penzija",
+            SvrhaPotvrde.SmjestajUDom => "Smještaj u studentski dom",
+            SvrhaPotvrde.Viza => "Viza",
+            SvrhaPotvrde.Ostalo => "Ostalo",
+            _ => "Ostalo"
+        };
+
+        public Brush StatusBojaPozadina => _zahtjev.StanjePotvrde switch
+        {
+            StanjePotvrde.NaCekanju => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF3CD")), // zuckasta
+            StanjePotvrde.Odobrena => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D4EDDA")), // zelenkasta
+            StanjePotvrde.Odbijena => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F8D7DA")), // crvenkasta
+            StanjePotvrde.Ponistena => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E2E3E5")), // sivkasta
+            _ => Brushes.Transparent
+        };
+
+        public Brush StatusBojaTekst => _zahtjev.StanjePotvrde switch
+        {
+            StanjePotvrde.NaCekanju => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#856404")), // tamno zuta
+            StanjePotvrde.Odobrena => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#155724")), // tamno zelena
+            StanjePotvrde.Odbijena => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#721C24")), // tamno crvena
+            StanjePotvrde.Ponistena => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#383D41")), // tamno siva
+            _ => Brushes.Black
+        };
     }
 
     // za priakz ispita
