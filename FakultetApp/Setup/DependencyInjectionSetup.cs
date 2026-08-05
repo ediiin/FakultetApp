@@ -11,6 +11,7 @@ using FakultetApp.Views.Admin.Asistenti;
 using FakultetApp.Views.Admin.Predmeti;
 using FakultetApp.Views.Admin.ProfesoriLogika;
 using FakultetApp.Views.Admin.Studenti;
+using FakultetApp.Views.AsistentView;
 using FakultetApp.Views.AsistentViews;
 using FakultetApp.Views.Predmeti;
 using FakultetApp.Views.ProfesorViews;
@@ -96,6 +97,10 @@ namespace Fakultet.Servisi.Setup
 
             //profesor funkcionalnosti
             services.AddTransient<AsistentDashboardView>();
+            services.AddTransient<AsistentPocetnaView>();
+            services.AddTransient<AsistentPredmetiView>();
+            services.AddTransient<AsistentObjaveMaterijaliView>();
+            services.AddTransient<AsistentChatView>();
 
             // mainwindow drzimo u memoriji zato singleton
             services.AddSingleton<MainWindow>();

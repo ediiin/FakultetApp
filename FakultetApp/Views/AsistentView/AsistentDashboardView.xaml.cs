@@ -1,5 +1,6 @@
 ﻿using Fakultet.Core.Modeli;
 using FakultetApp.Login;
+using FakultetApp.Views.AsistentView;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,15 +31,15 @@ namespace FakultetApp.Views.AsistentViews
                         break;
 
                     case nameof(btnPredmeti):
-                        //PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<AsistentPredmetiView>(App.ServiceProvider!, _prijavljeniAsistent);
+                        PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<AsistentPredmetiView>(App.ServiceProvider!, _prijavljeniAsistent);
                         break;
 
                     case nameof(btnObjaveMaterijali):
-                        //PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<AsistentObjaveMaterijaliView>(App.ServiceProvider!, _prijavljeniAsistent);
+                        PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<AsistentObjaveMaterijaliView>(App.ServiceProvider!, _prijavljeniAsistent);
                         break;
 
                     case nameof(btnChat):
-                        //PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<AsistentChatView>(App.ServiceProvider!, _prijavljeniAsistent);
+                        PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<AsistentChatView>(App.ServiceProvider!, _prijavljeniAsistent);
                         break;
 
                     case nameof(btnOdjava):
@@ -50,7 +51,7 @@ namespace FakultetApp.Views.AsistentViews
 
         private void UcitajPocetnu()
         {
-            //PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<AsistentPocetnaView>(App.ServiceProvider!, _prijavljeniAsistent);
+            PrikaznikSadrzaja.Content = ActivatorUtilities.CreateInstance<AsistentPocetnaView>(App.ServiceProvider!, _prijavljeniAsistent);
         }
 
         private void OdjaviSe()

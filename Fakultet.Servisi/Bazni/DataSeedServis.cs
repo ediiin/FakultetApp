@@ -451,9 +451,6 @@ namespace Fakultet.Servisi.Bazni
 
             DateTime vrijemePoruke = new DateTime(2026, 7, 28, 14, 0, 0); 
 
-            // =======================================================================
-            // RAZGOVOR 1: 10 poruka (Sve pročitano)
-            // =======================================================================
             var razgovor1 = new[]
             {
                 (Posiljalac: student1, Tekst: "Poštovani profesore, da li mi možete pojasniti treći zadatak iz zadaće?"),
@@ -530,6 +527,9 @@ namespace Fakultet.Servisi.Bazni
         {
             var osoba = _osobaServis.GetAll().FirstOrDefault(o => o.Ime == "profesor");
             var predmet = _predmetServis.GetAll().FirstOrDefault(p => p.Naziv == "Predmet I");
+
+            if (osoba == null || predmet == null)
+                return;
 
             var pdf = new Materijal
             {
