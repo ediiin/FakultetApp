@@ -1,6 +1,5 @@
 ﻿using Fakultet.Core.Modeli;
 using Fakultet.Servisi.IServis.FakultetskiProcesi;
-using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Controls;
 

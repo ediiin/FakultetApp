@@ -1,5 +1,4 @@
 ﻿using Fakultet.Core.Modeli;
-using Fakultet.Servisi.IServis.FakultetskiProcesi;
 using FakultetApp.Login;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;

@@ -93,6 +93,65 @@ namespace FakultetApp.ViewModels
         };
     }
 
+    public class AdminZahtjevVM
+    {
+        private readonly ZahtjevZaPotvrdu _zahtjev;
+
+        public AdminZahtjevVM(ZahtjevZaPotvrdu zahtjev)
+        {
+            _zahtjev = zahtjev;
+        }
+
+        public int Id => _zahtjev.Id;
+
+        public string StudentInfo => _zahtjev.Student != null ?
+            $"{_zahtjev.Student.Ime} {_zahtjev.Student.Prezime} ({_zahtjev.Student.Indeks})" : "Nepoznat student";
+
+        public string Napomena => string.IsNullOrWhiteSpace(_zahtjev.Napomena) ? "-" : _zahtjev.Napomena;
+        public string DatumPodnosenjaText => _zahtjev.DatumPodnosenja.ToString("dd.MM.yyyy HH:mm");
+
+        public Visibility PrikaziAkcije =>
+            _zahtjev.StanjePotvrde == StanjePotvrde.NaCekanju ? Visibility.Visible : Visibility.Collapsed;
+
+        public string StatusText => _zahtjev.StanjePotvrde switch
+        {
+            StanjePotvrde.NaCekanju => "Na čekanju",
+            StanjePotvrde.Odobrena => "Odobrena",
+            StanjePotvrde.Odbijena => "Odbijena",
+            StanjePotvrde.Ponistena => "Poništena",
+            _ => "Nepoznato"
+        };
+
+        public string SvrhaText => _zahtjev.SvrhaPotvrde switch
+        {
+            SvrhaPotvrde.Stipendija => "Stipendija",
+            SvrhaPotvrde.Alimentacija => "Alimentacija",
+            SvrhaPotvrde.Penzija => "Penzija",
+            SvrhaPotvrde.SmjestajUDom => "Smještaj u studentski dom",
+            SvrhaPotvrde.Viza => "Viza",
+            SvrhaPotvrde.Ostalo => "Ostalo",
+            _ => "Ostalo"
+        };
+
+        public Brush StatusBojaPozadina => _zahtjev.StanjePotvrde switch
+        {
+            StanjePotvrde.NaCekanju => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF3CD")),
+            StanjePotvrde.Odobrena => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D4EDDA")),
+            StanjePotvrde.Odbijena => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F8D7DA")),
+            StanjePotvrde.Ponistena => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E2E3E5")),
+            _ => Brushes.Transparent
+        };
+
+        public Brush StatusBojaTekst => _zahtjev.StanjePotvrde switch
+        {
+            StanjePotvrde.NaCekanju => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#856404")),
+            StanjePotvrde.Odobrena => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#155724")),
+            StanjePotvrde.Odbijena => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#721C24")),
+            StanjePotvrde.Ponistena => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#383D41")),
+            _ => Brushes.Black
+        };
+    }
+
     // za priakz ispita
     public class IspitPrikazDTO
     {

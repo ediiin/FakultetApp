@@ -41,6 +41,9 @@ namespace FakultetApp.Views
                 case "btnAsistenti":
                     PrikaznikSadrzaja.Content = App.ServiceProvider!.GetRequiredService<UpravljanjeAsistentimaView>();
                     break;
+                case "btnZahtjevi":
+                    PrikaznikSadrzaja.Content = App.ServiceProvider!.GetRequiredService<AdminZahtjeviZaPotvrduView>();
+                    break;
                 case "btnNoviAdmin":
                     PrikaznikSadrzaja.Content = App.ServiceProvider!.GetRequiredService<NoviAdminView>();
                     break;

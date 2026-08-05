@@ -54,6 +54,7 @@ namespace Fakultet.Servisi.Setup
             //admin - admin
             services.AddTransient<NoviAdminView>();
             services.AddTransient<AdminDashboardView>(); 
+            services.AddTransient<AdminZahtjeviZaPotvrduView>(); 
             //admin - studenti
             services.AddTransient<UpravljanjeStudentimaView>(); 
             services.AddTransient<StudentiPregledView>(); 
