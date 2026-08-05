@@ -27,6 +27,8 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <!-- Dodan novi red za dugme, asistent je u redu 5 -->
                     </Grid.RowDefinitions>
 
                     <!-- Naziv Predmeta -->
@@ -58,14 +60,21 @@
                     </StackPanel>
 
                     <!-- Profesor Nosilac -->
-                    <StackPanel Grid.Row="4" Margin="0,0,0,25">
+                    <StackPanel Grid.Row="4" Margin="0,0,0,15">
                         <TextBlock Text="Profesor" Foreground="{DynamicResource PrimaryText}" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
                         <ComboBox Name="cmbProfesor" FontSize="15" Padding="5"/>
                         <TextBlock x:Name="lblProfesorError" Text="Morate dodijeliti profesora na ovaj predmet!" Foreground="{DynamicResource Error}" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
                     </StackPanel>
 
+                    <!-- Asistent -->
+                    <StackPanel Grid.Row="5" Margin="0,0,0,25">
+                        <TextBlock Text="Asistent" Foreground="{DynamicResource PrimaryText}" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ComboBox Name="cmbAsistent" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblAsistentError" Text="Morate dodijeliti asistenta na ovaj predmet!" Foreground="{DynamicResource Error}" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
+
                     <!-- Dugme Sacuvaj -->
-                    <StackPanel Grid.Row="5" VerticalAlignment="Bottom">
+                    <StackPanel Grid.Row="6" VerticalAlignment="Bottom">
                         <Button Name="btnSpasi"
                                 Content="Sačuvaj Predmet" 
                                 FontSize="15" 

@@ -16,17 +16,23 @@ namespace FakultetApp.Views.Predmeti
         private readonly PredmetServis _predmetServis;
         private readonly ProfesorServis _profesorServis;
         private readonly GodinaStudijaServis _godinaStudijaServis;
+        private readonly AsistentServis _asistentServis;
+        private readonly AsistentPredmetServis _asistentPredmetServis;
         private List<Predmet> _predmeti = new List<Predmet>();
         public PredmetPregledView(
             PredmetServis predmetServis,
             ProfesorServis profesorServis,
-            GodinaStudijaServis godinaStudijaServis
+            GodinaStudijaServis godinaStudijaServis,
+            AsistentServis asistentServis,
+            AsistentPredmetServis asistentPredmetServis
             )
         {
             InitializeComponent();
             _predmetServis = predmetServis;
             _profesorServis = profesorServis;
             _godinaStudijaServis = godinaStudijaServis;
+            _asistentServis = asistentServis;
+            _asistentPredmetServis = asistentPredmetServis;
 
             UcitajPredmete();
         }
@@ -53,7 +59,9 @@ namespace FakultetApp.Views.Predmeti
                     izabraniPredmet,
                     _profesorServis,
                     _godinaStudijaServis,
-                    _predmetServis);
+                    _predmetServis,
+                    _asistentServis,
+                    _asistentPredmetServis);
 
                 var mainWindow = Window.GetWindow(this) as MainWindow;
 

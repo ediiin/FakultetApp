@@ -2,48 +2,63 @@
 using Fakultet.Servisi.IServis.FakultetskiProcesi;
 using Fakultet.Servisi.IServis.Korisnici;
 using Fakultet.Servisi.IServis.Pomocni;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace FakultetApp.Views.Predmeti
 {
-    /// <summary>
-    /// Interaction logic for PredmetDodajView.xaml
-    /// </summary>
     public partial class PredmetDodajView : UserControl
     {
         private readonly PredmetServis _predmetServis;
         private readonly GodinaStudijaServis _godineStudijaServis;
         private readonly StudijServis _studijServis;
         private readonly ProfesorServis _profesorServis;
+
+        private readonly AsistentServis _asistentServis;
+        private readonly AsistentPredmetServis _asistentPredmetServis;
+
         public PredmetDodajView(PredmetServis predmetServis,
             GodinaStudijaServis godineStudijaServis,
             StudijServis studijServis,
-            ProfesorServis profesorServis)
+            ProfesorServis profesorServis,
+            AsistentServis asistentServis,
+            AsistentPredmetServis asistentPredmetServis)
         {
             InitializeComponent();
             _predmetServis = predmetServis;
             _godineStudijaServis = godineStudijaServis;
             _studijServis = studijServis;
             _profesorServis = profesorServis;
+            _asistentServis = asistentServis;
+            _asistentPredmetServis = asistentPredmetServis;
 
             UcitajStudije();
             UcitajProfesore();
+            UcitajAsistente(); 
         }
 
         private void UcitajStudije()
         {
             cmbStudij.ItemsSource = _studijServis.GetAll();
             cmbStudij.DisplayMemberPath = "PuniNaziv";
-            cmbStudij.SelectedIndex = 0;
+            if (cmbStudij.Items.Count > 0) cmbStudij.SelectedIndex = 0;
         }
 
         private void UcitajProfesore()
         {
             var profesori = _profesorServis.GetAll();
             cmbProfesor.ItemsSource = profesori;
-            cmbProfesor.DisplayMemberPath = "ImePrezime";
-            cmbProfesor.SelectedIndex = 0;
+            cmbProfesor.DisplayMemberPath = "ImePrezime"; 
+            if (cmbProfesor.Items.Count > 0) cmbProfesor.SelectedIndex = 0;
+        }
+
+        private void UcitajAsistente()
+        {
+            var asistenti = _asistentServis.GetAll();
+            cmbAsistent.ItemsSource = asistenti;
+            cmbAsistent.DisplayMemberPath = "ImePrezime"; 
+            if (cmbAsistent.Items.Count > 0) cmbAsistent.SelectedIndex = 0;
         }
 
         private void CmbStudij_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -64,6 +79,7 @@ namespace FakultetApp.Views.Predmeti
                 cmbGodinaStudija.IsEnabled = false;
             }
         }
+
         private void BtnSpasi_Click(object sender, RoutedEventArgs e)
         {
             if (!Validno())
@@ -71,6 +87,7 @@ namespace FakultetApp.Views.Predmeti
 
             var godinaStudija = cmbGodinaStudija.SelectedItem as GodinaStudija;
             var profesor = cmbProfesor.SelectedItem as Profesor;
+            var asistent = cmbAsistent.SelectedItem as Asistent;
             int.TryParse(tbEcts.Text, out int ects);
 
             var noviPredmet = new Predmet()
@@ -83,7 +100,19 @@ namespace FakultetApp.Views.Predmeti
 
             _predmetServis.Add(noviPredmet);
 
-            MessageBox.Show($"Uspješno kreiran predmet '{noviPredmet.Naziv}' i dodijeljen profesoru!",
+            //asistentPredet
+            if (asistent != null && noviPredmet.Id > 0)
+            {
+                var asistentPredmet = new AsistentPredmet
+                {
+                    PredmetId = noviPredmet.Id,
+                    AsistentId = asistent.Id
+                };
+
+                _asistentPredmetServis.Add(asistentPredmet);
+            }
+
+            MessageBox.Show($"Uspješno kreiran predmet '{noviPredmet.Naziv}' i dodijeljeni profesor i asistent!",
                 "Uspjeh", MessageBoxButton.OK, MessageBoxImage.Information);
 
             OcistiSvaPolja();
@@ -93,11 +122,11 @@ namespace FakultetApp.Views.Predmeti
         {
             tbNaziv.Clear();
             tbEcts.Clear();
-            cmbStudij.SelectedIndex = 0;
+            if (cmbStudij.Items.Count > 0) cmbStudij.SelectedIndex = 0;
             cmbGodinaStudija.ItemsSource = null;
             cmbGodinaStudija.IsEnabled = false;
-            cmbProfesor.SelectedIndex = 0;
-            cmbGodinaStudija.SelectedIndex = 0;
+            if (cmbProfesor.Items.Count > 0) cmbProfesor.SelectedIndex = 0;
+            if (cmbAsistent.Items.Count > 0) cmbAsistent.SelectedIndex = 0;
             OcistiGreske();
         }
 
@@ -136,6 +165,12 @@ namespace FakultetApp.Views.Predmeti
                 isValid = false;
             }
 
+            if (cmbAsistent.SelectedItem == null)
+            {
+                lblAsistentError.Visibility = Visibility.Visible;
+                isValid = false;
+            }
+
             return isValid;
         }
 
@@ -146,6 +181,7 @@ namespace FakultetApp.Views.Predmeti
             lblStudijError.Visibility = Visibility.Hidden;
             lblGodinaStudijaError.Visibility = Visibility.Hidden;
             lblProfesorError.Visibility = Visibility.Hidden;
+            lblAsistentError.Visibility = Visibility.Hidden;
         }
     }
 }

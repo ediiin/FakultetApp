@@ -1,6 +1,7 @@
 ﻿using Fakultet.Core.Modeli;
 using Fakultet.Servisi.Bazni;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
 
 namespace Fakultet.Servisi.IServis.FakultetskiProcesi
 {

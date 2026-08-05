@@ -31,6 +31,8 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <!-- Dodan novi red -->
                     </Grid.RowDefinitions>
 
                     <!-- Row 0: Naziv Predmeta & ECTS -->
@@ -59,8 +61,15 @@
                         <TextBlock x:Name="lblGodinaStudijaError" Text="Odabir godine studija je obavezan!" Foreground="{DynamicResource Error}" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
                     </StackPanel>
 
-                    <!-- Row 2: Dugme Sačuvaj Izmjene -->
-                    <StackPanel Grid.Row="2" Grid.Column="2" Margin="0,15,0,0" VerticalAlignment="Bottom">
+                    <!-- Row 2: Asistent -->
+                    <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,0,15">
+                        <TextBlock Text="Asistent" Foreground="{DynamicResource PrimaryText}" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                        <ComboBox Name="cmbAsistent" FontSize="15" Padding="5"/>
+                        <TextBlock x:Name="lblAsistentError" Text="Odabir asistenta je obavezan!" Foreground="{DynamicResource Error}" FontSize="10" FontWeight="SemiBold" Margin="0,3,0,0" Visibility="Hidden"/>
+                    </StackPanel>
+
+                    <!-- Row 3: Dugme Sačuvaj Izmjene -->
+                    <StackPanel Grid.Row="3" Grid.Column="2" Margin="0,15,0,0" VerticalAlignment="Bottom">
                         <Button Name="btnSacuvajIzmjene"
                                 Content="Sačuvaj Izmjene" 
                                 FontSize="15" 

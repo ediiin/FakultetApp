@@ -26,6 +26,7 @@ namespace Fakultet.Servisi.Bazni
         private readonly StudentPredmetServis _studentPredmetServis;
         private readonly IspitServis _ispitServis;
         private readonly StudentIspitServis _studentIspitServis;
+        private readonly AsistentPredmetServis _asistentPredmetServis;
 
         public DataSeedServis(SpolServis spolServis,
             DrzavaServis drzavaServis,
@@ -43,7 +44,8 @@ namespace Fakultet.Servisi.Bazni
             ZahtjevZaPotvrduServis zahtjevZaPotvrduServis,
             StudentPredmetServis studentPredmetServis,
             IspitServis ispitServis,
-            StudentIspitServis studentIspitServis)
+            StudentIspitServis studentIspitServis,
+            AsistentPredmetServis asistentPredmetServis)
         {
             _spolServis = spolServis;
             _drzavaServis = drzavaServis;
@@ -62,6 +64,7 @@ namespace Fakultet.Servisi.Bazni
             _studentPredmetServis = studentPredmetServis;
             _ispitServis = ispitServis;
             _studentIspitServis = studentIspitServis;
+            _asistentPredmetServis = asistentPredmetServis;
         }
 
         private void KreirajAdmina()
@@ -575,10 +578,20 @@ namespace Fakultet.Servisi.Bazni
             var godinaStudija = _godinaStudijaServis.GetAll()
                 .FirstOrDefault(gs => gs.Opis == "Prva godina - SI");
             var profesor = _profesorServis.GetAll().FirstOrDefault();
+            var asistent = _asistentServis.GetAll().FirstOrDefault();
 
             if (profesor == null || godinaStudija == null)
                 return;
 
+            var predmet1 = new Predmet()
+            {
+                ECTS = 60,
+                GodinaStudijaId = godinaStudija.Id,
+                Naziv = "Predmet I",
+                ProfesorId = profesor.Id
+            };
+            
+            _predmetServis.Add(predmet1);
             _predmetServis.Add(new Predmet()
             {
                 ECTS = 60,
@@ -586,13 +599,15 @@ namespace Fakultet.Servisi.Bazni
                 Naziv = "Predmet I",
                 ProfesorId = profesor.Id
             });
-            _predmetServis.Add(new Predmet()
+
+            if (asistent != null)
             {
-                ECTS = 60,
-                GodinaStudijaId = godinaStudija.Id,
-                Naziv = "Predmet I",
-                ProfesorId = profesor.Id
-            });
+                _asistentPredmetServis.Add(new AsistentPredmet
+                {
+                    PredmetId = predmet1.Id,
+                    AsistentId = asistent.Id
+                });
+            }
         }
 
         private void KreirajPostove()

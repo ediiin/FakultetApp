@@ -44,6 +44,7 @@ namespace Fakultet.Servisi.Setup
             services.AddTransient<StudentPredmetServis>();
             services.AddTransient<IspitServis>();
             services.AddTransient<StudentIspitServis>();
+            services.AddTransient<AsistentPredmetServis>();
             // ostali servisi ce ici ovdje
         }
 
