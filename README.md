@@ -1,71 +1,66 @@
-📝 FacultyApp - University Portal & Management System
-FacultyApp is a modern desktop application built using WPF (Windows Presentation Foundation) and .NET 10.0. Designed to replicate a real-world university ecosystem, the application serves a dual purpose: a robust administration dashboard for faculty staff and a comprehensive information hub for students.
+# University Management System 🎓
 
-The project strictly adheres to clean code principles, separation of concerns, modern UI/UX workflows, and scalable architecture.
+A comprehensive desktop application built for universities to manage academic processes, user roles, and internal communication. Designed with a strong focus on clean architecture, security, and modern UI/UX.
 
-🚀 Key Features
-1. Admin Management Dashboard (Current)
-Smart Data Segregation: Differentiates between immutable student data (Index number, National ID/JMBG, Gender, Date of Birth) and fluid academic attributes (Email, Student Status, Current Academic Year/Major, Graduation status).
+## 🎥 Application Demo
 
-Secure Password Management: Implements a non-destructive password updates workflow. Existing password hashes remain securely untouched unless explicitly overridden by an administrator, preventing accidental data loss.
+[![University Management System Demo](https://img.youtube.com/watch?v=a1mMWqzqgIs/maxresdefault.jpg)](https://www.youtube.com/watch?v=a1mMWqzqgIs)
 
-Granular Input Validation: Real-time visual feedback using dedicated error containers prevents the submission of corrupted or incomplete form states to the database.
+## ✨ Features by Role
 
-2. Comprehensive Student Portal (Upcoming Roadmap)
-The application is expanding into a full student-centric platform, transforming it into the ultimate campus companion from the student's perspective:
+The system utilizes **Role-Based Access Control (RBAC)** to serve four distinct user types:
 
-Professor Announcements Feed: A centralized notice board where students can view real-time updates, exam schedules, and important posts published by faculty members.
+### 👨‍🎓 Students
+* **Exams:** Browse and register for upcoming exam sessions.
+* **Academics:** Access course materials, announcements, and track personal success metrics.
+* **Administration:** Request official university certificates and view personal data.
+* **Communication:** Real-time chat with fellow students, teaching assistants, and professors.
 
-Document Repository: Seamless access to academic resources, lecture slides, syllabi, and official documents uploaded by professors.
+### 👨‍🏫 Professors
+* **Grading:** Grade exams and assign final course grades.
+* **Content Management:** Publish announcements and upload diverse course materials (PDF, Word, video, web links).
+* **Scheduling:** Create and manage exam sessions.
+* **Analytics:** View detailed course and student performance statistics.
+* **Communication:** Real-time chat with all system users.
 
-Direct Messaging System: Integrated internal chat communication allowing students to securely message their professors regarding coursework, consultations, and academic inquiries.
+### 📝 Teaching Assistants
+* **Content & Analytics:** View course statistics and manage course materials/announcements (similar to professors).
+* **Communication:** Real-time chat support for students.
 
-🛠️ Tech Stack
-Framework: .NET 10.0 (WPF)
+### 🛡️ Administrators
+* **User & Course Management:** Full CRUD operations for courses, professors, students, and assistants.
+* **Data Integrity:** Implemented **Soft Delete** for all critical data to prevent accidental data loss.
+* **Administration:** Approve/reject student certificate requests and grant admin privileges to new users.
 
-Language: C# / XAML
+## 🛠️ Architecture & Technical Highlights
 
-Dependency Injection: Microsoft.Extensions.DependencyInjection
+Built using modern .NET practices to ensure scalability, maintainability, and security:
 
-Security: BCrypt.Net (Industry-standard salted password hashing)
+* **Tech Stack:** C# / .NET / WPF
+* **Architecture Design:** 
+  * **MVVM (Model-View-ViewModel):** Strict separation of UI and business logic.
+  * **Service-Oriented (N-Tier):** Business logic is decoupled into dedicated services (`Services` layer).
+* **Dependency Injection (DI):** Implemented for service lifetimes and highly testable code.
+* **Security & Auth:**
+  * Role-Based Authorization.
+  * **Login Rate Limiting:** Built-in brute-force protection (freezes the login interface for a cooldown period after 5 failed attempts).
+* **UI/UX:** Responsive layouts with full **Dark Mode** support.
 
-Layout Engine: Responsive fluid grids paired with asynchronous ScrollViewer containers for flexible display scaling.
+## 🚀 Getting Started (Local Development)
 
-Database / ORM: [e.g., Entity Framework Core / SQL Server / SQLite - update this line]
+1. Clone the repository:
+   ``bash
+   git clone [https://github.com/YourUsername/YourRepoName.git](https://github.com/YourUsername/YourRepoName.git)
+   Open the solution (.sln) in Visual Studio.
 
-📐 Architecture & Core Concepts
-Dependency Injection (DI): Fully decoupled architecture utilizing .NET 10's native DI container to manage the lifecycle of services and views (AddTransient / AddSingleton).
+2. Configure your database connection string in the configuration file.
 
-Hybrid View Initialization: Dynamic data-bound views (such as EditStudentView) utilize a decoupling pattern where dependencies are resolved via DI through the constructor, while runtime contextual entity data is passed seamlessly via custom Inicijalizuj() channels.
-💻 Getting Started
-Prerequisites
-Visual Studio 2025 / 2026 (with ".NET Desktop Development" workload installed)
+3. Run Entity Framework migrations to generate the local dat
 
-.NET 10.0 SDK or newer
+abase:
+  ``bash
+  Update-Database
 
-Installation & Run
-Clone the repository to your local machine:
+4. Run the application (F5).
 
-Bash
-git clone https://github.com/your-username/FacultyApp.git
-Open the solution file (FakultetApp.sln) in Visual Studio.
-
-Restore the required NuGet packages:
-
-Right-click the Solution -> Restore NuGet Packages.
-
-Apply database migrations [e.g., Run Update-Database in the Package Manager Console if using EF Core].
-
-Press F5 or click Start to launch the application.
-
-🔒 Security Standards
-No Plain-Text Passwords: Passwords undergo heavy cryptographic computation using the BCrypt algorithm before committing to the storage layer.
-
-UI Defense: Form fields are structurally isolated from structural entity operations until explicit validation checks evaluate to true.
-
-👨‍💻 Author
-Edin Alibegović - Software Engeneering Student, Faculty of Information Technology (FIT) Mostar
-
-GitHub: @ediiin
-
-Visual Tree Loosely-Coupled Navigation: Navigating from child views back to parent layouts is achieved dynamically using the VisualTreeHelper class, avoiding anti-patterns like circular dependencies or hardcoded parent references.
+## (Note: Switching to the production server database is planned for future versions.)
