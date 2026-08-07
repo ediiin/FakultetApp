@@ -1,4 +1,5 @@
-﻿using Fakultet.Core.Modeli.Forum;
+﻿using Fakultet.Core.Modeli;
+using Fakultet.Core.Modeli.Forum;
 using Fakultet.Servisi.Bazni;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +24,18 @@ namespace Fakultet.Servisi.IServis.Forum
                     .Include(d => d.Osoba)
                     .Where(d => d.PredmetId == predmetId)
                     .ToList();
+        }
+
+        public List<Materijal> GetMaterijaliByStudent(int studentId)
+        {
+            var materijali = _dbContext.Set<Materijal>()
+                .Include(m => m.Predmet) 
+                .Include(m => m.Osoba)  
+                .Where(m => _dbContext.Set<StudentPredmet>()
+                                      .Any(sp => sp.StudentId == studentId && sp.PredmetId == m.PredmetId))
+                .ToList();
+
+            return materijali;
         }
     }
 }

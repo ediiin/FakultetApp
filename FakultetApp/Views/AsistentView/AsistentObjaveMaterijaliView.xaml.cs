@@ -3,6 +3,7 @@ using Fakultet.Core.Modeli.Forum;
 using Fakultet.Servisi.IServis.FakultetskiProcesi;
 using Fakultet.Servisi.IServis.Forum;
 using Fakultet.Servisi.IServis.Pomocni;
+using FakultetApp.ViewModels;
 using FakultetApp.Views.StudentViews;
 using Microsoft.Win32;
 using System.IO;

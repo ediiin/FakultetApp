@@ -1,6 +1,7 @@
 ﻿using Fakultet.Core.Modeli;
 using Fakultet.Servisi.Helperi;
 using Fakultet.Servisi.IServis.FakultetskiProcesi;
+using FakultetApp.ViewModels;
 using System.Windows.Controls;
 
 namespace FakultetApp.Views.StudentViews
@@ -51,12 +52,5 @@ namespace FakultetApp.Views.StudentViews
                 UkupniProsjek = ukupniProsjek
             };
         }
-    }
-
-    public class PrikazUspjeha
-    {
-        public string GodinaOpis { get; set; }
-        public double ProsjekGodine { get; set; }
-        public List<StudentPredmet> Predmeti { get; set; }
     }
 }

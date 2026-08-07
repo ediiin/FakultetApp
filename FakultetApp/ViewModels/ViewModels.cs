@@ -5,6 +5,35 @@ using System.Windows.Media;
 
 namespace FakultetApp.ViewModels
 {
+    // VM za dokumente
+    public class DokumentViewModel
+    {
+        public string Naziv { get; set; } = string.Empty;
+        public DateTime Datum { get; set; }
+        public string? PutanjaFajla { get; set; }
+        public string? WebLink { get; set; }
+    }
+
+    //VM za prosjek po godinama
+    public class PrikazUspjeha
+    {
+        public string GodinaOpis { get; set; }
+        public double ProsjekGodine { get; set; }
+        public List<StudentPredmet> Predmeti { get; set; }
+    }
+
+    // VM za objave
+    public class PostViewModel
+    {
+        public int Id { get; set; }
+        public string Naslov { get; set; } = null!;
+        public string Sadrzaj { get; set; } = null!;
+        public string KratkiSadrzaj { get; set; } = null!;
+        public DateTime DatumObjave { get; set; }
+        public string OznakaPredmeta { get; set; } = null!;
+        public string AutorIme { get; set; } = null!;
+    }
+
     // lista razgovora za pretragu
     public class RazgovorPreviewViewModel
     {

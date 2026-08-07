@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="900">
+             d:DesignHeight="700" d:DesignWidth="1100">
 
     <Grid Margin="10">
 
@@ -14,7 +14,7 @@
                 <RowDefinition Height="Auto"/>
                 <!-- Welcome Poruka -->
                 <RowDefinition Height="*"/>
-                <!-- Glavni dio (85/15) -->
+                <!-- Glavni dio (75/25) -->
             </Grid.RowDefinitions>
 
             <!-- ZAGLAVLJE -->
@@ -25,15 +25,15 @@
                 </StackPanel>
             </Border>
 
-            <!-- GLAVNI DIO (85% Obavijesti / 15% Prazan panel) -->
+            <!-- GLAVNI DIO (75% Obavijesti / 25% Widgeti) -->
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="85*"/>
-                    <ColumnDefinition Width="15*"/>
+                    <ColumnDefinition Width="75*"/>
+                    <ColumnDefinition Width="25*"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- LIJEVA STRANA: FEED OBAVIJESTI I PAGINACIJA -->
-                <Grid Grid.Column="0" Margin="0,0,15,0">
+                <Grid Grid.Column="0" Margin="0,0,20,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <!-- Scrollable Feed -->
@@ -78,13 +78,75 @@
                     <StackPanel x:Name="PanelPaginacija" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0"/>
                 </Grid>
 
-                <!-- DESNA STRANA: REZERVISAN PROSTOR (15%) -->
-                <Border Grid.Column="1" Background="DarkRed" CornerRadius="8" BorderThickness="1" BorderBrush="{DynamicResource BorderColor}">
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.8">
-                        <TextBlock Text="🛠️" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-                        <TextBlock Text="Rezervisano" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Border>
+                <!-- DESNA STRANA: WIDGETI ZA DOKUMENTE I USPJEH -->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <!-- Dokumenti ostaju na VRHU -->
+                        <RowDefinition Height="*"/>
+                        <!-- Prosjek ide na DNO -->
+                    </Grid.RowDefinitions>
+
+                    <!-- ZADNJI DOKUMENTI (VRH) -->
+                    <Border Grid.Row="0" Background="{DynamicResource CardBackground}" CornerRadius="8" BorderThickness="1" BorderBrush="{DynamicResource BorderColor}" Padding="15" Margin="0,0,0,15">
+                        <StackPanel>
+                            <TextBlock Text="Zadnji dokumenti" FontWeight="Bold" FontSize="14" Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,15"/>
+
+                            <ItemsControl x:Name="icDokumenti">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,0,0,12" Background="Transparent" Cursor="Hand" MouseLeftButtonUp="Dokument_MouseLeftButtonUp">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <!-- Ikonica -->
+                                            <Border Grid.Column="0" Background="{DynamicResource AccentColor}" CornerRadius="4" Padding="6" Margin="0,0,10,0" VerticalAlignment="Center">
+                                                <TextBlock Text="📄" FontSize="14"/>
+                                            </Border>
+                                            <!-- Naziv i Datum -->
+                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                <!-- VRAĆENO NA Naziv (i Datum) -->
+                                                <TextBlock Text="{Binding Naziv}" Foreground="{DynamicResource PrimaryText}" FontSize="13" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" ToolTip="{Binding Naziv}"/>
+                                                <TextBlock Text="{Binding Datum, StringFormat={}{0:dd.MM.yyyy.}}" Foreground="{DynamicResource PrimaryText}" FontSize="11" Margin="0,2,0,0"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- USPJEH STUDENTA (ZAKUCAN ZA DNO SA SCROLL-OM) -->
+                    <Border Grid.Row="1" x:Name="karticaUspjeh" VerticalAlignment="Bottom" Background="{DynamicResource CardBackground}" CornerRadius="8" BorderThickness="1" BorderBrush="{DynamicResource BorderColor}" Padding="15">
+                        <StackPanel>
+                            <TextBlock Text="Vaš uspjeh" FontWeight="Bold" FontSize="14" Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,15"/>
+
+                            <!-- SCROLLVIEWER SA MAX VISINOM ZA SVE GODINE -->
+                            <ScrollViewer MaxHeight="180" VerticalScrollBarVisibility="Auto" Padding="0,0,5,0">
+                                <ItemsControl ItemsSource="{Binding UspjehPoGodinama}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Margin="0,0,0,8">
+                                                <TextBlock Text="{Binding GodinaOpis}" Foreground="{DynamicResource PrimaryText}" FontSize="13" VerticalAlignment="Center"/>
+                                                <Border Background="{DynamicResource WindowBackground}" CornerRadius="4" Padding="8,2" HorizontalAlignment="Right">
+                                                    <TextBlock Text="{Binding ProsjekGodine, StringFormat={}{0:F2}}" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold" FontSize="13"/>
+                                                </Border>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+
+                            <Separator Margin="0,10,0,15" Background="{DynamicResource BorderColor}"/>
+
+                            <Grid>
+                                <TextBlock Text="Ukupni prosjek:" Foreground="{DynamicResource PrimaryText}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding UkupniProsjek, StringFormat={}{0:F2}}" Foreground="{DynamicResource PrimaryText}" FontWeight="Bold" FontSize="18" HorizontalAlignment="Right"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
             </Grid>
         </Grid>
 
@@ -105,9 +167,9 @@
                             <Border Background="{DynamicResource AccentColor}" CornerRadius="4" Padding="8,3" Margin="0,0,15,0">
                                 <TextBlock x:Name="txtDetaljiOznaka" Foreground="White" FontSize="12" FontWeight="SemiBold"/>
                             </Border>
-                            <TextBlock Text="✍️ Autor: " Foreground="{DynamicResource SecondaryText}" FontSize="13" VerticalAlignment="Center"/>
+                            <TextBlock Text="✍️ Autor: " Foreground="{DynamicResource PrimaryText}" FontSize="13" VerticalAlignment="Center"/>
                             <TextBlock x:Name="txtDetaljiAutor" Foreground="{DynamicResource PrimaryText}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,20,0"/>
-                            <TextBlock Text="📅 Datum: " Foreground="{DynamicResource SecondaryText}" FontSize="13" VerticalAlignment="Center"/>
+                            <TextBlock Text="📅 Datum: " Foreground="{DynamicResource PrimaryText}" FontSize="13" VerticalAlignment="Center"/>
                             <TextBlock x:Name="txtDetaljiDatum" Foreground="{DynamicResource PrimaryText}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center"/>
                         </StackPanel>
 
