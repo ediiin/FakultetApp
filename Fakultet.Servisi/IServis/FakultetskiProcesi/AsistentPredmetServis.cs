@@ -36,5 +36,13 @@ namespace Fakultet.Servisi.IServis.FakultetskiProcesi
             _dbContext.AsistentiPredmeti.Remove(asistentPredmet);
             _dbContext.SaveChanges();
         }
+
+        public List<Predmet> GetPredmetiByAsistent(int asistentId)
+        {
+            return _dbContext.AsistentiPredmeti
+                           .Where(ap => ap.AsistentId == asistentId)
+                           .Select(ap => ap.Predmet) 
+                           .ToList();
+        }
     }
 }

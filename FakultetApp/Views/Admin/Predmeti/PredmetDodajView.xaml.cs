@@ -2,7 +2,6 @@
 using Fakultet.Servisi.IServis.FakultetskiProcesi;
 using Fakultet.Servisi.IServis.Korisnici;
 using Fakultet.Servisi.IServis.Pomocni;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
